@@ -22,21 +22,4 @@ def index():
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=6174, debug=True)
-    # this config allows for the app to be run on the local network;
-    # accessible from the phone/tablet connected to the same WiFi network as the machine on which the app is running.
-
-    # to access the dev-server on the phone, follow these steps: 
-        # open a terminal => enter command => "ipconfig"
-        # look for something similar to => 'IPv4 Address. . . . . . . . . . . : 192.168.XX.XXX'
-        # on your phone access the IP => 192.168.XX.XXX:6174 to view the running application.
-    
-    # The app would still be accessible on localhost, but with port 6174; go to 'localhost:6174'
-
     # to run the app ONLY in the default localhost:5000 or 127.0.0.1:5000, use line
-    # 'app.run(debug=True)'
-
-# Enable VirtualEnv
-# Scripts\Activate.ps1
-
-# Run App
-# python app/app.py
