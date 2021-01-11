@@ -8,6 +8,7 @@ A simple e-commerce style website for a graphic designing company.
 * Bootstrap style Framework
 * Fontawesome Icon Pack
 * JavaScript
+* Node Package Manager (npm)
 
 ## Visual Studio Code Plugins: 
 * Live Sass Compiler - **Required** *For SCSS Preprocessing*
