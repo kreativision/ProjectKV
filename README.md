@@ -2,11 +2,12 @@
 A simple e-commerce style website for a graphic designing company.
 
 ## Tech Stack: 
-* Flask
+* Flask Framework for Python
+* Python
 * HTML
 * SCSS
-* Bootstrap style Framework
-* Fontawesome Icon Pack
+* Bootstrap style library
+* Fontawesome icons library
 * JavaScript
 * Node Package Manager (npm)
 
