@@ -1,7 +1,6 @@
 /node_modules
 */__pycache__
 __pycache__
-/Scripts
-/Lib
+/venv
 
 /app/static/fontawesome
