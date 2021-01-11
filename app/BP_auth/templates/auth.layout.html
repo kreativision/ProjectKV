@@ -1,0 +1,25 @@
+{% extends 'main.layout.html' %}
+{% set active='login' %}
+{% block page_style%}
+<link rel="stylesheet" href="{{url_for('auth_bp.static', filename='styles/auth_bp.css')}}">
+{% endblock page_style %}
+
+{% block body_content %} 
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-sm-12">
+            <div class="card bg-clear-glass text-white">
+                <div class="card-body">
+                    <div class="card-title"><p class="h2">{{page}}</p></div>
+                    {% block form %}
+                    {% endblock %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock body_content %} 
+
+{% block page_scripts %}
+<script src="{{url_for('auth_bp.static', filename='js/form.js')}}"></script>
+{% endblock page_scripts%}

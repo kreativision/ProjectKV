@@ -1,0 +1,55 @@
+{% extends 'auth.layout.html' %}
+{% set active='login' %}
+
+{% block form %}
+<form action="">
+  {{form.hidden_tag()}}
+  <fieldset>
+    <div class="container bg-white-glass f-field">
+      <div class="form-group">
+        {% if form.email.errors %}
+        {{form.email(class="form-control is-invalid")}}
+        <div class="invalid-feedback">
+          {% for error in form.email.errors %}
+          <span>✘&nbsp;{{error}}</span>
+          {% endfor %}
+        </div>
+        {% else %}
+        {{form.email(class="form-control")}}
+        {% endif %}
+        {{form.email.label(class="form-control-label")}}
+      </div>
+    </div>
+
+    <div class="container bg-white-glass f-field">
+      <div class="form-group">
+        {% if form.password.errors %}
+        {{form.password(class="form-control is-invalid")}}
+        <div class="invalid-feedback">
+          {% for error in form.password.errors %}
+          <span>✘&nbsp;{{error}}</span>
+          {% endfor %}
+        </div>
+        {% else %}
+        {{form.password(class="form-control")}}
+        {% endif %}
+        {{form.password.label(class="form-control-label")}}
+      </div>
+    </div>
+
+    <div class="form-check pl-0">
+      {{form.remember(class="form-cleck-input")}}
+      {{form.remember.label(class="form-check-label")}}
+    </div>
+  </fieldset>
+
+  <div class="form-group mt-4">
+    <div class="mr-2">{{form.submit(class="btn btn-success btn-block")}}</div>
+  </div>
+</form>
+
+<small class="text-white">
+  New to KreatiVision? 
+  <a href="{{url_for('auth_bp.sign_up')}}" class="white-text">Create New Account</a>
+</small>
+{% endblock form %}

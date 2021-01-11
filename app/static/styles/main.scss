@@ -1,0 +1,109 @@
+// $indigo: #1d1d2c;
+// $red: #e40c2b;
+// $cyan: #3cbcc3;
+// $color-1: #438945;
+// $white: #f7f4e9;
+// $yellow: #eba63f;
+
+@import "../../../node_modules/bootstrap/scss/bootstrap.scss";
+
+body {
+    overflow: hidden;
+}
+
+main {
+    height: calc(100vh - 56px);
+    width: 100%;
+    position: absolute;
+    top: 56px;
+    overflow: auto;
+    padding-top: 10px;
+}
+
+.wrapper {
+    display: flex;
+    width: 100%;
+    align-items: stretch;
+}
+
+.bg-clear-glass {
+    background: transparent;
+    background-color: transparent !important;
+    backdrop-filter: blur(10px);
+}
+
+.bg-black-glass {
+    background: rgba($color: #000, $alpha: 0.3);
+    backdrop-filter: blur(10px);
+}
+
+.bg-white-glass {
+    background: rgba($color: #fff, $alpha: 0.3);
+    backdrop-filter: blur(10px);
+
+}
+
+.fixed-top {
+    z-index: 999 !important;
+    box-shadow: 0px 4px 10px rgba($color: #000000, $alpha: 0.5);
+}
+
+nav {
+    margin-left: -250px;
+    width: 250px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    height: 100vh;
+    color: white;
+    font-weight: 500;
+    text-transform: uppercase;
+    transition: all 0.3s ease-in-out;
+    
+    padding: 15px;
+    .sidebar-header {
+        display: flex;
+        flex-direction: row;
+    }
+    .components {
+        li {
+            border-bottom-right-radius: 25px;
+            border-top-right-radius: 25px;
+            margin-bottom: 20px;
+            transition: all 0.2s ease;
+            a {
+                color: white;
+                display: inline-block;
+                padding-left: 20px;
+                padding-top: 5px;
+                padding-bottom: 5px;
+                text-shadow: 2px 2px 2px rgba($color: #000000, $alpha: 0.25);
+                width: -webkit-fill-available;
+                width: fill-available;
+                width: -moz-available;
+            }
+            &:hover {
+                background-color: rgba($color: #fff, $alpha: 0.35);
+                text-decoration: none !important;
+                cursor: pointer;
+            }
+        }
+        li.active {
+            border-left: 4px solid white;
+            a {
+                padding-left: 16px;
+            }
+        }
+    }
+}
+
+nav.active {
+    margin-left: 0px;
+    box-shadow: 4px 0px 25px 5px rgba($color: #000000, $alpha: 0.5);
+}
+
+
+.btn {
+    border-radius: 30px;
+}

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{url_for('static', filename='styles/main.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='styles/FA.css')}}">
+    <!-- For the coming soon animation -->
+    <link rel="stylesheet" href="{{url_for('static', filename='styles/coming-soon.css')}}">
+    {% block page_style %} {% endblock %}
+    <!-- <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css"> -->
+    <title>{{title}} | KreatiVision</title>
+</head>
+
+<body>
+    <div class="wrapper">
+        <nav class="bg-clear-glass">
+            <div class="sidebar-header">
+                <span class="ml-auto">
+                    <button type="button" class="btn text-white" onclick="closeSidebar()">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </span>
+            </div>
+
+            <ul class="list-unstyled components text-white">
+                {%  set nav_links = [
+                        (url_for('home_bp.home'), 'home', 'Home'),
+                        (url_for('services_bp.s_home'), 'services', 'Services'),
+                    ] 
+                -%}
+                {% set active = active|default('home') -%}
+                {% for href, id, caption in nav_links %}
+                <li class="{{'active' if active==id else ''}}">
+                    <a href="{{href|e}}" class="nav-link">{{caption|e}}</a>
+                </li>
+                {% endfor %}
+                <li class="{{'active' if active=='login' else ''}}">
+                    <a href="{{url_for('auth_bp.login')}}">My Account</a>
+                </li>
+            </ul>
+        </nav>
+        <div class="content">
+            <div class="navbar navbar-expand-lg fixed-top navbar-dark bg-clear-glass">
+                <button type="button" class="btn ml-0" onclick="openSidebar()">
+                    <i class="fas fa-stream text-white"></i>
+                </button>
+                <a class="navbar-brand mr-auto ml-2" href="#">KreatiVision PhotoArts</a>
+            </div>
+        </div>
+    </div>
+
+    <main class="content">
+        {% block body_content %} {% endblock %}      
+    </main>
+
+
+
+
+    <!-- Bootstrap JS bundles from cdn -->
+    {% block page_scripts%} {% endblock %}
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="{{url_for('static', filename='js/main.js')}}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

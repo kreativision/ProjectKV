@@ -1,0 +1,14 @@
+{
+    "python.formatting.provider": "black",
+    "liveSassCompile.settings.excludeList": [
+        "**/node_modules/**",
+        ".vscode/**",
+        "**/fontawesome/**"
+    ],
+    "liveSassCompile.settings.formats": [
+        {
+            "format": "compressed",
+            "extensionName": ".css"
+        }
+    ]
+}
