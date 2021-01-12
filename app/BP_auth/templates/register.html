@@ -4,7 +4,7 @@
 <form action="" method="post">
     {{form.hidden_tag()}}
     <fieldset>
-        <div class="container bg-white-glass f-field">
+        <div class="container bg-light f-field">
             <div class="form-group">
                 {% if form.username.errors %}
                 {{form.username(class="form-control is-invalid")}}
@@ -19,7 +19,7 @@
                 {{form.username.label(class="form-control-label")}}
             </div>
         </div>
-        <div class="container bg-white-glass f-field">
+        <div class="container bg-light f-field">
             <div class="form-group">
                 {% if form.email.errors %}
                 {{form.email(class="form-control is-invalid")}}
@@ -34,8 +34,8 @@
                 {{form.email.label(class="form-control-label")}}
             </div>
         </div>
-        <div class="container bg-white-glass f-field">
-            <div class="form-group">
+        <div class="container f-field bg-light">
+            <div class="input-group">
                 {% if form.password.errors %}
                 {{form.password(class="form-control is-invalid")}}
                 <div class="invalid-feedback">
@@ -47,15 +47,15 @@
                 {{form.password(class="form-control")}}
                 {% endif %}
                 {{form.password.label(class="form-control-label")}}
-            </div>
-            <div class="form-check" id="pw_visibility">
-                <input class="form-check-input" type="checkbox" id="visibility" onchange="togglePassword()">
-                <label class="form-check-label" for="visibility">
-                    Show Password.
-                </label>
+                <div class="input-group-append">
+                    <button class="btn" type="button" id="pwd-toggle" onclick="togglePassword()">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                </div>
             </div>
         </div>
-        <div class="container bg-white-glass f-field">
+
+        <div class="container bg-light f-field">
             <div class="form-group">
                 {% if form.cnf_password.errors %}
                 {{form.cnf_password(class="form-control is-invalid")}}
@@ -73,11 +73,10 @@
     </fieldset>
 
     <div class="form-group mt-1">
-        {{form.submit(class="btn btn-info btn-block")}}
+        {{form.submit(class="btn btn-warning btn-block")}}
     </div>
 </form>
-<small class="text-white">
-    Already a member?
-    <a href="{{url_for('auth_bp.login')}}" class="ml-2">Login</a>
-</small>
+<a href="{{url_for('auth_bp.login')}}" class="btn btn-info btn-block text-white">
+    Already a Member? <strong>LOGIN</strong>
+</a>
 {% endblock form %}

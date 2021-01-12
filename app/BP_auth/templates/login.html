@@ -5,7 +5,7 @@
 <form action="">
   {{form.hidden_tag()}}
   <fieldset>
-    <div class="container bg-white-glass f-field">
+    <div class="container bg-light f-field">
       <div class="form-group">
         {% if form.email.errors %}
         {{form.email(class="form-control is-invalid")}}
@@ -21,8 +21,8 @@
       </div>
     </div>
 
-    <div class="container bg-white-glass f-field">
-      <div class="form-group">
+    <div class="container bg-light f-field">
+      <div class="input-group">
         {% if form.password.errors %}
         {{form.password(class="form-control is-invalid")}}
         <div class="invalid-feedback">
@@ -34,22 +34,30 @@
         {{form.password(class="form-control")}}
         {% endif %}
         {{form.password.label(class="form-control-label")}}
+        <div class="input-group-append">
+          <button class="btn" type="button" id="pwd-toggle" onclick="togglePassword()">
+            <i class="fas fa-eye"></i>
+          </button>
+        </div>
       </div>
     </div>
 
-    <div class="form-check pl-0">
-      {{form.remember(class="form-cleck-input")}}
-      {{form.remember.label(class="form-check-label")}}
+    <div class="options">
+      <div class="form-check pl-0">
+        {{form.remember(class="form-cleck-input")}}
+        {{form.remember.label(class="form-check-label")}}
+      </div>
+      <div class="inline ml-auto">
+        <a href="{{url_for('auth_bp.recovery')}}" class="text-light">Forgot Password?</a>
+      </div>
     </div>
   </fieldset>
 
   <div class="form-group mt-4">
-    <div class="mr-2">{{form.submit(class="btn btn-success btn-block")}}</div>
+      {{form.submit(class="btn btn-warning btn-block")}}
   </div>
 </form>
-
-<small class="text-white">
-  New to KreatiVision? 
-  <a href="{{url_for('auth_bp.sign_up')}}" class="white-text">Create New Account</a>
-</small>
+<a href="{{url_for('auth_bp.sign_up')}}" class="btn btn-info btn-block text-white">
+  New to KreatiVision? <strong>CREATE ACCOUNT</strong>
+</a>
 {% endblock form %}

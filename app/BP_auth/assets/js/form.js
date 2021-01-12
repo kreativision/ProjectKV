@@ -3,7 +3,7 @@ var formFields;
 // locks the label in the float if text is entered into it. 
 // otherwise restores the label in it's default position.
 document.addEventListener("DOMContentLoaded", () => {
-  formFields = document.querySelectorAll('.form-group .form-control');
+  formFields = document.querySelectorAll('.form-group .form-control, .input-group .form-control');
   formFields.forEach((e) => {
     if (e.value != '') {
       e.parentNode.querySelector('label').classList.add('active');
@@ -26,6 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // registers password fields on page-load. 
 var passwords;
+var toggleButton;
 // toggles the visibility of password on checking the checkbox "Show Password"
 function togglePassword() {
   if (!passwords) {
@@ -38,4 +39,7 @@ function togglePassword() {
       field.type = 'text';
     }
   });
+  toggleButton = document.querySelector('#pwd-toggle i');
+  toggleButton.classList.toggle('fa-eye-slash');
+  toggleButton.parentElement.blur();
 }

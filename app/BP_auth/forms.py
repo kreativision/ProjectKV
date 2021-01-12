@@ -8,7 +8,7 @@ class RegistrationForm(FlaskForm):
     email = StringField("E-mail", validators=[DataRequired(), Email()])
     password = PasswordField("Password", validators=[DataRequired()])
     cnf_password = PasswordField("Confirm Password", validators=[DataRequired(), EqualTo('password')])
-    submit = SubmitField("CREATE ACCOUNT")
+    submit = SubmitField("CREATE MY ACCOUNT")
 
 class LoginForm(FlaskForm):
     email = StringField("E-mail", validators=[DataRequired(), Email()])
