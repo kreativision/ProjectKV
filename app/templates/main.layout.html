@@ -4,19 +4,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{url_for('static', filename='styles/main.css')}}">
+
+    <!-- Bootstrap and Fontawesome -->
+    <link rel="stylesheet" href="{{url_for('static', filename='styles/bootstrap.css')}}">
     <link rel="stylesheet" href="{{url_for('static', filename='styles/FA.css')}}">
-    <!-- For the coming soon animation -->
+
+    <!-- Custom Global Styles -->
+    <link rel="stylesheet" href="{{url_for('static', filename='styles/global-styles.css')}}">
+
+    <!-- "Coming Soon . . ." block styles: Remove when project finishes. -->
     <link rel="stylesheet" href="{{url_for('static', filename='styles/coming-soon.css')}}">
+
+    <!-- Block to include module specific styles -->
     {% block page_style %} {% endblock %}
-    <!-- <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css"> -->
+
+    <!-- Dynamic Title -->
     <title>{{title}} | KreatiVision</title>
 </head>
 
 <body>
-    <div class="wrapper">
-        <nav class="bg-clear-glass">
+    <div class="navigation-wrapper">
+        <!-- Sidebar for Mobile Devices -->
+        <nav class="bg-clear-glass" id="sidebar">
             <div class="sidebar-header">
                 <span class="ml-auto">
                     <button type="button" class="btn text-white" onclick="closeSidebar()">
@@ -26,10 +35,9 @@
             </div>
 
             <ul class="list-unstyled components text-white">
-                {%  set nav_links = [
-                        (url_for('home_bp.home'), 'home', 'Home'),
-                        (url_for('services_bp.s_home'), 'services', 'Services'),
-                    ] 
+                {% set nav_links =
+                [(url_for('home_bp.home'), 'home', 'Home'),
+                (url_for('services_bp.s_home'), 'services', 'Services')]
                 -%}
                 {% set active = active|default('home') -%}
                 {% for href, id, caption in nav_links %}
@@ -42,25 +50,37 @@
                 </li>
             </ul>
         </nav>
-        <div class="content">
-            <div class="navbar navbar-expand-lg fixed-top navbar-dark bg-clear-glass">
-                <button type="button" class="btn ml-0" onclick="openSidebar()">
-                    <i class="fas fa-stream text-white"></i>
-                </button>
-                <a class="navbar-brand mr-auto ml-2" href="#">KreatiVision PhotoArts</a>
-            </div>
-        </div>
+        
+        <!-- Top Navbar for Desktop Systems -->
+        <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-clear-glass">
+            <button type="button" class="btn ml-0" id="sidebarToggle" onclick="openSidebar()">
+                <i class="fas fa-stream text-white"></i>
+            </button>
+            <a class="navbar-brand mr-auto ml-2" href="#">KreatiVision PhotoArts</a>
+            <ul class="navbar-nav ml-auto" id="topBar">
+                {% for href, id, caption in nav_links %}
+                <li class="{{'nav-item active' if active==id else 'nav-item'}}">
+                    <a href="{{href|e}}" class="nav-link">{{caption|e}}</a>
+                </li>
+                {% endfor %}
+                <li class="{{'nav-item active' if active=='login' else 'nav-item'}}">
+                    <a href="{{url_for('auth_bp.login')}}" class="nav-link">My Account</a>
+                </li>
+            </ul>
+        </nav>
     </div>
 
     <main class="content">
-        {% block body_content %} {% endblock %}      
+        <!-- Main Body Content Block -->
+        {% block body_content %} {% endblock %}
     </main>
 
 
 
-
-    <!-- Bootstrap JS bundles from cdn -->
+    <!-- Block to include module specific scripts -->
     {% block page_scripts%} {% endblock %}
+
+    <!-- Bootstrap/Jquery/Popper bundles from cdn: Required for Bootstrap -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>
