@@ -25,3 +25,7 @@ def sign_up():
         flash(message, category='success')
         return redirect(url_for('auth_bp.login'))
     return render_template("register.html", title="Create Account", page="Register", form=form)
+
+@auth_bp.route("/forgot-password")
+def recovery():
+    return render_template('pwd-recovery.html', title="Account Recovery", page="Recover Account")

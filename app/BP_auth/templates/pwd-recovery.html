@@ -1,0 +1,15 @@
+<!-- THIS IS JUST SAMPLE CONTENT -->
+<!-- <=====================================> -->
+{% extends 'main.layout.html' %}
+{% set active='login' %}
+{% block page_style%}
+<link rel="stylesheet" href="{{url_for('auth_bp.static', filename='styles/auth_bp.css')}}">
+{% endblock page_style %}
+{% block body_content %}
+<div class="container">
+    <p class="h3 text-white mx-auto">Account-recovery</p>
+</div>
+{% include 'coming-soon.html' %}
+{% endblock body_content %}
+<!-- <=====================================> -->
+<!-- THIS PAGE SHOULD EXTEND 'auth.layout.html' NOT 'main.layout.html' -->
