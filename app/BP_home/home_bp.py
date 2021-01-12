@@ -1,3 +1,5 @@
+# Home Module - Default
+# Imported into the main app.py - app.register_blueprint(home_bp, url_prefix="/home")
 from flask import Blueprint
 from flask.templating import render_template
 

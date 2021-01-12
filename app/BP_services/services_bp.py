@@ -1,3 +1,5 @@
+# Services Module
+# Imported into the main app.py - app.register_blueprint(services_bp, url_prefix="/services")
 from flask import Blueprint
 from flask.templating import render_template
 
