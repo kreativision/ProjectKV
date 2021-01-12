@@ -26,16 +26,16 @@
 <body>
     <div class="navigation-wrapper">
         <!-- Sidebar for Mobile Devices -->
-        <nav class="bg-clear-glass" id="sidebar">
+        <nav class="bg-white-glass" id="sidebar">
             <div class="sidebar-header">
                 <span class="ml-auto">
-                    <button type="button" class="btn text-white" onclick="closeSidebar()">
+                    <button type="button" class="btn text-dark" onclick="closeSidebar()">
                         <i class="fas fa-times"></i>
                     </button>
                 </span>
             </div>
 
-            <ul class="list-unstyled components text-white">
+            <ul class="list-unstyled text-white">
                 {% set nav_links =
                 [(url_for('home_bp.home'), 'home', 'Home'),
                 (url_for('services_bp.s_home'), 'services', 'Services')]
@@ -43,11 +43,17 @@
                 {% set active = active|default('home') -%}
                 {% for href, id, caption in nav_links %}
                 <li class="{{'active' if active==id else ''}}">
-                    <a href="{{href|e}}" class="nav-link">{{caption|e}}</a>
+                    <a href="{{href|e}}" class="nav-link text-dark">
+                        {{caption|e}}
+                        <i class="fas fa-chevron-right ml-auto mr-3 mt-1"></i>
+                    </a>
                 </li>
                 {% endfor %}
                 <li class="{{'active' if active=='login' else ''}}">
-                    <a href="{{url_for('auth_bp.login')}}">My Account</a>
+                    <a href="{{url_for('auth_bp.login')}}" class="nav-link text-dark">
+                        Login
+                        <i class="fas fa-chevron-right ml-auto mr-3 mt-1"></i>
+                    </a>
                 </li>
             </ul>
         </nav>
@@ -65,7 +71,7 @@
                 </li>
                 {% endfor %}
                 <li class="{{'nav-item active' if active=='login' else 'nav-item'}}">
-                    <a href="{{url_for('auth_bp.login')}}" class="nav-link">My Account</a>
+                    <a href="{{url_for('auth_bp.login')}}" class="nav-link">Login</a>
                 </li>
             </ul>
         </nav>
