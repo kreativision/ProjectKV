@@ -1,12 +1,3 @@
-// $indigo: #1d1d2c;
-// $red: #e40c2b;
-// $cyan: #3cbcc3;
-// $color-1: #438945;
-// $white: #f7f4e9;
-// $yellow: #eba63f;
-
-@import "../../../node_modules/bootstrap/scss/bootstrap.scss";
-
 body {
     overflow: hidden;
 }
@@ -20,27 +11,25 @@ main {
     padding-top: 10px;
 }
 
-.wrapper {
+// media queries to make the navigation bar responsive
+@media only screen and (max-width: 768px)  {
+    #topBar{
+        display: none;
+        pointer-events: none;
+    }
+}
+
+@media only screen and (min-width: 768px)  {
+    #sidebar, #sidebarToggle {
+        display: none;
+        pointer-events: none;
+    }
+}
+
+.navigation-wrapper {
     display: flex;
     width: 100%;
     align-items: stretch;
-}
-
-.bg-clear-glass {
-    background: transparent;
-    background-color: transparent !important;
-    backdrop-filter: blur(10px);
-}
-
-.bg-black-glass {
-    background: rgba($color: #000, $alpha: 0.3);
-    backdrop-filter: blur(10px);
-}
-
-.bg-white-glass {
-    background: rgba($color: #fff, $alpha: 0.3);
-    backdrop-filter: blur(10px);
-
 }
 
 .fixed-top {
@@ -48,9 +37,9 @@ main {
     box-shadow: 0px 4px 10px rgba($color: #000000, $alpha: 0.5);
 }
 
-nav {
-    margin-left: -250px;
-    width: 250px;
+#sidebar {
+    margin-left: -300px;
+    width: 300px;
     position: absolute;
     top: 0;
     left: 0;
@@ -98,12 +87,39 @@ nav {
     }
 }
 
-nav.active {
+#sidebar.active {
     margin-left: 0px;
     box-shadow: 4px 0px 25px 5px rgba($color: #000000, $alpha: 0.5);
+}
+
+#topBar {
+    .nav-item {
+        text-transform: uppercase;
+        font-weight: 600;
+        margin: 0px 10px;
+    }
 }
 
 
 .btn {
     border-radius: 30px;
+}
+
+
+// Glass background classes
+.bg-clear-glass {
+    background: transparent;
+    background-color: transparent !important;
+    backdrop-filter: blur(10px);
+}
+
+.bg-black-glass {
+    background: rgba($color: #000, $alpha: 0.3);
+    backdrop-filter: blur(10px);
+}
+
+.bg-white-glass {
+    background: rgba($color: #fff, $alpha: 0.3);
+    backdrop-filter: blur(10px);
+
 }
