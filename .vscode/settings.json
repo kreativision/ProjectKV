@@ -10,5 +10,6 @@
             "format": "compressed",
             "extensionName": ".css"
         }
-    ]
+    ],
+    "liveSassCompile.settings.generateMap": false
 }
