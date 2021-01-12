@@ -1,9 +1,0 @@
-{
-    "version": 3,
-    "mappings": "AAAA,AAAA,IAAI,AAAC,CACD,gBAAgB,CAAE,8CAA8C,CACnE",
-    "sources": [
-        "services_bp.scss"
-    ],
-    "names": [],
-    "file": "services_bp.css"
-}
