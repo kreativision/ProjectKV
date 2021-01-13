@@ -8,6 +8,10 @@
 <div class="container">
     <div class="row">
         <div class="col-md-6 col-sm-12">
+            <div class="container-fluid px-0">
+                {% block alert %}
+                {% endblock %}
+            </div>
             <div class="card bg-clear-glass text-white">
                 <div class="card-body">
                     <div class="card-title"><p class="h2">{{page}}</p></div>
