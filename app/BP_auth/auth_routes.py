@@ -1,31 +1,25 @@
-from flask import Blueprint, redirect, flash, url_for
-from markupsafe import Markup
+from app.BP_auth import BP_auth
+from app.BP_auth.forms import LoginForm, RegistrationForm
 from flask.templating import render_template
-from BP_auth.forms import LoginForm, RegistrationForm
+from markupsafe import Markup
+from flask.helpers import flash
+from flask import redirect, url_for
 
-auth_bp = Blueprint(
-    "auth_bp",
-    __name__,
-    template_folder="templates",
-    static_folder="assets",
-    static_url_path="/assets",
-)
-
-@auth_bp.route("/login")
+@BP_auth.route("/login")
 def login():
     form = LoginForm()
     return render_template("login.html", title="Login", page="Login. . .", form=form)
 
 
-@auth_bp.route("/sign-up", methods=['GET', 'POST'])
+@BP_auth.route("/sign-up", methods=['GET', 'POST'])
 def sign_up():
     form = RegistrationForm()
     if form.validate_on_submit():
         message = Markup(f'Account created for <strong>{form.username.data}</strong>! <br> You can now login with your <em>email</em> and <em>password</em>.')
         flash(message, category='success')
-        return redirect(url_for('auth_bp.login'))
+        return redirect(url_for('BP_auth.login'))
     return render_template("register.html", title="Create Account", page="Register", form=form)
 
-@auth_bp.route("/forgot-password")
+@BP_auth.route("/forgot-password")
 def recovery():
     return render_template('pwd-recovery.html', title="Account Recovery", page="Recover Account")
