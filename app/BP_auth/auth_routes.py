@@ -15,7 +15,7 @@ def login():
 def sign_up():
     form = RegistrationForm()
     if form.validate_on_submit():
-        message = Markup(f'Account created for <strong>{form.username.data}</strong>! <br> You can now login with your <em>email</em> and <em>password</em>.')
+        message = Markup(f'Welcome <strong>{form.username.data}</strong>! <br> Your account is created successfully.')
         flash(message, category='success')
         return redirect(url_for('BP_auth.login'))
     return render_template("register.html", title="Create Account", page="Register", form=form)
