@@ -1,7 +1,7 @@
 {% extends 'main.layout.html' %}
 {% set active='login' %}
 {% block page_style%}
-<link rel="stylesheet" href="{{url_for('auth_bp.static', filename='styles/auth_bp.css')}}">
+<link rel="stylesheet" href="{{url_for('BP_auth.static', filename='styles/BP_auth.css')}}">
 {% endblock page_style %}
 
 {% block body_content %} 
@@ -25,5 +25,5 @@
 {% endblock body_content %} 
 
 {% block page_scripts %}
-<script src="{{url_for('auth_bp.static', filename='js/form.js')}}"></script>
+<script src="{{url_for('BP_auth.static', filename='js/form.js')}}"></script>
 {% endblock page_scripts%}
