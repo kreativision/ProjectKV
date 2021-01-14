@@ -37,8 +37,7 @@
 
             <ul class="list-unstyled text-white">
                 {% set nav_links =
-                [(url_for('home_bp.home'), 'home', 'Home'),
-                (url_for('services_bp.s_home'), 'services', 'Services')]
+                [(url_for('BP_home.home'), 'home', 'Home')]
                 -%}
                 {% set active = active|default('home') -%}
                 {% for href, id, caption in nav_links %}
@@ -50,7 +49,7 @@
                 </li>
                 {% endfor %}
                 <li class="{{'active' if active=='login' else ''}}">
-                    <a href="{{url_for('auth_bp.login')}}" class="nav-link text-dark">
+                    <a href="{{url_for('BP_auth.login')}}" class="nav-link text-dark">
                         Login
                         <i class="fas fa-chevron-right ml-auto mr-3 mt-1"></i>
                     </a>
@@ -71,7 +70,7 @@
                 </li>
                 {% endfor %}
                 <li class="{{'nav-item active' if active=='login' else 'nav-item'}}">
-                    <a href="{{url_for('auth_bp.login')}}" class="nav-link">Login</a>
+                    <a href="{{url_for('BP_auth.login')}}" class="nav-link">My Account</a>
                 </li>
             </ul>
         </nav>
