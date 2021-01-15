@@ -1,6 +1,12 @@
 // Global JavaScript Functions. 
 // Used By All Modules.
 
+// method to close the sidebar on clicking outside the sidebar area
+document.addEventListener('click', function(e) {
+    if(!document.querySelector('#sidebar').contains(e.target) && !document.querySelector('#toggler').contains(e.target)) {
+        closeSidebar()
+    }
+})
 
 // Sidebar menu controls.
 function openSidebar() {
