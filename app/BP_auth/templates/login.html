@@ -12,7 +12,7 @@
 {% endblock %}
 
 {% block form %}
-<form action="">
+<form action="" method="POST">
   {{form.hidden_tag()}}
   <fieldset>
     <div class="container bg-light f-field">
@@ -46,7 +46,7 @@
         {{form.password.label(class="form-control-label")}}
         <div class="input-group-append">
           <button class="btn" type="button" id="pwd-toggle" onclick="togglePassword()">
-            <i class="fas fa-eye"></i>
+            <i class="fas fa-eye-slash"></i>
           </button>
         </div>
       </div>

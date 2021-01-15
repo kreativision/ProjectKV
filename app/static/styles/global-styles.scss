@@ -69,6 +69,7 @@ main {
     }
 
     .list-unstyled {
+        margin-top: 25px;
         li {
             border-bottom-right-radius: 25px;
             border-top-right-radius: 25px;
@@ -115,6 +116,11 @@ main {
         text-transform: uppercase;
         font-weight: 500;
         margin: 0px 10px;
+    }
+    .dropdown-menu {
+        transition: all 0.3s ease;
+        border: none !important;
+        box-shadow: $topbar-shadow;
     }
 }
 

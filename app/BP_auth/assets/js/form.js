@@ -40,6 +40,12 @@ function togglePassword() {
     }
   });
   toggleButton = document.querySelector('#pwd-toggle i');
-  toggleButton.classList.toggle('fa-eye-slash');
+  if(toggleButton.classList.contains('fa-eye')) {
+    toggleButton.classList.remove('fa-eye');
+    toggleButton.classList.add('fa-eye-slash');
+  } else {
+    toggleButton.classList.remove('fa-eye-slash');
+    toggleButton.classList.add('fa-eye');
+  }
   toggleButton.parentElement.blur();
 }
