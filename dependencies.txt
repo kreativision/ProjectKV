@@ -1,0 +1,28 @@
+click
+dnspython
+Flask
+idna
+itsdangerous
+Jinja2
+MarkupSafe
+Werkzeug
+
+installed by default along with Flask
+
+email-validator
+WTForms
+Flask-WTForms
+
+used for creating forms and validating emails
+
+
+SQLAlchemy
+Flask-SQLAlchemy
+Database conectivity
+
+
+flask-bcrypt
+Encrypting and hashing passwords
+
+
+

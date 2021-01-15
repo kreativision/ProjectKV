@@ -1,3 +1,6 @@
+# This is the main configuration file for the
+# Home Blueprint
+
 from flask import Blueprint
 
 BP_auth = Blueprint(
@@ -6,5 +9,3 @@ BP_auth = Blueprint(
     static_folder='assets',
     static_url_path='/assets'
 )
-
-from app.BP_auth import auth_routes

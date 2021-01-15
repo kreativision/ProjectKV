@@ -43,35 +43,69 @@
                 {% for href, id, caption in nav_links %}
                 <li class="{{'active' if active==id else ''}}">
                     <a href="{{href|e}}" class="nav-link text-dark">
-                        {{caption|e}}
-                        <i class="fas fa-chevron-right ml-auto mr-3 mt-1"></i>
+                        {{caption|e}}<i class="fas fa-chevron-right ml-auto mr-3 mt-1"></i>
                     </a>
                 </li>
                 {% endfor %}
-                <li class="{{'active' if active=='login' else ''}}">
-                    <a href="{{url_for('BP_auth.login')}}" class="nav-link text-dark">
-                        Login
-                        <i class="fas fa-chevron-right ml-auto mr-3 mt-1"></i>
+                
+                {% if current_user.is_authenticated %}
+                <li>
+                    <a href="#" class="nav-link text-dark">
+                        Account Info<i class="fas fa-chevron-right ml-auto mr-3 mt-1"></i>
                     </a>
                 </li>
+                <li>
+                    <a href="#" class="nav-link text-dark">
+                        My Orders<i class="fas fa-chevron-right ml-auto mr-3 mt-1"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{url_for('logout')}}" class="nav-link text-dark">
+                        Logout<i class="fas fa-chevron-right ml-auto mr-3 mt-1"></i>
+                    </a>
+                </li>
+                {% else %}
+                <li class="{{'active' if active=='login' else ''}}">
+                    <a href="{{url_for('login')}}" class="nav-link text-dark">
+                        Login<i class="fas fa-chevron-right ml-auto mr-3 mt-1"></i>
+                    </a>
+                </li>
+                {% endif %}
+                
             </ul>
         </nav>
         
         <!-- Top Navbar for Desktop Systems -->
         <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-clear-glass">
-            <button type="button" class="btn ml-0" id="sidebarToggle" onclick="openSidebar()">
+            <button type="button" class="btn ml-0" id="toggler" onclick="openSidebar()">
                 <i class="fas fa-stream text-white"></i>
             </button>
             <a class="navbar-brand mr-auto ml-2" href="#">KreatiVision PhotoArts</a>
-            <ul class="navbar-nav ml-auto" id="topBar">
+            <ul class="navbar-nav ml-auto mr-4" id="topBar">
                 {% for href, id, caption in nav_links %}
                 <li class="{{'nav-item active' if active==id else 'nav-item'}}">
                     <a href="{{href|e}}" class="nav-link">{{caption|e}}</a>
                 </li>
                 {% endfor %}
-                <li class="{{'nav-item active' if active=='login' else 'nav-item'}}">
-                    <a href="{{url_for('BP_auth.login')}}" class="nav-link">My Account</a>
+
+                {% if current_user.is_authenticated %}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                       My Account
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#">Account Info</a>
+                        <a class="dropdown-item" href="#">My Orders</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href=" {{url_for('logout')}} ">Logout</a>
+                    </div>
                 </li>
+                {% else %}
+                <li class="{{'nav-item active' if active=='login' else 'nav-item'}}">
+                    <a href="{{url_for('login')}}" class="nav-link">Login</a>
+                </li>
+                {% endif %}
             </ul>
         </nav>
     </div>

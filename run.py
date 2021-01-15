@@ -1,3 +1,5 @@
+# This file is the app runner that runs the application. 
+# directly run this file to start the Flask Application server.
 from app import app
 
 if __name__ == '__main__':
