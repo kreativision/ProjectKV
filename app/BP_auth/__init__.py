@@ -9,6 +9,3 @@ BP_auth = Blueprint(
     static_folder='assets',
     static_url_path='/assets'
 )
-
-# Routes are imported after the configuration to avoid 'circular-import' errors.
-from app.BP_auth import auth_routes
