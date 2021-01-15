@@ -58,7 +58,7 @@
         {{form.remember.label(class="form-check-label")}}
       </div>
       <div class="inline ml-auto">
-        <a href="{{url_for('BP_auth.recovery')}}" class="text-light">Forgot Password?</a>
+        <a href="{{url_for('recovery')}}" class="text-light">Forgot Password?</a>
       </div>
     </div>
   </fieldset>
@@ -67,7 +67,7 @@
     {{form.submit(class="btn btn-warning btn-block")}}
   </div>
 </form>
-<a href="{{url_for('BP_auth.sign_up')}}" class="btn btn-info btn-block text-white">
+<a href="{{url_for('sign_up')}}" class="btn btn-info btn-block text-white">
   New to KreatiVision? <strong>CREATE ACCOUNT</strong>
 </a>
 {% endblock form %}
