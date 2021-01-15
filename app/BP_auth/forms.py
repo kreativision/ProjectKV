@@ -1,3 +1,4 @@
+# Classes for the Flask forms used in the authentication module.
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, BooleanField
 from wtforms.validators import DataRequired, Email, Length, EqualTo

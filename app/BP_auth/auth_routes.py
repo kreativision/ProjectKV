@@ -1,3 +1,8 @@
+# This is the module routes for authentication module.
+# involves routing for 
+    # Login
+    # Register
+    # Password Recovery
 from app.BP_auth import BP_auth
 from app.BP_auth.forms import LoginForm, RegistrationForm
 from flask.templating import render_template
