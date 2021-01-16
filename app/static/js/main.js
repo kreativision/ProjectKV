@@ -3,7 +3,7 @@
 
 // method to close the sidebar on clicking outside the sidebar area
 document.addEventListener('click', function(e) {
-    if(!document.querySelector('#sidebar').contains(e.target) && !document.querySelector('#toggler').contains(e.target)) {
+    if(!document.querySelector('#sidebar').contains(e.target) && !document.querySelector('#sidebarToggle').contains(e.target)) {
         closeSidebar()
     }
 })

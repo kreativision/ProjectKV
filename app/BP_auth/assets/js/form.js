@@ -48,8 +48,8 @@ function togglePassword() {
 uname = document.querySelector('#username');
 if(uname) {
   uname.onkeyup = () => {
-    uname.value = (uname.value).split(' ').map((e) => {
-      return e.substring(0,1).toUpperCase() + e.substring(1);
+    uname.value = (uname.value).split(' ').map((word) => {
+      return word.charAt(0).toUpperCase() + word.substr(1).toLowerCase();
     }).join(' ');
   }
 }

@@ -12,7 +12,7 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(25), nullable=False)
     email = db.Column(db.String(100), unique=True, nullable=False)
     contact = db.Column(db.Integer, default=None)
-    dp_file = db.Column(db.String(20), nullable=False, default='default-dp.jpeg')
+    dp_file = db.Column(db.String(20), nullable=False, default='none.jpeg')
     password = db.Column(db.String(60), nullable=False)
 
     def __repr__(self):
