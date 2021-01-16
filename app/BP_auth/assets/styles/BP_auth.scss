@@ -39,10 +39,7 @@ html {
 .card {
     box-shadow: $shadow-large;
     border-radius: 1rem;
-    border-top: 2px solid $white-25;
-    border-left: 2px solid $white-25;
-    border-right: none;
-    border-bottom: none;
+    border: none;
     background-color: $white-60;
 
     .btn-block {
@@ -51,10 +48,6 @@ html {
 }
 
 fieldset {
-    #username {
-        text-transform: capitalize;
-    }
-
     .options {
         display: flex;
     }

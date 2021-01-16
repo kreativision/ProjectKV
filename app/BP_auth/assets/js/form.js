@@ -1,37 +1,31 @@
 // registers form inputs on page load.
-var formFields;
-// locks the label in the float if text is entered into it. 
-// otherwise restores the label in it's default position.
+var formFields = document.querySelectorAll('.form-group .form-control, .input-group .form-control');
+
+// locks the label in the float position if there is value on page-load.
 document.addEventListener("DOMContentLoaded", () => {
-  formFields = document.querySelectorAll('.form-group .form-control, .input-group .form-control');
-  formFields.forEach((e) => {
-    if (e.value != '') {
-      e.parentNode.querySelector('label').classList.add('active');
-    } else {
-      e.parentNode.querySelector('label').classList.remove('active');
+  formFields.forEach((element) => {
+    if (element.value) {
+      element.parentNode.querySelector('label').classList.add('active');
     }
-    e.onblur = function () {
-      if (e.value != '') {
-        e.parentNode.querySelector('label').classList.add('active');
-      } else {
-        e.parentNode.querySelector('label').classList.remove('active');
+    element.onblur = () => {
+      if (element.value) {
+        element.parentNode.querySelector('label').classList.add('active');
       }
     }
   });
-  // To focus the first input element by default when the page is loaded.
-  setTimeout(() => {
-    formFields[0].focus();
-  }, 400);
+  // Autofocus the first input element on page load => handled in the form class.
+  // setTimeout(() => {
+  //   formFields[0].focus();
+  // }, 400);
 });
 
+
 // registers password fields on page-load. 
-var passwords;
-var toggleButton;
-// toggles the visibility of password on checking the checkbox "Show Password"
+var passwords = document.querySelectorAll('input[type="password"]');
+var toggleButton = document.querySelector('#pwd-toggle i');
+
+// toggles the visibility of password on checking the checkbox "Show Password".
 function togglePassword() {
-  if (!passwords) {
-    passwords = document.querySelectorAll('input[type="password"]');
-  }
   passwords.forEach(field => {
     if (field.type == 'text') {
       field.type = 'password';
@@ -39,8 +33,8 @@ function togglePassword() {
       field.type = 'text';
     }
   });
-  toggleButton = document.querySelector('#pwd-toggle i');
-  if(toggleButton.classList.contains('fa-eye')) {
+  // toggle the eye icon
+  if (toggleButton.classList.contains('fa-eye')) {
     toggleButton.classList.remove('fa-eye');
     toggleButton.classList.add('fa-eye-slash');
   } else {
@@ -48,4 +42,14 @@ function togglePassword() {
     toggleButton.classList.add('fa-eye');
   }
   toggleButton.parentElement.blur();
+}
+
+// Automatically capitalize the first letter of every word in the username field.
+uname = document.querySelector('#username');
+if(uname) {
+  uname.onkeyup = () => {
+    uname.value = (uname.value).split(' ').map((e) => {
+      return e.substring(0,1).toUpperCase() + e.substring(1);
+    }).join(' ');
+  }
 }
