@@ -1,7 +1,6 @@
 # This is the main application file.
 # All the configurations for the entire application goes here.
-from flask import Flask, redirect
-from flask.templating import render_template
+from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
