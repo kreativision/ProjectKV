@@ -24,7 +24,7 @@ def sign_up():
     form = RegistrationForm()
     if form.validate_on_submit():
         user_password = encryptor.generate_password_hash(form.password.data).decode('utf-8')
-        new_user = User(username=form.username.data, email=form.email.data, password=user_password)
+        new_user = User(username=form.username.data, email=form.email.data, password=user_password, contact=form.contact.data)
         db.session.add(new_user)
         db.session.commit()
         message = Markup(f'Welcome <strong>{form.username.data}</strong>! <br> Your account is created successfully.')
