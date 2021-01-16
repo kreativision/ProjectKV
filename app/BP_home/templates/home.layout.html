@@ -7,20 +7,71 @@
 
 
 {% block body_content %}
+<!-- Flask messages -->
 {% with messages = get_flashed_messages(with_categories=true) %}
-  {% if messages %}
-    {% for category, message in messages %}
-      <div class="container mt-3">
-        <div class="alert alert-{{category}} alert-dismissible fade show" role="alert">
-          {{message}}
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true"><i class="fas fa-times"></i></span>
-          </button>
+{% if messages %}
+{% for category, message in messages %}
+<div class="container mt-3">
+  <div class="alert alert-{{category}} alert-dismissible fade show" role="alert">
+    {{message}}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true"><i class="fas fa-times"></i></span>
+    </button>
+  </div>
+</div>
+{% endfor %}
+{% endif %}
+{% endwith %}
+
+<!-- Welcoming section. -->
+<div class="jumbotron-fluid bg-black-glass text-white p-3 mt-4">
+  <div class="row">
+    <div class="col-md-6 col-sm-12">
+      <h3 class="h3 text-warning">Welcome to</h3>
+      <p class="display-4">KreatiVision PhotoArts</p>
+      <h5 class="h5 border-bottom border-warning pb-3">The place where your ideas take form.</h5>
+      <div class="welcome-links row">
+        <div class="col-md-6">
+          <a href="#" class="btn btn-warning btn-block text-dark my-3 services">
+            EXPLORE SERVICES <i class="fas fa-chevron-right ml-1"></i>
+          </a>
+        </div>
+        <div class="col-md-6">
+          <a href="#" class="btn btn-info btn-block text-light my-3 services">
+            RECENT PROJECTS <i class="fas fa-chevron-right ml-1"></i>
+          </a>
         </div>
       </div>
-    {% endfor %}
-  {% endif %}
-{% endwith %}
-{% include 'coming-soon.html' %}
+    </div>
+    <div class="col-md-6 col-sm-12 text-right">
+      <h3 class="h3 text-warning">About</h3>
+      <p>About section <br><br>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eius debitis nemo cum exercitationem iusto itaque id? Magnam praesentium molestias eius.</p>
+    </div>
+  </div>
+</div>
+
+<div class="jumbotron-fluid text-center bg-white-glass text-dark p-3 mt-4">
+    <h3 class="h3">Explore our Services.</h3>
+    <p class="display-4">Add most popular services.</p>
+    <p class="h4">With a link to all services listing <i class="fas fa-chevron-right"></i></p>
+</div>
+
+<div class="jumbotron-fluid text-center bg-black-glass text-light p-3 mt-4">
+  <h3 class="h3">What people say about us?</h3>
+  <p class="display-4">Add recent reviews here.</p>
+</div>
+
+<div class="jumbotron-fluid text-center bg-white-glass text-dark p-3 mt-4">
+  <h3 class="h3">See recent projects.</h3>
+  <p class="display-4">Add some.</p>
+  <p class="h4">With a link to view all projects <i class="fas fa-chevron-right"></i></p>
+</div>
+
+<div class="jumbotron-fluid text-center bg-dark text-light p-3 my-4">
+  <h3 class="h3 text-warning">Footer</h3>
+  <p class="display-4 text-info">Add the footer content.</p>
+  <p class="h4">All social links and similar items.</p>
+  <p class="h5">this should probably be on all pages.</p>
+</div>
 
 {% endblock body_content%}
