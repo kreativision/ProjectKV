@@ -20,7 +20,7 @@ main {
     width: 100%;
     position: absolute;
     top: 56px;
-    overflow: auto;
+    // overflow: auto;
     // padding-top: 10px;
 }
 
@@ -31,7 +31,7 @@ main {
         pointer-events: none;
     }
     .toast {
-        top: 75%;
+        top: 80%;
         left: 50%;
         width: 90%;
         transform: translate(-50%);

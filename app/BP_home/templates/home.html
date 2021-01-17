@@ -1,0 +1,44 @@
+{% extends 'main.layout.html' %}
+{% set active='home' %}
+{% import 'macros.html' as macros %}
+
+{% block page_style%}
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/3.0.5/fullpage.min.css'>
+<link rel="stylesheet" href="{{url_for('BP_home.static', filename='styles/BP_home.css')}}">
+{% endblock page_style %}
+
+
+{% block body_content %}
+<div id="fullpage">
+	<div class="section text-light">
+        <p class="display-4">Welcome Section</p>
+    </div>
+    <div class="section bg-success">
+        <div class="slide">
+            <p class="display-4">Project 1</p>
+        </div>
+        <div class="slide">
+            <p class="display-4 text-warning">Project 2</p>
+        </div>
+        <div class="slide">
+            <p class="display-4 text-light">Project 3</p>
+        </div>
+    </div>
+    <div class="section bg-warning">
+        <p class="display-4">Popular Services</p> 
+    </div>
+    <div class="section bg-danger text-light">
+        <p class="display-4">Reviews</p> 
+    </div>
+    <div class="section bg-info text-light">
+        <p class="display-4">Contact and Register</p> 
+    </div>
+</div>
+{% endblock body_content %}
+
+
+
+{% block page_scripts %}
+<script src='https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/3.0.5/fullpage.min.js'></script>
+<script src=" {{url_for('BP_home.static', filename='js/home.js')}} "></script>
+{% endblock page_scripts%}

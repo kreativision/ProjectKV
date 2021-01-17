@@ -1,9 +1,12 @@
 // Module Specific Styles - Home Module
-$black-60: rgba($color: #000000, $alpha: 0.6);
+$black-60: rgba(
+    $color: #000000,
+    $alpha: 0.6,
+);
 $shadow-small: 0px 4px 15px -5px $black-60;
 
 html {
-    background-image: url('../../../static/images/backdrops-02.jpg');
+    background-image: url("../../../static/images/backdrops-02.jpg");
 }
 
 .service-card {
@@ -18,7 +21,7 @@ html {
     .card-footer {
         display: flex;
         justify-content: center;
-        a{
+        a {
             width: 60%;
             justify-content: space-around;
             box-shadow: $shadow-small;
@@ -49,7 +52,7 @@ html {
     }
     .card-footer {
         background: transparent !important;
-        a{
+        a {
             justify-content: space-around;
             &:active {
                 color: white;
@@ -59,4 +62,34 @@ html {
     }
 }
 
+// restoring to normal to accomodate normal behaviour from fullpage.js.
+main {
+    height: 100vh;
+    width: 100%;
+    position: absolute;
+    top: 0;
+}
 
+body {
+    background-image: url("../../../static/images/backdrops-03.jpg");
+}
+
+// #fullpage {
+//     .s1 {
+//         background: transparent;
+//     }
+// }
+
+#fp-nav li {
+    span {
+        background: white !important;
+    }
+}
+
+.fp-slidesNav {
+    ul {
+        position: absolute;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+}
