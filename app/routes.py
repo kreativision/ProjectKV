@@ -17,8 +17,8 @@ def index():
 @app.route("/sign-up", methods=['GET', 'POST'])
 def sign_up():
     if current_user.is_authenticated:
-        message = Markup(f'You are already logged in.')
-        flash(message, category='info')
+        content = [f'Session Active', f'You are already logged in.']
+        flash(content, category='info')
         return redirect(url_for('index'))
 
     form = RegistrationForm()
@@ -27,8 +27,8 @@ def sign_up():
         new_user = User(username=form.username.data, email=form.email.data, password=user_password, contact=form.contact.data)
         db.session.add(new_user)
         db.session.commit()
-        message = Markup(f'Welcome <strong>{form.username.data}</strong>! <br> Your account is created successfully.')
-        flash(message, category='success')
+        content = [f'Account Created!', Markup(f'Welcome {form.username.data}.<br>Please login using your <strong>email</strong> and <strong>password</strong>.')]
+        flash(content, category='success')
         return redirect(url_for('login'))
     return render_template("register.html", title="Create Account", page="Register", form=form)
 
@@ -36,8 +36,8 @@ def sign_up():
 @app.route("/login", methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
-        message = Markup(f'You are already logged in.')
-        flash(message, category='info')
+        content = [f'Session Active', f'You are already logged in.']
+        flash(content, category='info')
         return redirect(url_for('index'))
 
     form = LoginForm()
@@ -45,12 +45,12 @@ def login():
         user = User.query.filter_by(email=form.email.data).first()
         if user and encryptor.check_password_hash(user.password, form.password.data):
             login_user(user, remember=form.remember.data)
-            message = f'You have been logged in!'
-            flash(message, category='primary')
+            content = [f'Login Successful', f'You have been successfully logged in.']
+            flash(content, category='success')
             return redirect(url_for('index'))
         else:
-            message = f'Incorrect credentials. Please try again!'
-            flash(message, category='danger')
+            content = [f'Login Failed.', Markup(f'<strong>Incorrect credentials</strong>.<br>Please try again!')]
+            flash(content, category='danger')
     return render_template("login.html", title="Login", page="Login. . .", form=form)
 
 @app.route("/logout")
@@ -62,4 +62,6 @@ def logout():
 # Password Recovery
 @app.route("/forgot-password")
 def recovery():
+    content = [f'Coming Soon', f'This feature is not yet available.']
+    flash(content, category='info')
     return render_template('pwd-recovery.html', title="Account Recovery", page="Recover Account")

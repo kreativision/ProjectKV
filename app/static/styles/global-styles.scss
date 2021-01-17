@@ -21,7 +21,7 @@ main {
     position: absolute;
     top: 56px;
     overflow: auto;
-    padding-top: 10px;
+    // padding-top: 10px;
 }
 
 // media queries to make the navigation bar responsive
@@ -30,6 +30,12 @@ main {
         display: none;
         pointer-events: none;
     }
+    .toast {
+        top: 75%;
+        left: 50%;
+        width: 90%;
+        transform: translate(-50%);
+    }
 }
 
 @media only screen and (min-width: 768px) {
@@ -37,6 +43,10 @@ main {
     #sidebarToggle {
         display: none;
         pointer-events: none;
+    }
+    .toast {
+        top: 60px;
+        right: 35px;
     }
 }
 
@@ -144,4 +154,13 @@ main {
 .bg-white-glass {
     background: rgba($color: #fff, $alpha: 0.3);
     backdrop-filter: blur(10px);
+}
+
+.toast {
+    position: fixed;
+    z-index: 1000;
+    backdrop-filter: none !important;
+    .toast-body {
+        background-color: #fff;
+    }
 }

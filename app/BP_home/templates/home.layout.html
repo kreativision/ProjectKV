@@ -1,35 +1,20 @@
 <!-- Home Page Layout Template -->
 <!-- Extends the main.layout.html template and will be extended by other pages in this module only. -->
 {% extends 'main.layout.html' %}
+{% import 'macros.html' as macros %}
 {% block page_style%}
 <link rel="stylesheet" href="{{url_for('BP_home.static', filename='styles/BP_home.css')}}">
 {% endblock page_style %}
 
 
 {% block body_content %}
-<!-- Flask messages -->
-{% with messages = get_flashed_messages(with_categories=true) %}
-{% if messages %}
-{% for category, message in messages %}
-<div class="container mt-3">
-  <div class="alert alert-{{category}} alert-dismissible fade show" role="alert">
-    {{message}}
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-      <span aria-hidden="true"><i class="fas fa-times"></i></span>
-    </button>
-  </div>
-</div>
-{% endfor %}
-{% endif %}
-{% endwith %}
-
 <!-- Welcoming section. -->
-<div class="jumbotron-fluid bg-black-glass text-white p-3 mt-4">
+<div class="jumbotron-fluid bg-black-glass text-white px-3 py-1 mt-4">
   <div class="row">
-    <div class="col-md-6 col-sm-12">
-      <h3 class="h3 text-warning">Welcome to</h3>
-      <p class="display-4">KreatiVision PhotoArts</p>
-      <h5 class="h5 border-bottom border-warning pb-3">The place where your ideas take form.</h5>
+    <div class="col-md-6 col-sm-12 border-bottom border-top border-warning pt-3">
+      <p class="h2 text-warning">Welcmome To</p>
+      <p class="display-3">KreatiVision PhotoArts</p>
+      <h5 class="h5 pb-3">The place where your ideas take form.</h5>
       <div class="welcome-links row">
         <div class="col-md-6">
           <a href="#" class="btn btn-warning btn-block text-dark my-3 services">
@@ -43,17 +28,25 @@
         </div>
       </div>
     </div>
-    <div class="col-md-6 col-sm-12 text-right">
-      <h3 class="h3 text-warning">About</h3>
-      <p>About section <br><br>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eius debitis nemo cum exercitationem iusto itaque id? Magnam praesentium molestias eius.</p>
+    <div class="col-md-6 col-sm-12 border-bottom border-top border-warning pt-3">
+      <h3 class="h3 text-warning text-center text-md-left">About</h3>
+      <p>
+        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eius debitis nemo cum exercitationem iusto itaque id? Magnam praesentium molestias eius.
+        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eius debitis nemo cum exercitationem iusto itaque id? Magnam praesentium molestias eius.
+      </p>
+      
     </div>
   </div>
 </div>
 
-<div class="jumbotron-fluid text-center bg-white-glass text-dark p-3 mt-4">
+<div class="jumbotron-fluid text-center bg-white-glass text-dark py-3 px-3 mt-4" id="services-row">
     <h3 class="h3">Explore our Services.</h3>
-    <p class="display-4">Add most popular services.</p>
-    <p class="h4">With a link to all services listing <i class="fas fa-chevron-right"></i></p>
+    <div class="row">
+      {{ macros.service(heading='Poster Design', body='Lorem ipsum dolor sit amet consectetur adipisicing elit.', price='399', link='#') }}
+      {{ macros.service(heading='Visiting Cards', body='Lorem ipsum dolor sit amet consectetur adipisicing elit.', price='450', link='#') }}
+      {{ macros.service(heading='Visiting Cards', body='Lorem ipsum dolor sit amet consectetur adipisicing elit.', price='450', link='#') }}
+      {{ macros.view_all(link='#', label='VIEW ALL SERVICES') }}
+    </div>
 </div>
 
 <div class="jumbotron-fluid text-center bg-black-glass text-light p-3 mt-4">
