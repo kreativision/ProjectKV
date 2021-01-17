@@ -1,0 +1,48 @@
+{% macro service(heading='', body='', price='', link='') -%}
+<div class="col-sm-6 col-md-3">
+    <div class="card bg-light text-dark my-3 shadow service-card border-0">
+        <div class="card-header bg-light border-0 pb-0">
+            <h3 class="card-title">{{heading}}</h3>
+        </div>
+        <div class="card-body pt-1">
+            <p class="card-text">{{body}}</p>
+            <p class="h4">Starting @ just</p>
+            <div class="price">
+                <sup class="h2 mb-3 font-weight-normal">₹</sup>
+                <span class="display-3">{{price}}/-</span>
+            </div>
+        </div>
+        <div class="card-footer bg-light border-0">
+            <a href="{{link}}" class="btn btn-warning font-weight-bold rounded-lg rounded">
+                EXPLORE
+                <span class="mx-3"></span>
+                <i class="fas fa-chevron-right"></i>
+            </a>
+        </div>
+    </div>
+</div>
+{%- endmacro %}
+
+
+{% macro review(author='', dp='', content='') %}
+{% endmacro %}
+
+{% macro view_all(link='', label='') %}
+<div class="col-sm-6 col-md-3">
+    <div class="card mt-3 view-more border-0">
+        <div class="card-body pt-5 pb-0">
+            <a href="{{link}}">
+                <span class="fa-stack fa-4x my-4">
+                    <i class="fas fa-circle fa-stack-2x text-dark"></i>
+                    <i class="fas fa-arrow-circle-right fa-stack-2x text-warning"></i>
+                </span>
+            </a>
+        </div>
+        <div class="card-footer border-0 pt-0">
+            <a href="{{link}}" class="btn font-weight-bold rounded-lg rounded mt-0">
+                <span class="h5">{{label}}</span>
+            </a>
+        </div>
+    </div>
+</div>
+{%- endmacro %}
