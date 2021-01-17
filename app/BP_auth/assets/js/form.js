@@ -46,7 +46,7 @@ function togglePassword() {
 
 // Automatically capitalize the first letter of every word in the username field.
 uname = document.querySelector('#username');
-if(uname) {
+if (uname) {
   uname.onkeyup = () => {
     uname.value = (uname.value).split(' ').map((word) => {
       return word.charAt(0).toUpperCase() + word.substr(1).toLowerCase();
