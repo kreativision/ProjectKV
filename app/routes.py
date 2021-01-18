@@ -1,5 +1,6 @@
 # This is the global app routes file.
-from flask import redirect, url_for
+import os
+from flask import redirect, url_for, send_from_directory
 from app import app, db, encryptor
 from app.models import User
 from app.BP_auth.forms import LoginForm, RegistrationForm
@@ -7,6 +8,11 @@ from markupsafe import Markup
 from flask.helpers import flash
 from flask.templating import render_template
 from flask_login import login_user, logout_user, current_user
+
+# The App Icon for browsers.
+@app.route('/favicon.ico')
+def favicon():
+    return send_from_directory(os.path.join(app.root_path, 'static'), 'images/favicon.ico', mimetype='image/vnd.microsoft.icon')
 
 # Redirect to the home-page by default.
 @app.route("/")

@@ -62,23 +62,10 @@ html {
     }
 }
 
-// restoring to normal to accomodate normal behaviour from fullpage.js.
-main {
-    height: 100vh;
-    width: 100%;
-    position: absolute;
-    top: 0;
-}
 
 body {
     background-image: url("../../../static/images/backdrops-03.jpg");
 }
-
-// #fullpage {
-//     .s1 {
-//         background: transparent;
-//     }
-// }
 
 #fp-nav li {
     span {
