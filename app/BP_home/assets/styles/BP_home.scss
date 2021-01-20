@@ -11,8 +11,10 @@ $shadow-small: 0px 4px 15px -5px $black-60;
         pointer-events: none;
     }
 
-    #showcaseCarousel img {
-        width: 95%;
+    #showcaseCarousel {
+        .carousel-item {
+            height: 50vh;
+        }
     }
 }
 
@@ -21,8 +23,10 @@ $shadow-small: 0px 4px 15px -5px $black-60;
         display: none;
         pointer-events: none;
     }
-    #showcaseCarousel img {
-        width: 65%;
+    #showcaseCarousel {
+        .carousel-item {
+            height: 85vh;
+        }
     }
 }
 
@@ -130,11 +134,9 @@ main {
             }
         }
         #showcaseCarousel {
-            .carousel-item {
-                height: 50vh;
-            }
             img {
-                margin: auto;
+                margin: auto !important;
+                width: 100%;
             }
         }
         .active-project {
