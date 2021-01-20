@@ -5,6 +5,28 @@ $black-60: rgba(
 );
 $shadow-small: 0px 4px 15px -5px $black-60;
 
+@media only screen and (max-width: 768px) {
+    #deskShow, .l-arr, .r-arr {
+        display: none;
+        pointer-events: none;
+    }
+
+    #showcaseCarousel img {
+        width: 95%;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    #phoneShow, #controllers {
+        display: none;
+        pointer-events: none;
+    }
+    #showcaseCarousel img {
+        width: 65%;
+    }
+}
+
+
 html {
     background-image: url("../../../static/images/backdrops-02.jpg");
 }
@@ -62,21 +84,61 @@ html {
     }
 }
 
-
-body {
-    background-image: url("../../../static/images/backdrops-03.jpg");
+main {
+    scroll-behavior: smooth;
+    scroll-snap-type: y mandatory;
 }
 
-#fp-nav li {
-    span {
-        background: white !important;
+.sections {
+    section {
+        display: flex;
+        flex-direction: column;
+        // align-items: center;
+        // justify-content: center;
+        // vertical-align: middle;
+        width: 100%;
+        height: calc(100vh - 56px);
+        scroll-snap-align: center;
+        position: relative;
     }
-}
+    #s1 {
+        // background: linear-gradient(to left top, #033a56, #0477bf);
+        img {
+            position: absolute;
+            bottom: 50px;
+            right: 30px;
+            width: 350px;
+            height: 350px;
+            z-index: 0;
+            opacity: 0.6;
+        }
+        .container {
+            z-index: 1;
+            .row a {
+                margin-top: 25px;
+            }
+        }
+    }
 
-.fp-slidesNav {
-    ul {
-        position: absolute;
-        left: 50%;
-        transform: translate(-50%, -50%);
+    #s2 {
+        .card {
+            transition: all 0.3s ease-in-out;
+            &:hover {
+                cursor: pointer;
+                transform: translate(25px, 0px) scale(1.15);
+                z-index: 10;
+            }
+        }
+        #showcaseCarousel {
+            .carousel-item {
+                height: 50vh;
+            }
+            img {
+                margin: auto;
+            }
+        }
+        .active-project {
+            background: #fed766;
+        }
     }
 }
