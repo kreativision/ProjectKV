@@ -28,8 +28,10 @@ $invalid-field: rgba(
     $alpha: 1,
 );
 
-html {
+main {
     background-image: url("../../../static/images/backdrops-01.jpg");
+    height: 100vh;
+    padding-top: 56px;
 }
 
 // .alert {
