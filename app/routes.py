@@ -29,11 +29,12 @@ def sign_up():
 
     form = RegistrationForm()
     if form.validate_on_submit():
+        user_name = form.username.data.title()
         user_password = encryptor.generate_password_hash(form.password.data).decode('utf-8')
-        new_user = User(username=form.username.data, email=form.email.data, password=user_password, contact=form.contact.data)
+        new_user = User(username=user_name, email=form.email.data, password=user_password, contact=form.contact.data)
         db.session.add(new_user)
         db.session.commit()
-        content = [f'Account Created!', Markup(f'Welcome {form.username.data}.<br>Please login using your <strong>email</strong> and <strong>password</strong>.')]
+        content = [f'Account Created!', Markup(f'Welcome {user_name}.<br>Please login using your <strong>email</strong> and <strong>password</strong>.')]
         flash(content, category='success')
         return redirect(url_for('login'))
     return render_template("register.html", title="Create Account", page="Register", form=form)
