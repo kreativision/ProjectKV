@@ -29,21 +29,15 @@ $invalid-field: rgba(
 );
 
 main {
-    background-image: url("../../../static/images/backdrops-01.jpg");
+    // background-image: url("../../../static/images/backdrops-01.jpg");
+    background-image: linear-gradient(315deg, #d9e4f5 0%, #f5e3e6 74%);
     height: 100vh;
-    padding-top: 56px;
+    padding-top: 60px;
 }
 
-// .alert {
-//     border-radius: 1rem;
-// }
-
 .card {
-    // box-shadow: $shadow-large;
     border-radius: 1rem;
     border: none;
-    background-color: $white-60;
-
     .btn-block {
         box-shadow: $shadow-small;
     }

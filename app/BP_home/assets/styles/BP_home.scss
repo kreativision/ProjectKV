@@ -6,7 +6,9 @@ $black-60: rgba(
 $shadow-small: 0px 4px 15px -5px $black-60;
 
 @media only screen and (max-width: 768px) {
-    #deskShow, .l-arr, .r-arr {
+    #deskShow,
+    .l-arr,
+    .r-arr {
         display: none;
         pointer-events: none;
     }
@@ -19,7 +21,8 @@ $shadow-small: 0px 4px 15px -5px $black-60;
 }
 
 @media only screen and (min-width: 768px) {
-    #phoneShow, #controllers {
+    #phoneShow,
+    #controllers {
         display: none;
         pointer-events: none;
     }
@@ -30,9 +33,10 @@ $shadow-small: 0px 4px 15px -5px $black-60;
     }
 }
 
-
 main {
-    background-image: url("../../../static/images/backdrops-02.jpg");
+    // background-image: url("../../../static/images/backdrops-02.jpg");
+    background-color: #d9e4f5;
+    background-image: linear-gradient(315deg, #d9e4f5 0%, #f5e3e6 74%);
     scroll-behavior: smooth;
     scroll-snap-type: y mandatory;
 }
@@ -48,26 +52,59 @@ main {
         padding-top: 56px;
     }
     #s1 {
-        // background: linear-gradient(to left top, #033a56, #0477bf);
+        .circle1 {
+            position: absolute;
+            top: 60px;
+            left: 75px;
+            width: 35vh;
+            height: 35vh;
+            border-radius: 50%;
+            background-image: linear-gradient(315deg, #89d4cf 0%, #6e45e1 74%);
+            z-index: 1;
+        }
+        .circle2 {
+            position: absolute;
+            bottom: 40px;
+            right: 75px;
+            width: 52vh;
+            height: 52vh;
+            border-radius: 50%;
+            background-image: linear-gradient(315deg, #c7e9fb 0%, #e61d8c 74%);
+            z-index: 1;
+        }
         img {
             position: absolute;
             bottom: 50px;
             right: 30px;
             width: 350px;
             height: 350px;
-            z-index: 0;
+            z-index: 1;
             opacity: 0.6;
         }
         .container {
-            z-index: 1;
+            z-index: 10;
+            width: 95vw !important;
             .row a {
-                margin-top: 25px;
+                margin-top: 15px;
+            }
+            .about {
+                transition: all 0.3s ease-in-out;
+                i {
+                    transition: all 0.3s ease-in-out;
+                }
+                &:hover {
+                    transform: scale(1.2);
+                    i {
+                        transform: translate(0px, 15px);
+                    }
+                }
             }
         }
     }
 
-    #s2 {
+    #s3 {
         .card {
+            z-index: 2;
             transition: all 0.3s ease-in-out;
             &:hover {
                 cursor: pointer;
