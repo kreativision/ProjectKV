@@ -29,8 +29,7 @@ $invalid-field: rgba(
 );
 
 main {
-    // background-image: url("../../../static/images/backdrops-01.jpg");
-    background-image: linear-gradient(315deg, #d9e4f5 0%, #f5e3e6 74%);
+    background-image: linear-gradient(315deg, #0cbaba 0%, #380036 74%);
     height: 100vh;
     padding-top: 60px;
 }
@@ -38,9 +37,9 @@ main {
 .card {
     border-radius: 1rem;
     border: none;
-    .btn-block {
-        box-shadow: $shadow-small;
-    }
+    // .btn-block {
+    //     box-shadow: $shadow-small;
+    // }
 }
 
 fieldset {
