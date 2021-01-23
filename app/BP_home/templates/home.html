@@ -10,42 +10,39 @@
 {% block body_content %}
 <div class="sections">
     <!-- Welcome Section -->
-    <section id="s1">
-        <div class="circle1"></div>
-        <div class="circle2"></div>
-        <div class="container bg-white-glass mt-3 p-3 shadow rounded">
-            <p class="h2">Welcome to</p>
-            <p class="display-4 font-weight-bold">KreatiVision PhotoArts</p>
-            <p class="h5 border-top pt-4 border-dark fornt-weight-normal">
-                The place where your ideas take form.
-            </p>
-            <div class="row mt-3 ml-0 mr-3">
-                <div class="col p-0">
-                    <a href="#" class="btn btn-light text-dark shadow font-weight-bold mr-3">
-                        EXPLORE SERVICES
-                        <i class="fas fa-chevron-right ml-1"></i>
-                    </a>
-                    <a href="{{url_for('index', _anchor='s3')}}" class="btn btn-dark text-light shadow font-weight-bold">
-                        RECENT PROJECTS
-                        <i class="fas fa-chevron-right ml-1"></i>
-                    </a>
-                </div>
+    <section id="s1" class="d-flex flex-column justify-content-around"> 
+        <div class="text-content ml-2">
+            <p class="h2 text-warning">Welcome to</p>
+            <p class="display-4 font-weight-bold text-white mb-3">KreatiVision PhotoArts</p>
+            <p class="h5 text-light">Let's add some creativity to your brilliant vision.</p>
+            <div class="links d-flex flex-column flex-md-row justify-content-start">
+                <a href="#s2" class="btn bg-warning text-dark shadow font-weight-bold text-uppercase mr-auto">
+                    Learn More <i class="fas fa-arrow-right ml-2"></i>
+                </a>
+                <a href="#s3" class="btn text-warning bg-clear-glass font-weight-bold text-uppercase mr-auto">
+                    checkout Our Projects <i class="fas fa-arrow-right ml-2"></i>
+                </a>
             </div>
         </div>
-        <div class="container d-flex justify-content-center">
-            <!-- <div class="row mx-auto text-center w-25"> -->
-                <a href="{{url_for('index', _anchor='s2')}}" class="font-weight-bold btn btn-large w-25 mt-3 about">
-                    <!-- <p class="h4 justify-content-center"> -->
-                        ABOUT<br>
-                        <i class="fas fa-chevron-down"></i>
-                    <!-- </p> -->
+        <div class="offers shadow mx-2 p-3">
+            <p class="h3">Launch Offer</p>
+            <p class="h6">Get your first design at flat <span class="h3 text-danger font-weight-normal">60% off.</span>
+            </p>
+            <div class="links d-flex justify-content-start">
+                <a href="{{url_for('login')}}" class="btn bg-dark text-warning font-weight-bold shadow text-uppercase mr-auto">
+                    Design Now <i class="fas fa-chevron-right ml-3"></i>
                 </a>
-            <!-- </div> -->
+                <a href="#s4" class="btn text-dark font-weight-bold text-uppercase mr-auto">
+                    Explore <i class="fas fa-chevron-right ml-3"></i>
+                </a>
+            </div>
         </div>
+        <!-- <div class="circle1"></div> -->
+        <img src="{{url_for('BP_home.static', filename='images/bg-s1-01.png')}}" alt="" class="section-background">
     </section>
 
     <section id="s2" class="container-fluid">
-        <p class="display-4">About Us</p>
+        <img src="{{url_for('BP_home.static', filename='images/bg-about-2.jpg')}}" alt="" class="section-background">
     </section>
 
     <section id="s3" class="container-fluid">
@@ -110,11 +107,13 @@
                                 </div>
                             </div>
                         </div>
-                        <a class="carousel-control-prev text-dark l-arr" href="#showcaseCarousel" role="button" data-slide="prev">
+                        <a class="carousel-control-prev text-dark l-arr" href="#showcaseCarousel" role="button"
+                            data-slide="prev">
                             <i class="fas fa-2x fa-arrow-left"></i>
                             <span class="sr-only">Previous</span>
                         </a>
-                        <a class="carousel-control-next text-dark r-arr" href="#showcaseCarousel" role="button" data-slide="next">
+                        <a class="carousel-control-next text-dark r-arr" href="#showcaseCarousel" role="button"
+                            data-slide="next">
                             <i class="fas fa-2x fa-arrow-right"></i>
                             <span class="sr-only">Next</span>
                         </a>
@@ -124,7 +123,7 @@
         </div>
     </section>
     <section id="s4">
-        <p class="display-4">Reviews / Contact / Get Started / Social</p>
+        <p class="display-4">Services</p>
     </section>
 </div>
 {% endblock body_content %}
