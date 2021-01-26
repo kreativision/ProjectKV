@@ -142,6 +142,10 @@ header {
 // globally changing the border-radius for bootstrap buttons
 .btn {
     border-radius: 30px;
+    &:focus, &:active {
+        border: none !important;
+        outline: none !important;
+    }
 }
 
 // Glass background classes

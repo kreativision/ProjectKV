@@ -1,6 +1,6 @@
 {% extends 'main.layout.html' %}
 {% set active='home' %}
-{% import 'macros.html' as macros %}
+{% import 'home_macros.html' as macros %}
 
 {% block page_style%}
 <link rel="stylesheet" href="{{url_for('BP_home.static', filename='styles/BP_home.css')}}">
@@ -9,8 +9,8 @@
 
 {% block body_content %}
 <div class="sections">
-    <!-- Welcome Section -->
-    <section id="s1" class="d-flex flex-column justify-content-around">
+  <!-- Welcome Section -->
+  <section id="s1" class="d-flex flex-column justify-content-around">
         <div class="text-content ml-2">
             <p class="h2 text-warning">Welcome to</p>
             <p class="display-4 font-weight-bold text-white mb-3">KreatiVision PhotoArts</p>
@@ -40,97 +40,56 @@
         </div>
         <img src="{{url_for('BP_home.static', filename='images/bg-s1-01.png')}}" alt="" class="section-background">
     </section>
-        
-    <div class="section-head" id="about">
-        <p class="display-4 text-center text-white">About Us</p>
-    </div>
-    <section id="s2" class="container-fluid">
-        <img src="{{url_for('BP_home.static', filename='images/bg-about-2.jpg')}}" alt="" class="section-background">
-    </section>
 
 
-    <div class="section-head" id="projects">
-        <p class="display-4 text-center text-white">Our Recent Projects</p>
-    </div>
-    <section id="s3" class="container-fluid px-0">
-        <div class="d-flex projects">
-            {% for project_name, service_name, description, img_url, img_file in projects %}
-                {{macros.project(project_name=project_name, service_name=service_name, description=description, img_url=img_url, img_file=img_file)}}
-            {% endfor %}
-        </div>
-    </section>
+  <!-- Heading for section 2 -->
+  <div class="section-head" id="about">
+    <p class="display-4 text-center text-white">About Us</p>
+  </div>
+  <!-- section 2 -->
+  <section id="s2" class="container-fluid">
+    <img src="{{url_for('BP_home.static', filename='images/bg-about-2.jpg')}}" alt="" class="section-background">
+    <!-- The About section will come here. -->
+  </section>
 
-    <div class="section-head" id="reviews">
-        <p class="display-4 text-center text-white">What our clients say!</p>
+  <!-- Heading for section 3 -->
+  <div class="section-head" id="projects">
+    <p class="display-4 text-center text-white">Our Recent Projects</p>
+  </div>
+  <!-- section 3 -->
+  <section id="s3" class="container-fluid px-0">
+    <div class="d-flex projects">
+      {% for project_name, service_name, description, img_url, img_file in projects %}
+      {{macros.project(project_name=project_name, service_name=service_name, description=description, img_url=img_url,
+      img_file=img_file)}}
+      {% endfor %}
     </div>
-    <section id="s4">
-        <div class="container mt-4">
-            <div class="card-columns">
-                <div class="card shadow bg-black-glass text-light">
-                  <div class="card-body">
-                    <h5 class="card-title">Card title that wraps to a new line</h5>
-                    <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                  </div>
-                </div>
-                <div class="card p-3 shadow bg-black-glass text-light">
-                  <blockquote class="blockquote mb-0 card-body">
-                    <p>A well-known quote, contained in a blockquote element.</p>
-                    <footer class="blockquote-footer">
-                      <small class="text-muted">
-                        Someone famous in <cite title="Source Title">Source Title</cite>
-                      </small>
-                    </footer>
-                  </blockquote>
-                </div>
-                <div class="card shadow bg-black-glass text-light">
-                  <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                  </div>
-                </div>
-                <div class="card bg-primary text-white text-center p-3 shadow">
-                  <blockquote class="blockquote mb-0">
-                    <p>A well-known quote, contained in a blockquote element.</p>
-                    <footer class="blockquote-footer text-white">
-                      <small>
-                        Someone famous in <cite title="Source Title">Source Title</cite>
-                      </small>
-                    </footer>
-                  </blockquote>
-                </div>
-                <div class="card text-center shadow bg-black-glass text-light">
-                  <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">This card has a regular title and short paragraphy of text below it.</p>
-                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                  </div>
-                </div>
-                <div class="card p-3 text-right shadow bg-black-glass text-light">
-                  <blockquote class="blockquote mb-0">
-                    <p>A well-known quote, contained in a blockquote element.</p>
-                    <footer class="blockquote-footer">
-                      <small class="text-muted">
-                        Someone famous in <cite title="Source Title">Source Title</cite>
-                      </small>
-                    </footer>
-                  </blockquote>
-                </div>
-                <div class="card shadow bg-black-glass text-light">
-                  <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">This is another card with title and supporting text below. This card has some additional content to make it slightly taller overall.</p>
-                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                  </div>
-                </div>
-              </div>
-        </div>
-    </section>
+  </section>
 
-    <div class="section-head" id="team">
-        <p class="display-4 text-center text-white">Meet the Team</p>
+  <!-- Heading for section 4 -->
+  <div class="section-head" id="reviews">
+    <p class="display-4 text-center text-white">What our clients say!</p>
+  </div>
+  <!-- section 4 -->
+  <section id="s4">
+    <div class="container mt-4">
+      <div class="card-columns">
+        {{macros.review_card(reviews)}}
+      </div>
+      <div class="link d-flex justify-content-center py-2">
+        <a href="#" class="btn bg-clear-glass btn-outline-warning text-uppercase font-weight-bold">
+          Read all Reviews <i class="fas fa-chevron-right ml-2"></i>
+        </a>
+      </div>
     </div>
-    <section id="s5"></section>
+  </section>
+
+  <!-- Heading for section 5 -->
+  <div class="section-head sec-5" id="team">
+    <p class="display-4 text-center text-white">Most Popular</p>
+  </div>
+  <!-- section 5 -->
+  <section id="s5"></section>
 </div>
 {% endblock body_content %}
 
