@@ -93,10 +93,10 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        My Account
+                        {{current_user.username}}
                     </a>
                     <div class="dropdown-menu dropdown-menu-right shadow" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Account Info</a>
+                        <a class="dropdown-item" href="#">Account</a>
                         <a class="dropdown-item" href="#">My Orders</a>
                         <div class="dropdown-divider bg-dark"></div>
                         <a class="dropdown-item" href=" {{url_for('logout')}} ">Logout</a>
