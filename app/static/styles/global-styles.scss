@@ -168,3 +168,58 @@ header {
     }
 }
 
+.footer {
+    .row {
+        min-height: 50vh;
+        .d-flex {
+            align-items: center;
+        }
+        .btn {
+            border: 0 !important;
+            span {
+                font-weight: 300;
+                letter-spacing: 0.7px;
+            }
+        }
+        .whatsapp {
+            background-color: #25d366;
+            &:hover {
+                background-color: #1fb656;
+            }
+            .fab {
+                font-size: 19px;
+            }
+        }
+        .gmail {
+            background-color: #ea4335;
+            &:hover {
+                background-color: #b83226;
+            }
+        }
+        .instagram {
+            transition: all 0.2s ease;
+            background-color: #fdf497;
+            &:hover {
+                background-color: #d8ce5a;
+            }
+        }
+
+        .card {
+            // border-radius: 0.6rem;
+            .team {
+                justify-content: space-between;
+                flex: 1 3 auto;
+                .dp {
+                    width: 55px;
+                    height: 55px;
+                    border-radius: 50%;
+                    background-color: #03c8a8;
+                    // background-size: contain;
+                }
+                .card-footer {
+                    flex: 1 1 auto;
+                }
+            }
+        }
+    }
+}
