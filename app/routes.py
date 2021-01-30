@@ -9,6 +9,31 @@ from flask.helpers import flash
 from flask.templating import render_template
 from flask_login import login_user, logout_user, current_user
 
+# Temporary variables
+projects = [
+    ('New Age of Professionals', 'Logo Design', 'We had the honor of designing a brand logo for New Age of Professionals, Bhopal, India.', 'BP_home.static', 'images/bg-about-2.jpg'),
+    ('Fun Food & Fasion', 'Logo Design', 'Designed complete brand package logo design for a fashion and lifestyle magazine', 'BP_home.static', 'images/welcome-art.png'),
+    ('Dream Affairs', 'Branding', 'Complete brand package for a wedding phorography studio based out of Bhopal India', 'BP_home.static', 'images/portrait.png'),
+    ('Fun Food & Fashion', 'Poster Design', 'Posters for print and media coverage designed for Fun Food and Fashion Magazine.', 'BP_home.static', 'images/bg-about-2.jpg')
+]
+
+reviews = [
+    ('Its like subway', 'Jane Doe', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys', 'Poster Design', 'January 24, 2020'),
+    ('They make it so easy', 'Someone out there', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus libero endis temporibus reicinostrum eaque, est ad dolor consequuntur, sunt aliquam quasi veniam. Vero deserunt inventore unde, accusantium dolor enim facilis? Vero deserunt inventore unde, accusantium dolor enim facilis?', 'Logo Design', 'June 30, 2020'),
+    ('Reaching audience, simplefied', 'Dr. Reenu Yadav', '', 'Brochures', 'September 01, 2020'),
+    ('Easy Peasy', 'Jane Doe', 'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC', 'PDF Edit', 'October 12, 2020'),
+    ('Right Colors for right occassion', 'Jane Doe', '"Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32', 'Poster Design', 'November 18, 2020'),
+    ('Sound Advice.', 'RD Barman', 'Why do we use it? It is a long established fact that a reader will be distracted by the readable', 'Consultation', 'January 26, 2021'),
+    ('Sound Advice.', 'RD Barman', '"But I must explain to you how all this mistaken idea of denouncing pleasure', 'Other  Stuff', 'January 13, 2021')
+]
+
+services = [
+    ('1', 'Poster Designing', 'Present your audience with the right information, in the right way with our modern, catchy poster designs', '349'),
+    ('2', 'Logo Designing', 'Give your business the identity it needs, choose from our variety of logo design styles and choose the one that reflects your style', '699'),
+    ('1', 'Brochures Designing', 'Let your audience know exactly what you do, just at a glance with the right pick-and-read tool or just a little get-know-us card', '399'),
+]
+
+
 # The App Icon for browsers.
 @app.route('/favicon.ico')
 def favicon():
@@ -17,7 +42,11 @@ def favicon():
 # Redirect to the home-page by default.
 @app.route("/")
 def index():
-    return redirect(url_for("BP_home.home"))
+    return render_template('home.html', title='Home', projects=projects, services=services, reviews=reviews)
+
+@app.route('/services')
+def service_list():
+    return render_template('services.html', title='Services')
 
 # Registration page
 @app.route("/sign-up", methods=['GET', 'POST'])
@@ -72,3 +101,4 @@ def recovery():
     content = [f'Coming Soon', f'This feature is not yet available.']
     flash(content, category='info')
     return render_template('pwd-recovery.html', title="Account Recovery", page="Recover Account")
+
