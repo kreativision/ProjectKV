@@ -28,18 +28,12 @@ var toggleButton = document.querySelector('#pwd-toggle i');
 function togglePassword() {
   passwords.forEach(field => {
     if (field.type == 'text') {
+      toggleButton.classList.replace('fa-eye', 'fa-eye-slash');
       field.type = 'password';
     } else {
       field.type = 'text';
+      toggleButton.classList.replace('fa-eye-slash', 'fa-eye');
     }
   });
-  // toggle the eye icon
-  if (toggleButton.classList.contains('fa-eye')) {
-    toggleButton.classList.remove('fa-eye');
-    toggleButton.classList.add('fa-eye-slash');
-  } else {
-    toggleButton.classList.remove('fa-eye-slash');
-    toggleButton.classList.add('fa-eye');
-  }
   toggleButton.parentElement.blur();
 }
