@@ -20,20 +20,40 @@
 {%- endmacro %}
 
 
-{% macro review_card(reviews=[]) -%}
-{% for title, author, content, service, date in reviews%}
-<div class="card shadow rev border-0 review-{{loop.index0%4}}">
+{% macro review_card(title='', author='', content='', service='', date='', index=0) -%}
+<div class="card shadow rev border-0 review-{{index%4}}">
     <div class="card-header border-0">
         <h5 class="card-title mb-1">{{title}}</h5>
         <small class="card-subtitle font-weight-normal">By {{author}}</small>
     </div>
+    {% if content %}
     <div class="card-body">
         <p class="card-tex">{{content}}</p>
     </div>
+    {% endif %}
     <div class="card-footer border-0 d-flex justify-content-between">
         <small class="font-italic font-weight-bold service">For {{service}}</small>
         <small class="font-italic">Posted on {{date}}</small>
     </div>
 </div>
-{% endfor %}
+{%- endmacro %}
+
+{% macro service(id='', name='', description='', price='') -%}
+<div class="col-md-4 col-sm-12 col-lg-4">
+    <div class="card bg-clear-glass text-white text-center  my-3">
+        <div class="card-header border-0">
+            <h4 class="card-title">{{name}}</h4>
+        </div>
+        <div class="card-body">
+            <p class="card-text">{{description}}</p>
+            <p class="h5">Starting @ just</p>
+            <p class="display-3"><sup class="h2">₹</sup> {{price}}/-</p>
+        </div>
+        <div class="card-footer border-0">
+            <a href="#" class="btn btn-light font-weight-bold text-uppercase">
+                Explore <i class="fas fa-chevron-right ml-2"></i>
+            </a>
+        </div>
+    </div>
+</div>
 {%- endmacro %}

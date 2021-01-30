@@ -25,6 +25,11 @@ $shadow-small: 0px 4px 15px -5px $black-60;
     }
 }
 
+html {
+    background-color: #3f0d12;
+    background-image: linear-gradient(315deg, #3f0d12 0%, #a71d31 74%);
+}
+
 main {
     background-color: #3f0d12;
     background-image: linear-gradient(315deg, #3f0d12 0%, #a71d31 74%);
@@ -50,36 +55,43 @@ main {
             z-index: 1;
         }
     }
+    #offers {
+        position: fixed;
+        bottom: 15px;
+        right: 2%;
+        max-width: 96%;
+        width: 300px;
+        z-index: 25;
+        background-image: linear-gradient(315deg, #f7b42c 0%, #fc575e 74%);
+        border-radius: 0.6rem;
+        button {
+            height: 37px;
+            margin-top: -5px;
+        }
+        a {
+            font-weight: 500;
+        }
+    }
     #s1 {
         height: 100vh;
         padding-top: 56px;
-        .circle1 {
-            position: absolute;
-            bottom: 30px;
-            left: 25px;
-            width: 20vh;
-            height: 20vh;
-            border-radius: 50%;
-            background-image: linear-gradient(315deg, #89d8d3 0%, #03c8a8 74%);
-            z-index: 2;
-        }
+        justify-content: space-around;
         .text-content,
-        .offers {
+        .links {
             z-index: 3;
         }
         .text-content {
-            .links {
-                max-width: 500px;
-                a {
-                    margin-top: 20px;
-                    &:active,
-                    &:focus {
-                        box-shadow: none !important;
-                        outline: none !important;
-                        border: none !important;
-                    }
-                }
+            justify-content: space-around;
+            .display-4 {
+                font-size: 3rem;
+                font-weight: 300;
+                letter-spacing: 1.2px;
             }
+            .tagline {
+                max-width: 98%;
+            }
+        }
+        .links {
         }
         .offers {
             max-width: 500px;
@@ -128,7 +140,11 @@ main {
 
     #s4 {
         .container {
-            z-index: 5;
+            .card {
+                z-index: 2;
+                background-color: rgba($color: #000000, $alpha: 0.3);
+                backdrop-filter: blur(15px);
+            }
         }
         .rev {
             border-radius: 0.7rem;
@@ -139,35 +155,102 @@ main {
 
         .btn {
             letter-spacing: 0.4px;
-            &:hover {
-                color: #e7e7e7;
-                border-color: #e7e7e7;
-            }
         }
 
         // TO change the background color of review card dynamically.
         .review-0 {
-            background-image: linear-gradient(315deg, #20bf55 0%, #01baef 74%);
+            background-image: linear-gradient(135deg, #f9c1b1 0%, #fb8085 74%);
             color: #212529;
         }
 
         .review-1 {
-            background-image: linear-gradient(326deg, #a4508b 0%, #5f0a87 74%);
+            background-image: linear-gradient(135deg, #a4508b 0%, #5f0a87 74%);
             color: #e7e7e7;
         }
 
         .review-2 {
-            background-image: linear-gradient(315deg, #d387ab 0%, #b279a7 74%);
+            background-image: linear-gradient(135deg, #f8ceec 0%, #a88beb 74%);
             color: #212529;
         }
 
         .review-3 {
-            background-image: linear-gradient(315deg, #7f5a83 0%, #0d324d 74%);
+            background-image: linear-gradient(135deg, #7f5a83 0%, #0d324d 74%);
             color: #e7e7e7;
         }
     }
 
     #s5 {
-        height: 100vh;
+        .row {
+            background: url("../images/review-bg.png");
+            .card {
+                border: 1px solid rgba($color: #fff, $alpha: 0.4);
+                border-radius: 0.6rem;
+                transition: all 0.3s ease;
+                box-shadow: 0px 5px 20px -4px rgba($color: #000000, $alpha: 0.3);
+                &:hover {
+                    transform: translatey(-15px);
+                    box-shadow: 0px 5px 20px -4px rgba($color: #000000, $alpha: 0.8);
+                }
+                .btn {
+                    letter-spacing: 0.4px;
+                }
+            }
+        }
+    }
+
+    #s6 {
+        .row {
+            min-height: 50vh;
+            .d-flex {
+                align-items: center;
+            }
+            .btn {
+                border: 0 !important;
+                span {
+                    font-weight: 300;
+                    letter-spacing: 0.7px;
+                }
+            }
+            .whatsapp {
+                background-color: #25d366;
+                &:hover {
+                    background-color: #1fb656;
+                }
+                .fab {
+                    font-size: 19px;
+                }
+            }
+            .gmail {
+                background-color: #ea4335;
+                &:hover {
+                    background-color: #b83226;
+                }
+            }
+            .instagram {
+                transition: all 0.2s ease;
+                background-color: #fdf497;
+                &:hover {
+                    background-color: #d8ce5a;
+                }
+            }
+
+            .card {
+                // border-radius: 0.6rem;
+                .team {
+                    justify-content: space-between;
+                    flex: 1 3 auto;
+                    .dp {
+                        width: 55px;
+                        height: 55px;
+                        border-radius: 50%;
+                        background-color: #03c8a8;
+                        // background-size: contain;
+                    }
+                    .card-footer {
+                        flex: 1 1 auto;
+                    }
+                }
+            }
+        }
     }
 }
