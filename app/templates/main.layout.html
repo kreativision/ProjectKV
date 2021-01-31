@@ -30,7 +30,7 @@
         <nav class="bg-white-glass" id="sidebar">
             <div class="sidebar-header">
                 <span class="ml-auto">
-                    <button type="button" class="btn text-dark" onclick="closeSidebar()">
+                    <button type="button" class="btn text-dark" onclick="toggleSidebar('close')">
                         <i class="fas fa-times"></i>
                     </button>
                 </span>
@@ -80,8 +80,8 @@
         </nav>
 
         <!-- Top Navbar for Desktop Systems -->
-        <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-clear-glass shadow">
-            <button type="button" class="btn ml-0" id="sidebarToggle" onclick="openSidebar()">
+        <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-black-glass shadow">
+            <button type="button" class="btn ml-0" id="sidebarToggle" onclick="toggleSidebar('open')">
                 <i class="fas fa-stream text-white"></i>
             </button>
             <a class="navbar-brand mr-auto ml-2" href="{{url_for('index')}}">KreatiVision PhotoArts</a>
