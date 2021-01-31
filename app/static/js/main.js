@@ -1,24 +1,45 @@
 // Global JavaScript Functions. 
 // Used By All Modules.
+var sidebar = document.querySelector('#sidebar');
+var sidebarToggler = document.querySelector('#sidebarToggle');
 
-// method to close the sidebar on clicking outside the sidebar area
+
+/**
+ * Sidebar menu control function.
+ */
+function toggleSidebar(action) {
+    if (action === 'open') {
+        sidebar.classList.add('active');
+    } else {
+        sidebar.classList.remove('active');
+    }
+}
+
+/**
+ * Method to close the sidebar on clicking outside the sidebar area.
+ */
 document.addEventListener('click', function (e) {
-    if (!document.querySelector('#sidebar').contains(e.target) && !document.querySelector('#sidebarToggle').contains(e.target)) {
-        closeSidebar()
+    if (!sidebar.contains(e.target) && !sidebarToggler.contains(e.target)) {
+        toggleSidebar('close');
     }
 })
 
-// Sidebar menu controls.
-function openSidebar() {
-    document.querySelector('#sidebar').classList.add('active');
-    document.querySelector('#sidebar button').focus();
-}
+/**
+ * Method to set device specific link for the instagram button.
+ */
+document.addEventListener('DOMContentLoaded', () => {
+    isInstaBtnShown = document.querySelector('.instagram');
+    if (isInstaBtnShown && (navigator.userAgent.indexOf('Android') !== -1)) {
+        isInstaBtnShown.setAttribute('href', 'instagram://user?username=kreativision.photoarts');
+    } else {
+        isInstaBtnShown.setAttribute('href', 'https://www.instagram.com/kreativision.photoarts/');
+        isInstaBtnShown.setAttribute('target', '_blank');
+    }
+})
 
-function closeSidebar() {
-    document.querySelector('#sidebar').classList.remove('active');
-}
-
-// toast message control
-$(document).ready(function() {
+/**
+ * Toast notification message control - jQuery.
+ */
+$(document).ready(function () {
     $(".toast").toast('show');
 })

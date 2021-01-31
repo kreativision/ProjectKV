@@ -1,7 +1,14 @@
-// registers form inputs on page load.
+/**
+ * Auth Page Scripts - manipulation of the form-fields on the page.
+ */
 var formFields = document.querySelectorAll('.form-group .form-control, .input-group .form-control');
+var passwords = document.querySelectorAll('input[type="password"]');
+var toggleIcon = document.querySelector('#pwd-toggle i');
 
-// locks the label in the float position if there is value on page-load.
+/**
+ * locks the label in the float position if there is value in it, on page-load.
+ * Also sets the onblur method for each field to check if data is entered and lock label
+ */
 document.addEventListener("DOMContentLoaded", () => {
   formFields.forEach((element) => {
     if (element.value) {
@@ -13,27 +20,21 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
   });
-  // Autofocus the first input element on page load => handled in the form class.
-  // setTimeout(() => {
-  //   formFields[0].focus();
-  // }, 400);
 });
 
-
-// registers password fields on page-load. 
-var passwords = document.querySelectorAll('input[type="password"]');
-var toggleButton = document.querySelector('#pwd-toggle i');
-
-// toggles the visibility of password on checking the checkbox "Show Password".
+/**
+ * toggles the visibility of password on checking the checkbox "Show Password".
+ * Also toggle the icon on click
+ */
 function togglePassword() {
   passwords.forEach(field => {
     if (field.type == 'text') {
-      toggleButton.classList.replace('fa-eye', 'fa-eye-slash');
+      toggleIcon.classList.replace('fa-eye', 'fa-eye-slash');
       field.type = 'password';
     } else {
+      toggleIcon.classList.replace('fa-eye-slash', 'fa-eye');
       field.type = 'text';
-      toggleButton.classList.replace('fa-eye-slash', 'fa-eye');
     }
   });
-  toggleButton.parentElement.blur();
+  toggleIcon.parentElement.blur();
 }
