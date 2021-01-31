@@ -1,6 +1,6 @@
 {% extends 'main.layout.html' %}
 {% set active='services' %}
-
+{% import 'home_macros.html' as macros %}
 
 {% block page_style%}
 <link rel="stylesheet" href="{{url_for('BP_home.static', filename='styles/BP_home.css')}}">
@@ -11,25 +11,19 @@
 <p class="container display-4 text-center section-head text-light">Our Services</p>
 
 <section id="service_list">
-    <div id="logos" class="container bg-warning shadow py-4 service-name">
-        <p class="h2 pb-3 border-bottom border-dark">Logo Design</p>
-        <div class="content d-flex">
-            <p class="w-50 mb-0">Your logo becomes the face of your business. <span class="font-weight-bold">Did you know there are many different types of logos?</span></p>
-            <a onclick="flipIcon(this)" data-target="#logoOptions" data-toggle="collapse" role="button" aria-expanded="false"
-                aria-controls="logoOptions" class="ml-auto btn btn-dark border-0 shadow">
-                <span>EXPLORE</span> <i class="fas fa-chevron-down ml-2"></i>
-            </a>
-        </div>
-    </div>
+    {{macros.expandable_service(id='logos', name='Logo Design', description='Your logo becomes the face of your
+    business. Did you know there are many different types of logos?', target='logoOptions')}}
     <div class="collapse container mt-3 px-2 py-0" id="logoOptions">
         <div class="row row-cols-1 row-cols-md-3">
             <div class="col mb-3">
-                <div class="card shadow bg-white-glass text-dark border-0">
+                <div class="card shadow review-2 border-0">
                     <div class="card-body">
                         <h3 class="card-title text-center">Monogram Logo</h3>
-                        <p class="card-text">Monogram logos or lettermarks are logos that consist of letters, usually brand initials. <span class="font-italic">IBM, CNN, HP, HBO. . .</span> Basically acronyms usually a company’s initials</p>
-                        <p class="h5">Get yours @ just</p>
-                        <p class="display-4 text-center"><sup class="h2">₹</sup> 1999/-</p>
+                        <p class="card-text">Monogram logos or lettermarks are logos that consist of letters, usually
+                            brand initials. <span class="font-italic">IBM, CNN, HP, HBO. . .</span> Basically acronyms
+                            usually a company’s initials</p>
+                        <p class="h5 text-center">Get yours @ just</p>
+                        <p class="display-4 text-center text-warning shadow rounded bg-dark"><sup class="h2">₹</sup> 1999/-</p>
                     </div>
                     <div class="card-footer border-0 d-flex justify-content-center">
                         <a href="#" class="btn btn-dark border-0 shadow font-weight-bold">
@@ -39,12 +33,14 @@
                 </div>
             </div>
             <div class="col mb-3">
-                <div class="card shadow bg-white-glass text-dark border-0">
+                <div class="card shadow review-2 border-0">
                     <div class="card-body">
                         <h3 class="card-title text-center">Wordmark Logo</h3>
-                        <p class="card-text">Similar to a lettermark, a wordmark or logotype is a font-based logo that focuses on a business’ name alone. Think <span class="font-italic">Visa</span> and <span class="font-italic">Coca-Cola</span></p>
-                        <p class="h5">Get yours @ just</p>
-                        <p class="display-4 text-center"><sup class="h2">₹</sup> 1199/-</p>
+                        <p class="card-text">Similar to a lettermark, a wordmark or logotype is a font-based logo that
+                            focuses on a business’ name alone. Think <span class="font-italic">Visa</span> and <span
+                                class="font-italic">Coca-Cola</span></p>
+                        <p class="h5 text-center">Get yours @ just</p>
+                        <p class="display-4 text-center text-warning shadow rounded bg-dark"><sup class="h2">₹</sup> 1199/-</p>
                     </div>
                     <div class="card-footer border-0 d-flex justify-content-center">
                         <a href="#" class="btn btn-dark border-0 shadow font-weight-bold">
@@ -54,12 +50,13 @@
                 </div>
             </div>
             <div class="col mb-3">
-                <div class="card shadow bg-white-glass text-dark border-0">
+                <div class="card shadow review-2 border-0">
                     <div class="card-body">
                         <h3 class="card-title text-center">Symbol Logo</h3>
-                        <p class="card-text">A pictorial mark (sometimes called brand mark or logo symbol) is an icon—or graphic-based logo. For Example the logo of <span class="font-italic">Apple</span></p>
-                        <p class="h5">Get yours @ just</p>
-                        <p class="display-4 text-center"><sup class="h2">₹</sup> 2499/-</p>
+                        <p class="card-text">A pictorial mark (sometimes called brand mark or logo symbol) is an icon—or
+                            graphic-based logo. For Example the logo of <span class="font-italic">Apple</span></p>
+                        <p class="h5 text-center">Get yours @ just</p>
+                        <p class="display-4 text-center text-warning shadow rounded bg-dark"><sup class="h2">₹</sup> 2499/-</p>
                     </div>
                     <div class="card-footer border-0 d-flex justify-content-center">
                         <a href="#" class="btn btn-dark border-0 shadow font-weight-bold">
@@ -69,12 +66,14 @@
                 </div>
             </div>
             <div class="col mb-3">
-                <div class="card shadow bg-white-glass text-dark border-0">
+                <div class="card shadow review-2 border-0">
                     <div class="card-body">
                         <h3 class="card-title text-center">Mascot Logo</h3>
-                        <p class="card-text">Mascot logos are logos that involve an illustrated character. Often colorful, sometimes cartoonish, and most always fun, like the <span class="font-italic">Colonel from KFC</span></p>
-                        <p class="h5">Get yours @ just</p>
-                        <p class="display-4 text-center"><sup class="h2">₹</sup> 3499/-</p>
+                        <p class="card-text">Mascot logos are logos that involve an illustrated character. Often
+                            colorful, sometimes cartoonish, and most always fun, like the <span
+                                class="font-italic">Colonel from KFC</span></p>
+                        <p class="h5 text-center">Get yours @ just</p>
+                        <p class="display-4 text-center text-warning shadow rounded bg-dark"><sup class="h2">₹</sup> 3499/-</p>
                     </div>
                     <div class="card-footer border-0 d-flex justify-content-center">
                         <a href="#" class="btn btn-dark border-0 shadow font-weight-bold">
@@ -84,12 +83,14 @@
                 </div>
             </div>
             <div class="col mb-3">
-                <div class="card shadow bg-white-glass text-dark border-0">
+                <div class="card shadow review-2 border-0">
                     <div class="card-body">
                         <h3 class="card-title text-center">Combination Logo</h3>
-                        <p class="card-text">A combination mark is a logo comprised of a combined wordmark or lettermark and a pictorial mark, abstract mark, or mascot. For example, <span class="font-italic">Burger King</span></p>
-                        <p class="h5">Get yours @ just</p>
-                        <p class="display-4 text-center"><sup class="h2">₹</sup> 3999/-</p>
+                        <p class="card-text">A combination mark is a logo comprised of a combined wordmark or lettermark
+                            and a pictorial mark, abstract mark, or mascot. For example, <span
+                                class="font-italic">Burger King</span></p>
+                        <p class="h5 text-center">Get yours @ just</p>
+                        <p class="display-4 text-center text-warning shadow rounded bg-dark"><sup class="h2">₹</sup> 3999/-</p>
                     </div>
                     <div class="card-footer border-0 d-flex justify-content-center">
                         <a href="#" class="btn btn-dark border-0 shadow font-weight-bold">
@@ -99,12 +100,14 @@
                 </div>
             </div>
             <div class="col mb-3">
-                <div class="card shadow bg-white-glass text-dark border-0">
+                <div class="card shadow review-2 border-0">
                     <div class="card-body">
                         <h3 class="card-title text-center">Emblem Logo</h3>
-                        <p class="card-text">An emblem logo consists of font inside a symbol or an icon; think badges, seals and crests. Like that of <span class="font-italic">Starbucks</span> or <span class="font-italic">Harley Davidson</span></p>
-                        <p class="h5">Get yours @ just</p>
-                        <p class="display-4 text-center"><sup class="h2">₹</sup> 4999/-</p>
+                        <p class="card-text">An emblem logo consists of font inside a symbol or an icon; think badges,
+                            seals and crests. Like that of <span class="font-italic">Starbucks</span> or <span
+                                class="font-italic">Harley Davidson</span></p>
+                        <p class="h5 text-center">Get yours @ just</p>
+                        <p class="display-4 text-center text-warning shadow rounded bg-dark"><sup class="h2">₹</sup> 4999/-</p>
                     </div>
                     <div class="card-footer border-0 d-flex justify-content-center">
                         <a href="#" class="btn btn-dark border-0 shadow font-weight-bold">
@@ -117,16 +120,8 @@
     </div>
 
 
-    <div class="container bg-warning shadow py-4 service-name mt-3">
-        <p class="h2 pb-3 border-bottom border-dark">Poster Design</p>
-        <div class="content d-flex">
-            <p class="w-50 mb-0">Whether you want to take it to the internet, or prints on a college campus, or a large banner by the highway, we do it all.</p>
-            <a onclick="flipIcon(this)" data-target="#posterOptions" data-toggle="collapse" role="button" aria-expanded="false"
-                aria-controls="logoOptions" class="ml-auto btn btn-dark border-0 shadow">
-                <span>EXPLORE</span> <i class="fas fa-chevron-down ml-2"></i>
-            </a>
-        </div>
-    </div>
+    {{macros.expandable_service(id='posters', name='Poster Design', description='Whether you want to take it to the internet, or prints on a college campus, or a large
+    banner by the highway, we do it all!', target='posterOptions')}}
     <div class="collapse container mt-3 p-0" id="posterOptions">
         {% include 'coming-soon.html' %}
     </div>

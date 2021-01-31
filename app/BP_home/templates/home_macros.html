@@ -38,7 +38,7 @@
 </div>
 {%- endmacro %}
 
-{% macro service(id='', name='', description='', price='') -%}
+{% macro service_gallery_item(id='', name='', description='', price='') -%}
 <div class="col-md-4 col-sm-12 col-lg-4">
     <div class="card bg-black-glass text-white text-center  my-3">
         <div class="card-header border-0">
@@ -54,6 +54,19 @@
                 Explore <i class="fas fa-chevron-right ml-2"></i>
             </a>
         </div>
+    </div>
+</div>
+{%- endmacro %}
+
+{% macro expandable_service(id='', target='', name='', description='') -%}
+<div id="{{id}}" class="container review-3 shadow py-4 service-name my-2">
+    <p class="h2 pb-3">{{name}}</p>
+    <div class="content d-flex">
+        <p class="w-50 mb-0"><span>{{description}}</span> <span class="font-weight-bold">{{bold_text}}</span></p>
+        <a onclick="flipIcon(this)" data-target="#{{target}}" data-toggle="collapse" role="button" aria-expanded="false"
+            aria-controls="{{target}}" class="ml-auto mr-2 btn btn-light border-0 shadow">
+            <span class="font-weight-bold">EXPLORE</span> <i class="fas fa-chevron-down ml-2"></i>
+        </a>
     </div>
 </div>
 {%- endmacro %}
