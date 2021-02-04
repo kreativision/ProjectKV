@@ -8,7 +8,7 @@ $shadow-small: 0px 4px 15px -5px $black-60;
 @media only screen and (max-width: 768px) {
     #s3 .projects {
         flex-direction: column;
-        .project img.col-backdrop {
+        .project .col-backdrop {
             width: 100vw;
             height: 62vh;
         }
@@ -18,21 +18,16 @@ $shadow-small: 0px 4px 15px -5px $black-60;
 @media only screen and (min-width: 768px) {
     #s3 .projects {
         flex-direction: row;
-        .project img.col-backdrop {
+        .project .col-backdrop {
             width: 25vw;
             height: 100vh;
         }
     }
 }
 
-html {
-    background-image: linear-gradient(315deg, #36096d 0%, #37d5d6 74%);
-}
-
 main {
     background-image: linear-gradient(315deg, #36096d 0%, #37d5d6 74%);
     scroll-behavior: smooth;
-    overflow-x: hidden;
 }
 
 .section-head {
@@ -63,7 +58,6 @@ main {
     section {
         width: 100%;
         position: relative;
-        // overflow-x: hidden;
         .section-background {
             width: 100vw;
             height: 100vh;
@@ -110,8 +104,6 @@ main {
             .tagline {
                 max-width: 98%;
             }
-        }
-        .links {
         }
         .offers {
             max-width: 500px;
@@ -201,16 +193,14 @@ main {
 
 #service_list {
     min-height: 100vh;
-    width: 100%;
     .service-name {
-        border-radius: 0.5rem;
         .content {
             align-items: center;
         }
     }
-    #logos {
-        & ~ .collapse {
-            // background: url("../images/review-bg.png");
-        }
+
+    .container-fluid {
+        margin-top: -60px;
+        padding-top: 60px;
     }
 }

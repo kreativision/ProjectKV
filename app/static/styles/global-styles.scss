@@ -17,11 +17,18 @@ $sidebar-shadow: 4px 0px 25px 5px $black-50;
 
 body {
     overflow: hidden;
-}
-
-main {
-    height: 100vh;
-    overflow-y: scroll;
+    header {
+        display: flex;
+        width: 100%;
+        align-items: stretch;
+        background-color: transparent !important;
+    }
+    main {
+        height: 100vh;
+        overflow-y: scroll;
+        overflow-x: hidden;
+        padding-top: 56px;
+    }
 }
 
 // media queries to make the navigation bar responsive
@@ -48,12 +55,6 @@ main {
         top: 65px;
         right: 35px;
     }
-}
-
-header {
-    display: flex;
-    width: 100%;
-    align-items: stretch;
 }
 
 .fixed-top {
@@ -135,7 +136,8 @@ header {
 // globally changing the buttons
 .btn {
     border-radius: 30px;
-    &:focus, &:active {
+    &:focus,
+    &:active {
         box-shadow: none !important;
         outline: none !important;
         border: none !important;
@@ -213,8 +215,8 @@ header {
                     width: 55px;
                     height: 55px;
                     border-radius: 50%;
-                    background-color: #03c8a8;
-                    // background-size: contain;
+                    background-color: transparent;
+                    border: 5px double #25d366;
                 }
                 .card-footer {
                     flex: 1 1 auto;
