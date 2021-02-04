@@ -26,105 +26,96 @@
 
 <body>
     <header>
+        <!-- Nav Links Configuration -->
+        {% if current_user.is_authenticated %}
+            {% set navItems = [
+                (url_for('index'), 'home', 'Home'),
+                (url_for('service_list'), 'services', 'Services'),
+                ('#', '#', 'Account Info'),
+                ('#', '#', 'My Orders'),
+                (url_for('logout'), 'logout', 'Logout')
+            ] %}
+        {% else %}
+            {% set navItems = [
+                (url_for('index'), 'home', 'Home'),
+                (url_for('service_list'), 'services', 'Services'),
+                (url_for('login'), 'login', 'Login'),
+                (url_for('sign_up'), 'register', 'Register'),
+            ] %}
+        {% endif %}
+
+        {% set active = active|default('home') -%}
+        
         <!-- Sidebar for Mobile Devices -->
-        <nav class="bg-white-glass" id="sidebar">
+        <nav class="bg-black-glass" id="sidebar">
             <div class="sidebar-header">
                 <span class="ml-auto">
-                    <button type="button" class="btn text-dark" onclick="toggleSidebar('close')">
+                    <button type="button" class="btn text-light" onclick="toggleSidebar('close')">
                         <i class="fas fa-times"></i>
                     </button>
                 </span>
             </div>
-
             <ul class="list-unstyled text-white">
-                {% set nav_links =
-                [
-                    (url_for('index'), 'home', 'Home'),
-                    (url_for('service_list'), 'services', 'Services')
-                ]
-                -%}
-                {% set active = active|default('home') -%}
-                {% for href, id, caption in nav_links %}
+                {% for href, id, caption in navItems %}
                 <li class="{{'active' if active==id else ''}}">
-                    <a href="{{href|e}}" class="nav-link text-dark">
+                    <a href="{{href|e}}" class="nav-link text-light">
                         {{caption|e}}<i class="fas fa-chevron-right ml-auto mr-3 mt-1"></i>
                     </a>
                 </li>
                 {% endfor %}
-
-                {% if current_user.is_authenticated %}
-                <li>
-                    <a href="#" class="nav-link text-dark">
-                        Account Info<i class="fas fa-chevron-right ml-auto mr-3 mt-1"></i>
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="nav-link text-dark">
-                        My Orders<i class="fas fa-chevron-right ml-auto mr-3 mt-1"></i>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{url_for('logout')}}" class="nav-link text-dark">
-                        Logout<i class="fas fa-chevron-right ml-auto mr-3 mt-1"></i>
-                    </a>
-                </li>
-                {% else %}
-                <li class="{{'active' if active=='login' else ''}}">
-                    <a href="{{url_for('login')}}" class="nav-link text-dark">
-                        Login<i class="fas fa-chevron-right ml-auto mr-3 mt-1"></i>
-                    </a>
-                </li>
-                {% endif %}
-
             </ul>
         </nav>
 
-        <!-- Top Navbar for Desktop Systems -->
+        <!-- Top Navbar for Desktops -->
         <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-black-glass shadow">
             <button type="button" class="btn ml-0" id="sidebarToggle" onclick="toggleSidebar('open')">
                 <i class="fas fa-stream text-white"></i>
             </button>
             <a class="navbar-brand mr-auto ml-2" href="{{url_for('index')}}">KreatiVision PhotoArts</a>
             <ul class="navbar-nav ml-auto mr-4" id="topBar">
-                {% for href, id, caption in nav_links %}
+                <!-- If Logged In -->
+                {% if current_user.is_authenticated %}
+                {% for href, id, caption in navItems[0:-3] %}
                 <li class="{{'nav-item active' if active==id else 'nav-item'}}">
                     <a href="{{href|e}}" class="nav-link">{{caption|e}}</a>
                 </li>
                 {% endfor %}
-
-                {% if current_user.is_authenticated %}
+                <!-- Dropdown -->
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         {{current_user.username}}
                     </a>
                     <div class="dropdown-menu dropdown-menu-right shadow" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Account</a>
-                        <a class="dropdown-item" href="#">My Orders</a>
+                        {% for href, id, caption in navItems[-3:-1] %}
+                        <a href="{{href|e}}" class="dropdown-item">{{caption|e}}</a>
+                        {% endfor %}
                         <div class="dropdown-divider bg-dark"></div>
-                        <a class="dropdown-item" href=" {{url_for('logout')}} ">Logout</a>
+                        {% for href, id, caption in navItems[-1:] %}
+                        <a href="{{href|e}}" class="dropdown-item">{{caption|e}}</a>
+                        {% endfor %}
                     </div>
                 </li>
                 {% else %}
-                <li class="{{'nav-item active' if active=='login' else 'nav-item'}}">
-                    <a href="{{url_for('login')}}" class="nav-link">Login</a>
+                <!-- If Not Logged In -->
+                {% for href, id, caption in navItems %}
+                <li class="{{'nav-item active' if active==id else 'nav-item'}}">
+                    <a href="{{href|e}}" class="nav-link">{{caption|e}}</a>
                 </li>
+                {% endfor %}
                 {% endif %}
             </ul>
         </nav>
     </header>
 
     <main class="content">
+        <!-- Toast messages -->
         {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
         {% for category, content in messages %}
-        <!-- <div class="alert alert-{{category}}">{{content[0]}}</div> -->
         <div class="toast shadow" role="alert" aria-live="assertive" aria-atomic="true" data-delay="4000">
             <div class="toast-header">
                 <strong class="mr-auto text-{{category}}">{{content[0]}}</strong>
-                <!-- <button type="button" class="ml-2 mb-1 close" data-dismiss="toast">
-                    <small class="text-muted"><i class="fas fa-times"></i></small>
-                </button> -->
             </div>
             <div class="toast-body">
                 {{content[1]}}
@@ -133,7 +124,8 @@
         {% endfor %}
         {% endif %}
         {% endwith %}
-        <!-- Main Body Content Block -->
+
+        <!-- Main Body Content Block Placeholder-->
         {% block body_content %} {% endblock %}
     </main>
 
@@ -144,7 +136,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
         crossorigin="anonymous"></script>
-    <!-- Main JS Script -->
+    <!-- Global JS Script -->
     <script src="{{url_for('static', filename='js/main.js')}}"></script>
     <!-- Block to include module specific scripts -->
     {% block page_scripts%} {% endblock %}
