@@ -28,12 +28,15 @@ document.addEventListener('click', function (e) {
  * Method to set device specific link for the instagram button.
  */
 document.addEventListener('DOMContentLoaded', () => {
-    isInstaBtnShown = document.querySelector('.instagram');
-    if (isInstaBtnShown && (navigator.userAgent.indexOf('Android') !== -1)) {
-        isInstaBtnShown.setAttribute('href', 'instagram://user?username=kreativision.photoarts');
-    } else {
-        isInstaBtnShown.setAttribute('href', 'https://www.instagram.com/kreativision.photoarts/');
-        isInstaBtnShown.setAttribute('target', '_blank');
+    if (document.querySelector('.footer')) {
+        let instaBtn = document.querySelector('.instagram');
+        // let waBtn = document.querySelector('.whatsapp');
+        if ((navigator.userAgent.indexOf('Android') !== -1)) {
+            instaBtn.setAttribute('href', 'instagram://user?username=kreativision.photoarts');
+        } else {
+            instaBtn.setAttribute('href', 'https://www.instagram.com/kreativision.photoarts/');
+            instaBtn.setAttribute('target', '_blank');
+        }
     }
 })
 
