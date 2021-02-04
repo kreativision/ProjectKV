@@ -2,12 +2,13 @@
 import os
 from flask import redirect, url_for, send_from_directory
 from app import app, db, encryptor
-from app.models import User
+from app.models import User, Service, Catalogue
 from app.BP_auth.forms import LoginForm, RegistrationForm
 from markupsafe import Markup
 from flask.helpers import flash
 from flask.templating import render_template
 from flask_login import login_user, logout_user, current_user
+from app.BP_home.home_constants import HomeConstants, ServicesConstants
 
 # Temporary variables
 projects = [
@@ -27,26 +28,21 @@ reviews = [
     ('Sound Advice.', 'RD Barman', '"But I must explain to you how all this mistaken idea of denouncing pleasure', 'Other  Stuff', 'January 13, 2021')
 ]
 
-services = [
-    ('1', 'Poster Designing', 'Present your audience with the right information, in the right way with our modern, catchy poster designs', '349'),
-    ('2', 'Logo Designing', 'Give your business the identity it needs, choose from our variety of logo design styles and choose the one that reflects your style', '699'),
-    ('1', 'Brochures Designing', 'Let your audience know exactly what you do, just at a glance with the right pick-and-read tool or just a little get-know-us card', '399'),
-]
-
-
 # The App Icon for browsers.
 @app.route('/favicon.ico')
 def favicon():
     return send_from_directory(os.path.join(app.root_path, 'static'), 'images/favicon.ico', mimetype='image/vnd.microsoft.icon')
 
-# Redirect to the home-page by default.
 @app.route("/")
 def index():
-    return render_template('home.html', title='Home', projects=projects, services=services, reviews=reviews)
+    catalogue = Catalogue.query.order_by(Catalogue.start_price).all()
+    return render_template('home.html', title='Home', projects=projects, services=catalogue, reviews=reviews, labels=HomeConstants.labels)
 
+# Services List
 @app.route('/services')
 def service_list():
-    return render_template('services.html', title='Services')
+    catalogue = Catalogue.query.all()
+    return render_template('services.html', title='Services', catalogue=catalogue, labels=ServicesConstants.labels)
 
 # Registration page
 @app.route("/sign-up", methods=['GET', 'POST'])
@@ -89,6 +85,7 @@ def login():
             flash(content, category='danger')
     return render_template("login.html", title="Login", page="Login. . .", form=form)
 
+# Logou User
 @app.route("/logout")
 def logout():
     logout_user()
