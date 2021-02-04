@@ -10,10 +10,11 @@ function dismissOffer() {
 }
 
 /**
- * Check if user navigated to services page by clicking on a specific service link, and opens that.
+ * page load events.
  */
 document.addEventListener('DOMContentLoaded', () => {
-    if (location.href.includes('#')) {
+    // Services page navigation behaviours
+    if (location.href.includes('services#')) {
         let section = location.href.substr(location.href.indexOf('#'));
         let collapseParent = document.querySelector(section + 'Parent');
         collapseParent.scrollIntoView();
@@ -26,8 +27,8 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 /**
- * Inverts the text and icon for the specific EXPLORE button that's clicked.
- * @param {*} button HTML element which needs to be modified.
+ * Inverts the text and icon for the specific EXPLORE button that's clicked on a catalog item.
+ * @param button HTML element which needs to be modified.
  */
 function flipIcon(button) {
     icon = button.querySelector('i');
@@ -40,4 +41,3 @@ function flipIcon(button) {
         text.innerHTML = 'EXPLORE';
     }
 }
-

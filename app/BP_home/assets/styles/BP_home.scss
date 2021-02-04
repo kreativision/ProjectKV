@@ -5,16 +5,50 @@ $black-60: rgba(
 );
 $shadow-small: 0px 4px 15px -5px $black-60;
 
+// handset media query
 @media only screen and (max-width: 768px) {
-    #s3 .projects {
-        flex-direction: column;
-        .project .col-backdrop {
-            width: 100vw;
-            height: 62vh;
+    .repos-header {
+        text-align: center;
+    }
+    #intro {
+        #brand,
+        #about {
+            width: 100% !important;
+        }
+        #links {
+            flex-direction: column !important;
+            a {
+                margin-right: auto !important;
+            }
+        }
+        #artwork img {
+            width: 350px !important;
+            height: 350px !important;
+            opacity: 0.2;
+            z-index: 1;
+            left: 0px !important;
+            top: 20px !important;
+        }
+    }
+
+    #projectGallery .gallery-item {
+        flex-direction: column-reverse !important;
+        height: auto !important;
+        .about,
+        .carousel {
+            width: 100% !important;
+            padding: 10px !important;
+        }
+        .carousel-item {
+            height: 220px !important;
+        }
+        .about {
+            margin-top: 10px;
         }
     }
 }
 
+// desktop media query
 @media only screen and (min-width: 768px) {
     #s3 .projects {
         flex-direction: row;
@@ -25,9 +59,12 @@ $shadow-small: 0px 4px 15px -5px $black-60;
     }
 }
 
+html {
+    background-image: linear-gradient(to right, #311b61, #0f001f);
+}
+
 main {
-    background-image: linear-gradient(315deg, #36096d 0%, #37d5d6 74%);
-    scroll-behavior: smooth;
+    background-image: linear-gradient(to right, #311b61, #0f001f);
 }
 
 .section-head {
@@ -54,19 +91,12 @@ main {
     color: #e7e7e7;
 }
 
-.sections {
+.home-sections {
     section {
         width: 100%;
         position: relative;
-        .section-background {
-            width: 100vw;
-            height: 100vh;
-            position: absolute;
-            top: 0;
-            left: 0;
-            overflow: hidden;
-            object-fit: cover;
-            z-index: 1;
+        .container {
+            z-index: 10;
         }
     }
     #offers {
@@ -86,71 +116,55 @@ main {
             font-weight: 500;
         }
     }
-    #s1 {
-        height: 100vh;
-        padding-top: 56px;
-        justify-content: space-around;
-        .text-content,
-        .links {
-            z-index: 3;
+
+    #intro {
+        height: calc(100vh - 56px);
+        justify-content: space-evenly;
+        #welcomeLabel,
+        #tagline {
+            color: #ffbd69;
         }
-        .text-content {
-            justify-content: space-around;
-            .display-4 {
-                font-size: 3rem;
-                font-weight: 300;
-                letter-spacing: 1.2px;
-            }
-            .tagline {
-                max-width: 98%;
-            }
+        #brand,
+        #about {
+            width: 50%;
         }
-        .offers {
-            max-width: 500px;
-            background-image: linear-gradient(315deg, #89d8d3 15%, #03c8a8 74%);
-            border-radius: 1rem;
+        #brand {
+            color: #ff6363;
+            letter-spacing: 1.2px;
+        }
+        #mainBtn {
+            background-color: #ff6363;
+        }
+        #artwork img {
+            width: 500px;
+            height: 500px;
+            position: absolute;
+            top: 70px;
+            right: 100px;
         }
     }
 
-    #s2 {
-        height: 100vh;
-    }
-
-    #s3 {
-        .projects .project {
-            overflow: hidden;
-            position: relative;
-            img.col-backdrop {
-                overflow: hidden;
-                object-fit: cover;
-                z-index: 1;
-                transition: all 0.3s ease-in-out;
-                &:hover {
-                    z-index: 2;
-                    transform: scale(1.1);
+    #projectGallery {
+        .gallery-item {
+            height: 300px;
+            margin-bottom: 40px;
+            .about {
+                width: 60%;
+                padding: 0px 20px;
+            }
+            .carousel {
+                width: 40%;
+                .carousel-item {
+                    height: 300px;
+                    img {
+                        margin: auto !important;
+                    }
                 }
             }
-            .content {
-                width: 90%;
-                border-radius: 1rem;
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                z-index: 3;
-                height: 65%;
-                display: flex;
-                flex-direction: column;
-                justify-content: space-evenly;
-            }
-            .links .btn {
-                width: 2rem;
-                height: 2rem;
-            }
         }
     }
 
-    #s4 {
+    #reviewGallery {
         .container {
             .card {
                 z-index: 2;
@@ -170,7 +184,7 @@ main {
         }
     }
 
-    #s5 {
+    #serviceGallery {
         .row {
             background: url("../images/review-bg.png");
             .card {
