@@ -1,5 +1,6 @@
 from markupsafe import Markup
 
+
 class HomeConstants:
     labels = {
         "tncs": "TnC's Apply *",
@@ -11,12 +12,13 @@ class HomeConstants:
         "servicesHead": "Popular Services",
         "allServicesCTA": "BROWSE ALL SERVICES",
         "allProjectsCTA": "SEE ALL PROJECTS",
-        "reviewHead": "What our Clients Say"
+        "reviewHead": "What our Clients Say",
     }
 
-class ServicesConstants: 
+
+class ServicesConstants:
     labels = {
         "heading": "Our Services",
         "getYours": "Get yours @ just",
-        "makeThis": "CUSTOMIZE"
+        "makeThis": "CUSTOMIZE",
     }

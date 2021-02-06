@@ -29,18 +29,18 @@
         <!-- Nav Links Configuration -->
         {% if current_user.is_authenticated %}
             {% set navItems = [
-                (url_for('index'), 'home', 'Home'),
-                (url_for('service_list'), 'services', 'Services'),
+                (url_for('BP_home.home'), 'home', 'Home'),
+                (url_for('BP_home.service_list'), 'services', 'Services'),
                 ('#', '#', 'Account Info'),
                 ('#', '#', 'My Orders'),
-                (url_for('logout'), 'logout', 'Logout')
+                (url_for('BP_auth.logout'), 'logout', 'Logout')
             ] %}
         {% else %}
             {% set navItems = [
-                (url_for('index'), 'home', 'Home'),
-                (url_for('service_list'), 'services', 'Services'),
-                (url_for('login'), 'login', 'Login'),
-                (url_for('sign_up'), 'register', 'Register'),
+                (url_for('BP_home.home'), 'home', 'Home'),
+                (url_for('BP_home.service_list'), 'services', 'Services'),
+                (url_for('BP_auth.login'), 'login', 'Login'),
+                (url_for('BP_auth.sign_up'), 'register', 'Register'),
             ] %}
         {% endif %}
 
@@ -71,7 +71,7 @@
             <button type="button" class="btn ml-0" id="sidebarToggle" onclick="toggleSidebar('open')">
                 <i class="fas fa-stream text-white"></i>
             </button>
-            <a class="navbar-brand mr-auto ml-2" href="{{url_for('index')}}">KreatiVision PhotoArts</a>
+            <a class="navbar-brand mr-auto ml-2" href="{{url_for('BP_home.home')}}">KreatiVision PhotoArts</a>
             <ul class="navbar-nav ml-auto mr-4" id="topBar">
                 <!-- If Logged In -->
                 {% if current_user.is_authenticated %}
