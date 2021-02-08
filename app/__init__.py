@@ -4,6 +4,8 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
+from flask_mail import Mail
+import os
 
 # Blueprints.
 from app.BP_home import BP_home
@@ -11,15 +13,25 @@ from app.BP_auth import BP_auth
 
 # App config.
 app = Flask(__name__)
-app.config["SECRET_KEY"] = "72a11398ef34db96b2cc6293218cbf48"
+app.config["SECRET_KEY"] = os.environ.get('FLASK_APP_KEY')
 
 # Database config.
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///database/databse.db"
+app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get('FLASK_DB_URI')
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy(app)
 
-# Other config
+# Mail Configuration.
+app.config["MAIL_SERVER"] = "smtp.googlemail.com"
+app.config["MAIL_PORT"] = 587
+app.config["MAIL_USE_TLS"] = True
+app.config["MAIL_USERNAME"] = os.environ.get("FLASK_MAIL_ID")
+app.config["MAIL_PASSWORD"] = os.environ.get("FLASK_MAIL_PWD")
+mail = Mail(app)
+
+# BCrypt for password encryption.
 encryptor = Bcrypt(app)
+
+# LoginManager for managing user sessions.
 logger = LoginManager(app)
 
 
@@ -50,10 +62,10 @@ def create():
     print("====> Adding Users ")
     # Adding users
     tester = User(
-        username="test user",
-        email="testuser@kv.com",
-        contact="9876543210",
-        password=encryptor.generate_password_hash("testuser").decode("utf-8"),
+        username="Amittras Pal",
+        email="pal.amittras@gmail.com",
+        contact="8871822617",
+        password=encryptor.generate_password_hash("password").decode("utf-8"),
     )
     admin = User(
         username="admin user",
