@@ -2,3 +2,5 @@
 /venv
 __pycache__
 /app/static/fontawesome
+/app/static/images/examples.ai
+/testScripts.py
