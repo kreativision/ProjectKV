@@ -28,33 +28,21 @@ $invalid-field: rgba(
     $alpha: 1,
 );
 
-html {
-    background-image: url("../../../static/images/backdrops-01.jpg");
+main {
+    background-image: linear-gradient(315deg, #0cbaba 0%, #380036 74%);
+    // height: 100vh;
+    // padding-top: 60px;
 }
 
-// .alert {
-//     border-radius: 1rem;
-// }
-
 .card {
-    box-shadow: $shadow-large;
     border-radius: 1rem;
-    border-top: 2px solid $white-25;
-    border-left: 2px solid $white-25;
-    border-right: none;
-    border-bottom: none;
-    background-color: $white-60;
-
-    .btn-block {
-        box-shadow: $shadow-small;
-    }
+    border: none;
+    // .btn-block {
+    //     box-shadow: $shadow-small;
+    // }
 }
 
 fieldset {
-    #username {
-        text-transform: capitalize;
-    }
-
     .options {
         display: flex;
     }
@@ -81,6 +69,7 @@ fieldset {
             border-radius: 0px !important;
             padding-left: 0px !important;
             transition: all 0.3s ease;
+            box-shadow: none !important;
             ~ .form-control-label {
                 color: $black-45;
                 margin-bottom: 0px !important;

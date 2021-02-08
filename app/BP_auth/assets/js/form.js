@@ -1,51 +1,40 @@
-// registers form inputs on page load.
-var formFields;
-// locks the label in the float if text is entered into it. 
-// otherwise restores the label in it's default position.
+/**
+ * Auth Page Scripts - manipulation of the form-fields on the page.
+ */
+var formFields = document.querySelectorAll('.form-group .form-control, .input-group .form-control');
+var passwords = document.querySelectorAll('input[type="password"]');
+var toggleIcon = document.querySelector('#pwd-toggle i');
+
+/**
+ * locks the label in the float position if there is value in it, on page-load.
+ * Also sets the onblur method for each field to check if data is entered and lock label
+ */
 document.addEventListener("DOMContentLoaded", () => {
-  formFields = document.querySelectorAll('.form-group .form-control, .input-group .form-control');
-  formFields.forEach((e) => {
-    if (e.value != '') {
-      e.parentNode.querySelector('label').classList.add('active');
-    } else {
-      e.parentNode.querySelector('label').classList.remove('active');
+  formFields.forEach((element) => {
+    if (element.value) {
+      element.parentNode.querySelector('label').classList.add('active');
     }
-    e.onblur = function () {
-      if (e.value != '') {
-        e.parentNode.querySelector('label').classList.add('active');
-      } else {
-        e.parentNode.querySelector('label').classList.remove('active');
+    element.onblur = () => {
+      if (element.value) {
+        element.parentNode.querySelector('label').classList.add('active');
       }
     }
   });
-  // To focus the first input element by default when the page is loaded.
-  setTimeout(() => {
-    formFields[0].focus();
-  }, 400);
 });
 
-// registers password fields on page-load. 
-var passwords;
-var toggleButton;
-// toggles the visibility of password on checking the checkbox "Show Password"
+/**
+ * toggles the visibility of password on checking the checkbox "Show Password".
+ * Also toggle the icon on click
+ */
 function togglePassword() {
-  if (!passwords) {
-    passwords = document.querySelectorAll('input[type="password"]');
-  }
   passwords.forEach(field => {
     if (field.type == 'text') {
+      toggleIcon.classList.replace('fa-eye', 'fa-eye-slash');
       field.type = 'password';
     } else {
+      toggleIcon.classList.replace('fa-eye-slash', 'fa-eye');
       field.type = 'text';
     }
   });
-  toggleButton = document.querySelector('#pwd-toggle i');
-  if(toggleButton.classList.contains('fa-eye')) {
-    toggleButton.classList.remove('fa-eye');
-    toggleButton.classList.add('fa-eye-slash');
-  } else {
-    toggleButton.classList.remove('fa-eye-slash');
-    toggleButton.classList.add('fa-eye');
-  }
-  toggleButton.parentElement.blur();
+  toggleIcon.parentElement.blur();
 }

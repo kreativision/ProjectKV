@@ -1,0 +1,57 @@
+{% extends 'main.layout.html' %}
+{% set active='services' %}
+
+{% block page_style%}
+<link rel="stylesheet" href="{{url_for('BP_home.static', filename='styles/BP_home.css')}}">
+{% endblock page_style %}
+
+{% block body_content %}
+<p class="container display-4 text-center section-head text-light">{{labels['heading']}}</p>
+<section id="service_list">
+    {% for item in catalogue %}
+    <div class="container-fluid px-2" id="{{item.id + 'Parent'}}">
+        <div class="container review-3 shadow py-4 service-name my-2 rounded">
+            <div class="content d-flex">
+                <p class="h2 w-50">{{item.name}}</p>
+                <a class="ml-auto mr-2 btn btn-warning border-0 shadow" 
+                    onclick="flipIcon(this)" data-target="#{{item.id}}" data-toggle="collapse"
+                    aria-controls="{{item.id}}" aria-expanded="false">
+                    <span class="font-weight-bold">EXPLORE</span> <i class="fas fa-chevron-down ml-2"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="collapse container mt-3 px-2 py-0" id="{{item.id}}">
+        <div class="row row-cols-1 row-cols-md-3">
+            {% for service in item.variations %}
+            <div class="col mb-3">
+                <div class="card shadow bg-black-glass text-light border-0 rounded">
+                    <div class="card-body">
+                        <h3 class="card-title text-center">{{service.name}}</h3>
+                        <p class="card-text">{{service.description}}</p>
+                        <p class="h5 text-center">{{labels['getYours']}}</p>
+                        <p class="display-4 review-2 text-center rounded shadow-sm">
+                            <sup class="h2">₹</sup>{{service.price}}/-
+                        </p>
+                    </div>
+                    <div class="card-footer border-0 d-flex justify-content-center">
+                        <a href="#" class="btn btn-light border-0 shadow font-weight-bold">
+                            {{labels['makeThis']}} <i class="fas fa-chevron-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endfor %}
+</section>
+
+<div class="mt-5">
+    {% include 'footer.html' %}
+</div>
+{% endblock body_content %}
+
+{% block page_scripts %}
+<script src="{{url_for('BP_home.static', filename='js/home.js')}}"></script>
+{% endblock page_scripts%}

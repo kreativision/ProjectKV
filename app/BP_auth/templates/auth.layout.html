@@ -1,20 +1,18 @@
 {% extends 'main.layout.html' %}
-{% set active='login' %}
+
 {% block page_style%}
 <link rel="stylesheet" href="{{url_for('BP_auth.static', filename='styles/BP_auth.css')}}">
 {% endblock page_style %}
 
-{% block body_content %} 
+{% block body_content %}
 <div class="container">
     <div class="row">
-        <div class="col-md-6 col-sm-12">
-            <div class="container-fluid px-0">
-                {% block alert %}
-                {% endblock %}
-            </div>
-            <div class="card bg-clear-glass text-white">
+        <div class="col-md-6 col-sm-12 px-0 offset-md-3">
+            <div class="card bg-clear-glass text-light">
                 <div class="card-body">
-                    <div class="card-title"><p class="h2">{{page}}</p></div>
+                    <div class="card-title">
+                        <p class="h2 pb-0 mb-0">{{page}}</p>
+                    </div>
                     {% block form %}
                     {% endblock %}
                 </div>
@@ -22,7 +20,7 @@
         </div>
     </div>
 </div>
-{% endblock body_content %} 
+{% endblock body_content %}
 
 {% block page_scripts %}
 <script src="{{url_for('BP_auth.static', filename='js/form.js')}}"></script>

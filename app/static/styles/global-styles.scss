@@ -1,4 +1,8 @@
 // Global Stylesheet - Used by all modules for common styling.
+$black-25: rgba(
+    $color: #000,
+    $alpha: 0.25,
+);
 $black-50: rgba(
     $color: #000,
     $alpha: 0.5,
@@ -13,15 +17,19 @@ $sidebar-shadow: 4px 0px 25px 5px $black-50;
 
 body {
     overflow: hidden;
-}
-
-main {
-    height: calc(100vh - 56px);
-    width: 100%;
-    position: absolute;
-    top: 56px;
-    overflow: auto;
-    padding-top: 10px;
+    header {
+        display: flex;
+        width: 100%;
+        align-items: stretch;
+        background-color: transparent !important;
+    }
+    main {
+        height: 100vh;
+        overflow-y: scroll;
+        overflow-x: hidden;
+        padding-top: 56px;
+        scroll-behavior: smooth;
+    }
 }
 
 // media queries to make the navigation bar responsive
@@ -29,6 +37,12 @@ main {
     #topBar {
         display: none;
         pointer-events: none;
+    }
+    .toast {
+        top: 80%;
+        left: 50%;
+        width: 90%;
+        transform: translate(-50%);
     }
 }
 
@@ -38,17 +52,14 @@ main {
         display: none;
         pointer-events: none;
     }
-}
-
-.navigation-wrapper {
-    display: flex;
-    width: 100%;
-    align-items: stretch;
+    .toast {
+        top: 65px;
+        right: 35px;
+    }
 }
 
 .fixed-top {
     z-index: 999 !important;
-    box-shadow: $topbar-shadow;
 }
 
 // Custom Sidebar.
@@ -77,6 +88,7 @@ main {
             transition: all 0.2s ease;
             font-weight: 500;
             text-transform: uppercase;
+            color: white;
             a {
                 display: flex;
                 padding: 5px 0px 5px 20px;
@@ -85,12 +97,6 @@ main {
                 width: -moz-available;
                 i {
                     display: none;
-                }
-            }
-            &:hover {
-                background-color: $black-50;
-                a {
-                    color: white !important;
                 }
             }
         }
@@ -120,13 +126,18 @@ main {
     .dropdown-menu {
         transition: all 0.3s ease;
         border: none !important;
-        box-shadow: $topbar-shadow;
     }
 }
 
-// globally changing the border-radius for bootstrap buttons
+// globally changing the buttons
 .btn {
     border-radius: 30px;
+    &:focus,
+    &:active {
+        box-shadow: none !important;
+        outline: none !important;
+        border: none !important;
+    }
 }
 
 // Glass background classes
@@ -144,4 +155,69 @@ main {
 .bg-white-glass {
     background: rgba($color: #fff, $alpha: 0.3);
     backdrop-filter: blur(10px);
+}
+
+.toast {
+    position: fixed;
+    z-index: 1000;
+    backdrop-filter: none !important;
+    .toast-body {
+        background-color: #fff;
+    }
+}
+
+.footer {
+    .row {
+        min-height: 50vh;
+        .d-flex {
+            align-items: center;
+        }
+        .btn {
+            border: 0 !important;
+            span {
+                font-weight: 300;
+                letter-spacing: 0.7px;
+            }
+        }
+        .whatsapp {
+            background-color: #25d366;
+            &:hover {
+                background-color: #1fb656;
+            }
+            .fab {
+                font-size: 19px;
+            }
+        }
+        .gmail {
+            background-color: #ea4335;
+            &:hover {
+                background-color: #b83226;
+            }
+        }
+        .instagram {
+            transition: all 0.2s ease;
+            background-color: #fdf497;
+            &:hover {
+                background-color: #d8ce5a;
+            }
+        }
+
+        .card {
+            // border-radius: 0.6rem;
+            .team {
+                justify-content: space-between;
+                flex: 1 3 auto;
+                .dp {
+                    width: 55px;
+                    height: 55px;
+                    border-radius: 50%;
+                    background-color: transparent;
+                    border: 5px double #25d366;
+                }
+                .card-footer {
+                    flex: 1 1 auto;
+                }
+            }
+        }
+    }
 }
