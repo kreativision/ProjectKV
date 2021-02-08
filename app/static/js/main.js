@@ -28,7 +28,7 @@ document.addEventListener('click', function (e) {
  * Method to set device specific link for the instagram button.
  */
 document.addEventListener('DOMContentLoaded', () => {
-    if (document.querySelector('.footer')) {
+    if (document.querySelector('.floating-action')) {
         let instaBtn = document.querySelector('.instagram');
         // let waBtn = document.querySelector('.whatsapp');
         if ((navigator.userAgent.indexOf('Android') !== -1)) {
@@ -45,4 +45,14 @@ document.addEventListener('DOMContentLoaded', () => {
  */
 $(document).ready(function () {
     $(".toast").toast('show');
+})
+
+$('.fab-toggle').click(function () {
+    $('.floating-action').toggleClass('active');
+    $('.overlay').toggleClass('active');
+})
+
+$('.overlay').click(function () {
+    $('.floating-action').toggleClass('active');
+    $('.overlay').toggleClass('active');
 })
