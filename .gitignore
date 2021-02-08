@@ -4,3 +4,4 @@ __pycache__
 /app/static/fontawesome
 /app/static/images/examples.ai
 /testScripts.py
+/app/db
