@@ -1,12 +1,30 @@
-from app.BP_auth import BP_auth
-from app.BP_auth.forms import LoginForm, RegistrationForm
-from app.models import User
-from app import db, encryptor
 from flask_login import login_user, logout_user, current_user
-from flask import redirect, url_for, send_from_directory, flash, render_template
+from flask import redirect, url_for, flash, render_template
 from markupsafe import Markup
+from app import db, encryptor, mail
+import app.utils as utils
+from app.models import User
+from app.BP_auth import BP_auth
+from app.BP_auth.forms import (
+    LoginForm,
+    RegistrationForm,
+    RequestResetPasswordForm,
+    ResetPasswordForm,
+)
 
 
+@BP_auth.route("/test")
+def test_route():
+    return render_template(
+        "registration-mail.html",
+        title="Welcome to KreatiVision Family",
+        mail=utils.redact_email("1234567890@gmail.com"),
+        name="Amittras",
+        token_url="#"
+    )
+
+
+# Register new user
 @BP_auth.route("/sign-up", methods=["GET", "POST"])
 def sign_up():
     if current_user.is_authenticated:
@@ -41,7 +59,7 @@ def sign_up():
     )
 
 
-# Login Page
+# Login User
 @BP_auth.route("/login", methods=["GET", "POST"])
 def login():
     if current_user.is_authenticated:
@@ -66,18 +84,84 @@ def login():
     return render_template("login.html", title="Login", page="Login. . .", form=form)
 
 
-# Logou User
+# Logout User
 @BP_auth.route("/logout")
 def logout():
     logout_user()
     return redirect(url_for("BP_home.home"))
 
 
-# Password Recovery
-@BP_auth.route("/forgot-password")
-def recovery():
-    content = [f"Coming Soon", f"This feature is not yet available."]
-    flash(content, category="info")
+# Password Recovery Request
+@BP_auth.route("/forgot-password", methods=["GET", "POST"])
+def reset_request():
+    # redirect to home if session is active
+    if current_user.is_authenticated:
+        content = [f"Session Active", f"Go to My Account page to change your password"]
+        flash(content, category="info")
+        return redirect(url_for("BP_home.home"))
+    # to password reset request page
+    form = RequestResetPasswordForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(email=form.email.data).first()
+        token = user.generate_reset_token()
+        # using background method from utils to send email
+        utils.send_email(
+            "Password Reset: KreatiVision",
+            "picskreativision@gmail.com",
+            [user.email],
+            render_template("reset-mail-body.txt", token=token, name=user.username),
+            render_template("reset-mail-body.html", token=token, name=user.username),
+        )
+        return render_template(
+            "email-sent.html",
+            title="Reset Password",
+            mail=utils.redact_email(user.email),
+        )
+    # if mail doesn't exist on db
     return render_template(
-        "pwd-recovery.html", title="Account Recovery", page="Recover Account"
+        "pwd-recovery.html",
+        title="Password Reset",
+        page="Request Password Reset",
+        form=form,
+    )
+
+
+# Verify password reset token and change password
+@BP_auth.route("/forgot-password/<token>", methods=["GET", "POST"])
+def reset_token(token):
+    # redirect to home if session is active
+    if current_user.is_authenticated:
+        content = [f"Session Active", f"Go to My Account page to change your password"]
+        flash(content, category="info")
+        return redirect(url_for("BP_home.home"))
+    # verification
+    user = User.verify_reset_token(token)
+    # if invalid/expired token
+    if user is None:
+        content = [
+            f"Link Expired or Invalid",
+            f"The reset link is either invalid or expired, please try again",
+        ]
+        flash(content, category="danger")
+        return redirect(url_for("BP_auth.reset_request"))
+    # If valid token
+    form = ResetPasswordForm()
+    # if new password form valid
+    if form.validate_on_submit():
+        user_password = encryptor.generate_password_hash(form.password.data).decode(
+            "utf-8"
+        )
+        user.password = user_password
+        db.session.commit()
+        content = [
+            f"Password changes successfully!",
+            f"Please login user your email and new password",
+        ]
+        flash(content, category="success")
+        return redirect(url_for("BP_auth.login"))
+    return render_template(
+        "new-password.html",
+        title="Create New Password",
+        page="Create New Password",
+        form=form,
     )

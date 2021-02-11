@@ -11,7 +11,7 @@
         {{form.email(class="form-control is-invalid")}}
         <div class="invalid-feedback">
           {% for error in form.email.errors %}
-          <span>✘&nbsp;{{error}}</span>
+          <span><i class="fas fa-times-circle mr-2"></i>{{error}}</span>
           {% endfor %}
         </div>
         {% else %}
@@ -27,7 +27,7 @@
         {{form.password(class="form-control is-invalid")}}
         <div class="invalid-feedback">
           {% for error in form.password.errors %}
-          <span>✘&nbsp;{{error}}</span>
+          <span><i class="fas fa-times-circle mr-2"></i>{{error}}</span>
           {% endfor %}
         </div>
         {% else %}
@@ -48,7 +48,7 @@
         {{form.remember.label(class="form-check-label")}}
       </div>
       <div class="inline ml-auto">
-        <a href="{{url_for('BP_auth.recovery')}}" class="text-decoration-none text-light">Forgot Password?</a>
+        <a href="{{url_for('BP_auth.reset_request')}}" class="text-decoration-none text-light">Forgot Password?</a>
       </div>
     </div>
   </fieldset>

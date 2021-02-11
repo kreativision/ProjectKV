@@ -67,3 +67,26 @@ class LoginForm(FlaskForm):
                 f"This email is not registered. Please register by <a href='{url_for('BP_auth.sign_up')}'>clicking here</a>."
             )
             raise ValidationError(message)
+
+
+class RequestResetPasswordForm(FlaskForm):
+    email = StringField(
+        "E-mail", validators=[DataRequired(), Email()], render_kw={"autofocus": True}
+    )
+    submit = SubmitField("REQUEST RESET")
+
+    def validate_email(self, email):
+        user_mail = User.query.filter_by(email=email.data).first()
+        if user_mail is None:
+            message = Markup(
+                f"You are not registerd. Please <a href='{url_for('BP_auth.sign_up')}'>click here</a> to create an account</a>."
+            )
+            raise ValidationError(message)
+
+
+class ResetPasswordForm(FlaskForm):
+    password = PasswordField("Password *", validators=[DataRequired()], render_kw={"autofocus": True})
+    cnf_password = PasswordField(
+        "Confirm Password *", validators=[DataRequired(), EqualTo("password")]
+    )
+    submit = SubmitField("CHANGE PASSWORD")

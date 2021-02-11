@@ -28,24 +28,24 @@
     <header>
         <!-- Nav Links Configuration -->
         {% if current_user.is_authenticated %}
-            {% set navItems = [
-                (url_for('BP_home.home'), 'home', 'Home'),
-                (url_for('BP_home.service_list'), 'services', 'Services'),
-                ('#', '#', 'Account Info'),
-                ('#', '#', 'My Orders'),
-                (url_for('BP_auth.logout'), 'logout', 'Logout')
-            ] %}
+        {% set navItems = [
+        (url_for('BP_home.home'), 'home', 'Home'),
+        (url_for('BP_home.service_list'), 'services', 'Services'),
+        ('#', '#', 'Account Info'),
+        ('#', '#', 'My Orders'),
+        (url_for('BP_auth.logout'), 'logout', 'Logout')
+        ] %}
         {% else %}
-            {% set navItems = [
-                (url_for('BP_home.home'), 'home', 'Home'),
-                (url_for('BP_home.service_list'), 'services', 'Services'),
-                (url_for('BP_auth.login'), 'login', 'Login'),
-                (url_for('BP_auth.sign_up'), 'register', 'Register'),
-            ] %}
+        {% set navItems = [
+        (url_for('BP_home.home'), 'home', 'Home'),
+        (url_for('BP_home.service_list'), 'services', 'Services'),
+        (url_for('BP_auth.login'), 'login', 'Login'),
+        (url_for('BP_auth.sign_up'), 'register', 'Register'),
+        ] %}
         {% endif %}
 
         {% set active = active|default('home') -%}
-        
+
         <!-- Sidebar for Mobile Devices -->
         <nav class="bg-black-glass" id="sidebar">
             <div class="sidebar-header">
@@ -76,7 +76,7 @@
                 <!-- If Logged In -->
                 {% if current_user.is_authenticated %}
                 {% for href, id, caption in navItems[0:-3] %}
-                <li class="{{'nav-item active' if active==id else 'nav-item'}}">
+                <li class="nav-item {{'active' if active==id else ''}}">
                     <a href="{{href|e}}" class="nav-link">{{caption|e}}</a>
                 </li>
                 {% endfor %}
@@ -99,7 +99,7 @@
                 {% else %}
                 <!-- If Not Logged In -->
                 {% for href, id, caption in navItems %}
-                <li class="{{'nav-item active' if active==id else 'nav-item'}}">
+                <li class="nav-item {{'active' if active==id else ''}}">
                     <a href="{{href|e}}" class="nav-link">{{caption|e}}</a>
                 </li>
                 {% endfor %}

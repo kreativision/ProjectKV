@@ -17,12 +17,12 @@ document.addEventListener('DOMContentLoaded', () => {
     if (location.href.includes('services#')) {
         let section = location.href.substr(location.href.indexOf('#'));
         let collapseParent = document.querySelector(section + 'Parent');
-        collapseParent.scrollIntoView();
         let collapseSection = document.querySelector(section);
         setTimeout(() => {
             collapseSection.classList.add('show');
+            this.flipIcon(collapseParent.querySelector('a'));
+            collapseParent.scrollIntoView();
         }, 500);
-        this.flipIcon(collapseParent.querySelector('a'));
     }
 });
 
