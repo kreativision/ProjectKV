@@ -13,9 +13,8 @@
         <div class="container review-3 shadow py-4 service-name my-2 rounded">
             <div class="content d-flex">
                 <p class="h2 w-50">{{item.name}}</p>
-                <a class="ml-auto mr-2 btn btn-warning border-0 shadow" 
-                    onclick="flipIcon(this)" data-target="#{{item.id}}" data-toggle="collapse"
-                    aria-controls="{{item.id}}" aria-expanded="false">
+                <a class="ml-auto mr-2 btn btn-warning border-0 shadow" onclick="flipIcon(this)"
+                    data-target="#{{item.id}}" data-toggle="collapse" aria-controls="{{item.id}}" aria-expanded="false">
                     <span class="font-weight-bold">EXPLORE</span> <i class="fas fa-chevron-down ml-2"></i>
                 </a>
             </div>
@@ -47,9 +46,7 @@
     {% endfor %}
 </section>
 
-<div class="mt-5">
-    {% include 'footer.html' %}
-</div>
+{% include 'fab.html' %}
 {% endblock body_content %}
 
 {% block page_scripts %}
