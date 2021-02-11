@@ -1,0 +1,40 @@
+{% extends 'main.layout.html' %}
+{% set active=None %}
+
+{% block page_style%}
+<link rel="stylesheet" href="{{url_for('BP_auth.static', filename='styles/BP_auth.css')}}">
+{% endblock page_style %}
+
+{% block body_content %}
+<div class="cotainer-fluid px-2">
+    <div class="container rounded bg-black-glass shadow d-flex flex-column mt-5 p-4">
+        <p class="h1 text-light text-center">Please check your email.</p>
+        {% if case == 'reset' %}
+        <p class="text-light text-center mt-2">
+            We have sent an email with a link at <br><span class="font-italic">{{mail}}</span><br> with a link to reset your password.
+            Please click the same to reset your password.
+        </p>
+        {% endif %}
+        {% if case == 'register' %}
+        <p class="text-light text-center mt-2">
+            We have sent an email with a link at <br><span class="font-italic">{{mail}}</span><br> with a link to activate your account.
+            Please click the same to complete your registration process.
+        </p>
+        {% endif %}
+        <p class="text-warning text-center">
+            Kindly note that the link is valid only for
+        </p>
+        <p class="h2 text-warning text-center clock">
+            <span class="minutes"></span> <span class="seconds"></span>
+        </p>
+        <p class="text-center text-light">
+            <i class="fas fa-exclamation-circle mr-3"></i>
+            If you do not find the mail in your inbox, kindly check once in your spam folder before retrying.
+        </p>
+    </div>
+</div>
+{% endblock body_content %}
+
+{% block page_scripts %}
+<script src="{{url_for('BP_auth.static', filename='js/form.js')}}"></script>
+{% endblock page_scripts%}

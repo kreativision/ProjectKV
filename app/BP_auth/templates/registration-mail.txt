@@ -1,0 +1,9 @@
+Welcome to KreatiVision PhotoArts,
+
+Dear {{name}},
+You are just one step away from your next amazing design. Just click the link below to activate your account.
+{{token_url}}
+We look forward to create some awesome designs with you. Let's add some creativity to your brilliant vision!!
+
+Regards,
+Team KreatiVision
