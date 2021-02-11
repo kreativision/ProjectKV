@@ -6,10 +6,9 @@ Please visit the link below to reset your password.
 
 {{url_for('BP_auth.reset_token', token=token, _external=True)}}
 
-Note that the link is valid only for 15 minutes.
+Note that the link is valid only for 10 minutes.
 
-If you have not initiated this request, kindly ignore this email. Nothing
-will be changed.
+If you have not initiated this request, kindly ignore this email. Nothing will be changed.
 
 Regards,
 Team Kreativision.
