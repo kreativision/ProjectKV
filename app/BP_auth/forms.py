@@ -36,6 +36,7 @@ class RegistrationForm(FlaskForm):
                 message="Contact number should have 10 digits (no spaces)",
             ),
         ],
+        render_kw={"inputmode": "numeric", "minlength":"10","maxlength":"10"}
     )
     password = PasswordField("Password *", validators=[DataRequired()])
     cnf_password = PasswordField(
@@ -47,7 +48,7 @@ class RegistrationForm(FlaskForm):
         user_mail = User.query.filter_by(email=email.data).first()
         if user_mail:
             message = Markup(
-                f"This e-mail is already registered. You can <a href='{url_for('BP_auth.login')}'>login</a> or <a href='{url_for('BP_auth.recovery')}'>reset your password</a>."
+                f"This e-mail is already registered. You can <a href='{url_for('BP_auth.login')}'>login</a> or <a href='{url_for('BP_auth.reset_request')}'>reset your password</a>."
             )
             raise ValidationError(message)
 

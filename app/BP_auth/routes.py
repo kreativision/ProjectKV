@@ -12,52 +12,16 @@ from app.BP_auth.forms import (
     ResetPasswordForm,
 )
 
-
+# Test route to check hard to reach pages
 @BP_auth.route("/test")
 def test_route():
+    form = ResetPasswordForm()
+    form2 = RequestResetPasswordForm()
     return render_template(
-        "registration-mail.html",
-        title="Welcome to KreatiVision Family",
-        mail=utils.redact_email("1234567890@gmail.com"),
-        name="Amittras",
-        token_url="#"
+        "new-password.html",
+        page="test route",
+        form=form
     )
-
-
-# Register new user
-@BP_auth.route("/sign-up", methods=["GET", "POST"])
-def sign_up():
-    if current_user.is_authenticated:
-        content = [f"Session Active", f"You are already logged in."]
-        flash(content, category="info")
-        return redirect(url_for("BP_home.home"))
-
-    form = RegistrationForm()
-    if form.validate_on_submit():
-        user_name = form.username.data.title()
-        user_password = encryptor.generate_password_hash(form.password.data).decode(
-            "utf-8"
-        )
-        new_user = User(
-            username=user_name,
-            email=form.email.data,
-            password=user_password,
-            contact=form.contact.data,
-        )
-        db.session.add(new_user)
-        db.session.commit()
-        content = [
-            f"Account Created!",
-            Markup(
-                f"Welcome {user_name}.<br>Please login using your <strong>email</strong> and <strong>password</strong>."
-            ),
-        ]
-        flash(content, category="success")
-        return redirect(url_for("BP_auth.login"))
-    return render_template(
-        "register.html", title="Create Account", page="Register", form=form
-    )
-
 
 # Login User
 @BP_auth.route("/login", methods=["GET", "POST"])
@@ -90,6 +54,77 @@ def logout():
     logout_user()
     return redirect(url_for("BP_home.home"))
 
+# Register new user
+@BP_auth.route("/sign-up", methods=["GET", "POST"])
+def sign_up():
+    if current_user.is_authenticated:
+        content = [f"Session Active", f"You are already logged in."]
+        flash(content, category="info")
+        return redirect(url_for("BP_home.home"))
+
+    form = RegistrationForm()
+    if form.validate_on_submit():
+        user_name = form.username.data.title()
+        user_password = encryptor.generate_password_hash(form.password.data).decode(
+            "utf-8"
+        )
+        new_user = User(
+            username=user_name,
+            email=form.email.data,
+            password=user_password,
+            contact=form.contact.data,
+        )
+        db.session.add(new_user)
+        db.session.commit()
+        register_token = new_user.generate_token()
+        utils.send_email(
+            "Activate Account: KreatiVision",
+            "picskreativision@gmail.com",
+            [new_user.email],
+            render_template(
+                "registration-mail.txt", token=register_token, name=new_user.username
+            ),
+            render_template(
+                "registration-mail.html", token=register_token, name=new_user.username
+            ),
+        )
+        return render_template(
+            "email-sent.html",
+            title="Activate Account",
+            mail=utils.redact_email(new_user.email),
+            case="register",
+        )
+    return render_template(
+        "register.html", title="Create Account", page="Register", form=form
+    )
+
+
+@BP_auth.route("/verify-account/<token>")
+def verify_account(token):
+    if current_user.is_authenticated:
+        content = [f"Session Active", f"Go to My Account page to change your password"]
+        flash(content, category="info")
+        return redirect(url_for("BP_home.home"))
+    user = User.verify_token(token)
+    if user is None:
+        content = [
+            f"Link Expired or Invalid",
+            f"The Activation link is either invalid or expired, please try again",
+        ]
+        flash(content, category="danger")
+        # Redirect to account info page for reconfirmation.
+        return redirect(url_for("BP_home.home"))
+    user.verified = True
+    db.session.commit()
+    content = [
+        f"Account Created!",
+        Markup(
+            f"Welcome {user.username}.<br>Please login using your <strong>email</strong> and <strong>password</strong>."
+        ),
+    ]
+    flash(content, category="success")
+    return redirect(url_for("BP_auth.login"))
+
 
 # Password Recovery Request
 @BP_auth.route("/forgot-password", methods=["GET", "POST"])
@@ -103,7 +138,7 @@ def reset_request():
     form = RequestResetPasswordForm()
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
-        token = user.generate_reset_token()
+        token = user.generate_token()
         # using background method from utils to send email
         utils.send_email(
             "Password Reset: KreatiVision",
@@ -116,6 +151,7 @@ def reset_request():
             "email-sent.html",
             title="Reset Password",
             mail=utils.redact_email(user.email),
+            case="reset",
         )
     # if mail doesn't exist on db
     return render_template(
@@ -135,7 +171,7 @@ def reset_token(token):
         flash(content, category="info")
         return redirect(url_for("BP_home.home"))
     # verification
-    user = User.verify_reset_token(token)
+    user = User.verify_token(token)
     # if invalid/expired token
     if user is None:
         content = [

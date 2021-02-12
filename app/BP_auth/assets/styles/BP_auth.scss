@@ -110,3 +110,15 @@ fieldset {
         }
     }
 }
+
+
+#resend {
+    visibility: hidden;
+    display: none;
+    pointer-events: none;
+    &.active {
+        display: block;
+        pointer-events: all;
+        visibility: visible;
+    }
+}
