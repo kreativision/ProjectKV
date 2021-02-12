@@ -1,6 +1,6 @@
 from app.BP_home import BP_home
 from app.BP_home.home_constants import HomeConstants, ServicesConstants
-from app.models import Catalogue, Service
+from app.models import Catalogue, Service, Project, ProjectImage
 from flask.templating import render_template
 
 # Temporary variables
@@ -91,6 +91,7 @@ reviews = [
 @BP_home.route("/")
 def home():
     catalogue = Catalogue.query.order_by(Catalogue.start_price).all()
+    projects = Project.query.all()
     return render_template(
         "home.html",
         title="Home",

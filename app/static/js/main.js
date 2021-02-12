@@ -47,12 +47,19 @@ $(document).ready(function () {
     $(".toast").toast('show');
 })
 
+$('#contactUs').click(function () {
+    contactPopup();
+})
+
 $('.fab-toggle').click(function () {
-    $('.floating-action').toggleClass('active');
-    $('.overlay').toggleClass('active');
+    contactPopup();
 })
 
 $('.overlay').click(function () {
-    $('.floating-action').toggleClass('active');
-    $('.overlay').toggleClass('active');
+    contactPopup();
 })
+
+function contactPopup() {
+    $('.floating-action').toggleClass('active');
+    $('.overlay').toggleClass('active');   
+}

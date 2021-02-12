@@ -6,28 +6,6 @@ var passwords = document.querySelectorAll('input[type="password"]');
 var toggleIcon = document.querySelector('#pwd-toggle i');
 
 /**
- * locks the label in the float position if there is value in it, on page-load.
- * Also sets the onblur method for each field to check if data is entered and lock label
- */
-document.addEventListener("DOMContentLoaded", () => {
-  formFields.forEach((element) => {
-    if (element.value) {
-      element.parentNode.querySelector('label').classList.add('active');
-    }
-    element.onblur = () => {
-      if (element.value) {
-        element.parentNode.querySelector('label').classList.add('active');
-      } else {
-        element.parentNode.querySelector('label').classList.remove('active');
-      }
-    }
-  });
-  var clock = document.querySelector('.clock');
-  if (clock)
-    this.timer(clock, 900);
-});
-
-/**
  * toggles the visibility of password on checking the checkbox "Show Password".
  * Also toggle the icon on click
  */
@@ -44,6 +22,30 @@ function togglePassword() {
   toggleIcon.parentElement.blur();
 }
 
+/**
+ * Events on page load
+ */
+document.addEventListener("DOMContentLoaded", () => {
+  // for form pages, check if fields are prefilled, and position label accordingly.
+  // register the onblur event of the fields.
+  formFields.forEach((element) => {
+    if (element.value) {
+      element.parentNode.querySelector('label').classList.add('active');
+    }
+    element.onblur = () => {
+      if (element.value) {
+        element.parentNode.querySelector('label').classList.add('active');
+      } else {
+        element.parentNode.querySelector('label').classList.remove('active');
+      }
+    }
+  });
+  // for email sent page, register the closk segment and start the timer.
+  var clock = document.querySelector('.clock');
+  if (clock)
+    timer(clock, 600);
+});
+
 
 /**
  * countdown timer
@@ -51,7 +53,7 @@ function togglePassword() {
 function timer(clockElement, time) {
   let minutes = clockElement.querySelector('.minutes');
   let seconds = clockElement.querySelector('.seconds');
-  minutes.textContent = '15m';
+  minutes.textContent = '10m';
   seconds.textContent = '00s';
   let countDown = setInterval(() => {
     'use strict';
@@ -68,8 +70,8 @@ function timer(clockElement, time) {
       time = time - 1;
     } else {
       clearInterval(countDown);
-      minutes.textContent = 'Link';
-      seconds.textContent = 'Expired';
+      document.querySelector('.notice').remove();
+      document.querySelector('#resend').classList.add('active');
     }
   }, 1000);
 }
