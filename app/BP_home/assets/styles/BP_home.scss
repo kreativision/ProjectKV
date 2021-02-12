@@ -59,11 +59,7 @@ $shadow-small: 0px 4px 15px -5px $black-60;
     }
 }
 
-html {
-    background-image: linear-gradient(to right, #311b61, #0f001f);
-}
-
-main {
+html, main {
     background-image: linear-gradient(to right, #311b61, #0f001f);
 }
 

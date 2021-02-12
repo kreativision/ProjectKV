@@ -19,15 +19,16 @@ class User(db.Model, UserMixin):
     dp_file = db.Column(db.String(20), nullable=False, default="none.jpeg")
     password = db.Column(db.String(60), nullable=False)
     admin = db.Column(db.Boolean(), default=False)
+    verified = db.Column(db.Boolean(), default=False)
 
     # Generates a secure token for the user with a expiration time of 900s/15min
-    def generate_reset_token(self, expires_sec=900):
+    def generate_token(self, expires_sec=600):
         s = Serializer(app.config["SECRET_KEY"], expires_sec)
         return s.dumps({"user_id": self.id}).decode("utf-8")
 
     # verifies the token provided to see if it's valid/alive
-    @staticmethod   #static bcz it doesn't utilize the self parameter
-    def verify_reset_token(token):
+    @staticmethod  # static bcz it doesn't utilize the self parameter
+    def verify_token(token):
         s = Serializer(app.config["SECRET_KEY"])
         try:
             user_id = s.loads(token)["user_id"]
@@ -55,7 +56,28 @@ class Service(db.Model):
     name = db.Column(db.String(25), nullable=False)
     description = db.Column(db.String(160))
     price = db.Column(db.Integer, nullable=False)
+    image = db.Column(db.String(50), nullable=False)
     catalogue_id = db.Column(db.String(16), db.ForeignKey("catalogue.id"))
 
     def __repr__(self):
         return f"Service => {self.name} is priced at {self.price}"
+
+
+class Project(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(140), nullable=False)
+    service = db.Column(db.String(25), nullable=False)
+    description = db.Column(db.Text)
+    pictures = db.relationship(
+        "ProjectImage", backref="owner_project", lazy=True, uselist=True
+    )
+    show_on_home = db.Column(db.Boolean(), default=True)
+
+    def __repr__(self):
+        return f"Service => {self.name} is priced at {self.service}"
+
+
+class ProjectImage(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    filepath = db.Column(db.String(120), nullable=False)
+    project_id = db.Column(db.Integer, db.ForeignKey("project.id"), nullable=False)
