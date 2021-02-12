@@ -127,6 +127,10 @@ body {
     .dropdown-menu {
         transition: all 0.3s ease;
         border: none !important;
+        .badge {
+            height: 20px;
+            // margin-top: 2px;
+        }
     }
 }
 

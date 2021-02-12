@@ -32,6 +32,7 @@
         (url_for('BP_home.home'), 'home', 'Home'),
         (url_for('BP_home.service_list'), 'services', 'Services'),
         ('#', '#', 'Account Info'),
+        ('#', 'cart', 'Cart'),
         ('#', '#', 'My Orders'),
         (url_for('BP_auth.logout'), 'logout', 'Logout')
         ] %}
@@ -75,7 +76,7 @@
             <ul class="navbar-nav ml-auto mr-4" id="topBar">
                 <!-- If Logged In -->
                 {% if current_user.is_authenticated %}
-                {% for href, id, caption in navItems[0:-3] %}
+                {% for href, id, caption in navItems[0:-4] %}
                 <li class="nav-item {{'active' if active==id else ''}}">
                     <a href="{{href|e}}" class="nav-link">{{caption|e}}</a>
                 </li>
@@ -87,8 +88,14 @@
                         {{current_user.username}}
                     </a>
                     <div class="dropdown-menu dropdown-menu-right shadow" aria-labelledby="navbarDropdown">
-                        {% for href, id, caption in navItems[-3:-1] %}
-                        <a href="{{href|e}}" class="dropdown-item">{{caption|e}}</a>
+                        {% for href, id, caption in navItems[-4:-1] %}
+
+                        <a href="{{href|e}}" class="dropdown-item">
+                            <span class="mr-3">{{caption|e}}</span>
+                            {% if id == 'cart' %}
+                            <span class="badge badge-pill badge-info">2</span>
+                            {% endif %}
+                        </a>
                         {% endfor %}
                         <div class="dropdown-divider bg-dark"></div>
                         {% for href, id, caption in navItems[-1:] %}
