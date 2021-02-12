@@ -5,6 +5,19 @@
 {%block body_content%}
 
 
-<h1> hiiiii  </h1>
-<p class="color"> hello </p>
+
+<div class="flip-card">
+    <div class="flip-card-inner">
+      <div class="flip-card-front">
+        <img src="{{url_for('BP_account.static', filename='images/profile.webp')}}" alt="abc"> 
+      </div>
+      <div class="flip-card-back">
+        <h1>Sukriti Shukla</h1> 
+        <p>member since 1997</p> 
+        <p>sukritishukla306@gmail.com</p>
+        <p>mob: 7352545252</p>   
+      </div>
+    </div>
+  </div>
+
 {%endblock%}

@@ -65,7 +65,7 @@ def create():
     print("====> Adding Users ")
     # Adding users
     tester = User(
-        username="Amittras Pal",
+        username="Amittras Pal", 
         email="pal.amittras@gmail.com",
         contact="8871822617",
         password=encryptor.generate_password_hash("password").decode("utf-8"),
@@ -77,8 +77,17 @@ def create():
         password=encryptor.generate_password_hash("admin").decode("utf-8"),
         admin=True,
     )
+    tester1 = User(
+        username="Sukriti Shukla",
+        email="sukritishukla306@gmail.com",
+        contact="7352545252",
+        password=encryptor.generate_password_hash("password").decode("utf-8")
+        
+
+    )
     db.session.add(tester)
     db.session.add(admin)
+    db.session.add(tester1)
     db.session.commit()
 
     print("====> Adding Services Catalogue ")
