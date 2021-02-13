@@ -30,6 +30,7 @@
         {% if current_user.is_authenticated %}
         {% set navItems = [
         (url_for('BP_home.home'), 'home', 'Home'),
+        (url_for('BP_home.blog'), 'blog', 'Blog'),
         (url_for('BP_home.service_list'), 'services', 'Services'),
         ('#', '#', 'Account Info'),
         ('#', 'cart', 'Cart'),
@@ -39,6 +40,7 @@
         {% else %}
         {% set navItems = [
         (url_for('BP_home.home'), 'home', 'Home'),
+        (url_for('BP_home.blog'), 'blog', 'Blog'),
         (url_for('BP_home.service_list'), 'services', 'Services'),
         (url_for('BP_auth.login'), 'login', 'Login'),
         (url_for('BP_auth.sign_up'), 'register', 'Register'),

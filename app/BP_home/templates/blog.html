@@ -1,0 +1,32 @@
+{% extends 'main.layout.html' %}
+{% set active='blog' %}
+
+{% block page_style%}
+<link rel="stylesheet" href="{{url_for('BP_home.static', filename='styles/BP_home.css')}}">
+{% endblock page_style %}
+
+{% block body_content %}
+<div class="blog-page">
+    <div class="header">
+        <div class="content">
+            <p class="display-4 text-light text-center">OUR PROJECTS</p>
+            <a href="#" class="text-decoration-none text-light ">
+                <i class="fas fa-3x fa-arrow-circle-down"></i>
+            </a>
+        </div>
+    </div>
+
+    <div class="full-page-blog">
+        <div class="container-fluid px-2">
+            
+        </div>
+    </div>
+
+
+    {% include 'fab.html' %}
+</div>
+{% endblock body_content %}
+
+{% block page_scripts %}
+<script src=" {{url_for('BP_home.static', filename='js/home.js')}} "></script>
+{% endblock page_scripts%}

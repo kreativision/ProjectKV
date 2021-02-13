@@ -3,38 +3,6 @@ from app.BP_home.home_constants import HomeConstants, ServicesConstants
 from app.models import Catalogue, Service, Project, ProjectImage
 from flask.templating import render_template
 
-# Temporary variables
-projects = [
-    (
-        "New Age of Professionals",
-        "Logo Design",
-        "We had the honor of designing a brand logo for New Age of Professionals, Bhopal, India.",
-        "BP_home.static",
-        "images/bg-about-2.jpg",
-    ),
-    (
-        "Fun Food & Fasion",
-        "Logo Design",
-        "Designed complete brand package logo design for a fashion and lifestyle magazine",
-        "BP_home.static",
-        "images/welcome-art.png",
-    ),
-    (
-        "Dream Affairs",
-        "Branding",
-        "Complete brand package for a wedding phorography studio based out of Bhopal India",
-        "BP_home.static",
-        "images/portrait.png",
-    ),
-    (
-        "Fun Food & Fashion",
-        "Poster Design",
-        "Posters for print and media coverage designed for Fun Food and Fashion Magazine.",
-        "BP_home.static",
-        "images/bg-about-2.jpg",
-    ),
-]
-
 reviews = [
     (
         "Its like subway",
@@ -111,3 +79,8 @@ def service_list():
         catalogue=catalogue,
         labels=ServicesConstants.labels,
     )
+
+
+@BP_home.route("/blog")
+def blog():
+    return render_template("blog.html", title="Blog")

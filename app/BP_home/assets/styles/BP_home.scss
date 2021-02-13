@@ -59,7 +59,8 @@ $shadow-small: 0px 4px 15px -5px $black-60;
     }
 }
 
-html, main {
+html,
+main {
     background-image: linear-gradient(to right, #311b61, #0f001f);
 }
 
@@ -200,9 +201,14 @@ html, main {
             }
         }
     }
+    .get-started {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
 }
 
-#service_list {
+.service_list {
     min-height: 100vh;
     .service-name {
         .content {
@@ -213,5 +219,30 @@ html, main {
     .container-fluid {
         margin-top: -60px;
         padding-top: 60px;
+    }
+}
+
+.blog-page {
+    .header {
+        position: relative;
+        height: calc(100vh - 56px);
+        background: #fff url("../images/blog-header.jpg") no-repeat fixed center;
+        background-size: cover;
+        .content {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            a {
+                transition: all 0.3s ease;
+                &:hover {
+                    transform: scale(1.1);
+                }
+            }
+        }
+    }
+    .full-page-blog {
+        
     }
 }
