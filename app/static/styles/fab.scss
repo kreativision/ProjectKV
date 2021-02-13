@@ -14,7 +14,6 @@
         }
     }
 }
-
 // View on mobile devices
 @media only screen and (max-width: 768px) {
     .floating-action {
@@ -27,8 +26,6 @@
         }
     }
 }
-
-// Overlay backdrop
 .overlay {
     width: 100vw;
     height: 100vh;
@@ -38,27 +35,17 @@
     opacity: 0;
     z-index: 1000;
     visibility: hidden;
-    background-color: transparent;
     transition: all 0.3s ease;
     &.active {
         opacity: 1;
         visibility: visible;
-        backdrop-filter: blur(10px);
-        background-color: rgba($color: #000000, $alpha: 0.5);
     }
 }
-
-// floating action
 .floating-action {
     z-index: 1001;
     position: fixed;
     border-radius: 50%;
-    background: white;
     .fab-toggle {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100%;
         border-radius: 50%;
         transition: all 0.2s ease;
         cursor: pointer;
@@ -68,64 +55,42 @@
             color: #b83226;
         }
     }
-
     .fab-options {
         position: absolute;
-        background-color: white;
         bottom: 30px;
         right: 0px;
         border-radius: 10px;
-        padding: 15px 0px;
         list-style: none;
-        box-shadow: 0px 5px 20px rgba($color: #000000, $alpha: 0.3);
         opacity: 0;
         visibility: hidden;
         transition: all 0.2s ease;
         .fab-head {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding-bottom: 10px;
             cursor: default;
-            span {
-                text-transform: uppercase;
-                font-weight: bold;
-                font-size: 1.1rem;
-            }
         }
-        a.fab-link {
-            color: #343a40;
-            text-decoration: none;
-            .fab-item {
-                display: flex;
-                align-items: center;
-                justify-content: left;
-                transition: all 0.2s ease;
-                &:hover {
-                    background-color: rgb(206, 206, 206);
-                    color: #ea4335;
-                }
-                .icon {
-                    margin-right: 18px;
-                    font-size: 1.2rem;
-                    width: 12px;
-                }
-                .text {
-                    font-weight: 400;
-                }
+        a.fab-link .fab-item {
+            transition: all 0.2s ease;
+            &:hover {
+                background-color: rgb(206, 206, 206);
+                color: #ea4335;
+            }
+            .icon {
+                margin-right: 18px;
+                font-size: 1.2rem;
+                width: 12px;
+            }
+            .text {
+                font-weight: 400;
             }
         }
     }
-}
-
-// active state
-.floating-action.active {
-    .fab-toggle {
-        transform: rotate(-45deg);
-    }
-    .fab-options {
-        opacity: 1;
-        visibility: visible;
-        bottom: 45px;
+    &.active {
+        .fab-toggle {
+            transform: rotate(-45deg);
+        }
+        .fab-options {
+            opacity: 1;
+            visibility: visible;
+            bottom: 45px;
+        }
     }
 }
