@@ -7,7 +7,7 @@
 
 {% block body_content %}
 <p class="container display-4 text-center text-light">{{labels['heading']}}</p>
-<section id="service_list" class="mb-5">
+<section class="mb-5 service_list">
     {% for item in catalogue %}
     <div class="container-fluid px-2" id="{{item.id + 'Parent'}}">
         <div class="container review-3 shadow py-4 service-name my-2 rounded">

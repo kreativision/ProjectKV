@@ -1,17 +1,9 @@
 {% extends 'main.layout.html' %}
 {% set active='home' %}
-{% import 'home_macros.html' as macros %}
 
 {% block page_style%}
 <link rel="stylesheet" href="{{url_for('BP_home.static', filename='styles/BP_home.css')}}">
 {% endblock page_style %}
-
-<!-- PENDING ITEMS -->
-<!--  Responsive contacts, 
-      Nav Items, 
-      Template Linking
-      dp images
-    -->
 
 {% block body_content %}
 <div class="home-sections">
@@ -102,7 +94,7 @@
     </div>
 
     <div class="container text-center">
-      <a href="#" class="btn btn-outline-warning shadow text-uppercase font-weight-bold mt-3">
+      <a href="{{url_for('BP_home.blog')}}" class="btn btn-outline-warning shadow text-uppercase font-weight-bold mt-3">
         {{labels['allProjectsCTA']}} <i class="fas fa-chevron-right ml-2"></i>
       </a>
     </div>
@@ -116,8 +108,24 @@
   <section id="serviceGallery">
     <div class="row px-4">
       {% for service in services %}
-      {{macros.service_gallery_item(id=service.id, name=service.name, description=service.description,
-      price=service.start_price)}}
+      <div class="col-md-4 col-sm-12 col-lg-4">
+        <div class="card bg-black-glass text-white text-center my-3">
+          <div class="card-header border-0">
+            <h4 class="card-title">{{service.name}}</h4>
+          </div>
+          <div class="card-body">
+            <p class="card-text">{{service.description}}</p>
+            <p class="h3">Starting @ just</p>
+            <p class="display-3"><sup class="h2">₹</sup> {{service.start_price}}/-</p>
+          </div>
+          <div class="card-footer border-0">
+            <a href="{{url_for('BP_home.service_list', _anchor=service.id)}}"
+              class="btn btn-light font-weight-bold text-uppercase">
+              Explore <i class="fas fa-chevron-right ml-2"></i>
+            </a>
+          </div>
+        </div>
+      </div>
       {% endfor %}
     </div>
     <div class="container d-flex justify-content-center text-center mt-3">
@@ -136,8 +144,21 @@
     <div class="container mb-4">
       <div class="card-columns">
         {% for title, author, content, service, date in reviews %}
-        {{macros.review_card(title=title, author=author, content=content, service=service, date=date,
-        index=loop.index0)}}
+        <div class="card shadow rev border-0 review-{{loop.index0%4}}">
+          <div class="card-header border-0">
+            <h5 class="card-title mb-1">{{title}}</h5>
+            <small class="card-subtitle font-weight-normal">By {{author}}</small>
+          </div>
+          {% if content %}
+          <div class="card-body">
+            <p class="card-tex">{{content}}</p>
+          </div>
+          {% endif %}
+          <div class="card-footer border-0 d-flex justify-content-between">
+            <small class="font-italic font-weight-bold service">For {{service}}</small>
+            <small class="font-italic">Posted on {{date}}</small>
+          </div>
+        </div>
         {% endfor %}
 
         <!-- Write a review button. -->
@@ -151,6 +172,12 @@
         </div>
         {% endif %}
       </div>
+    </div>
+    <div class="d-flex get-started">
+      <p class="h3 font-weight-normal text-light mb-3">Ready to get started?</p>
+      <a href="{{url_for('BP_home.service_list')}}" class="btn btn-large btn-primary shadow border-0 text-uppercase font-weight-bold">
+        Let's Begin <i class="fas fa-chevron-right ml-3"></i>
+      </a>
     </div>
   </section>
 
