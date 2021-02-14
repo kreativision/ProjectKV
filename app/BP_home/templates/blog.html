@@ -3,30 +3,119 @@
 
 {% block page_style%}
 <link rel="stylesheet" href="{{url_for('BP_home.static', filename='styles/BP_home.css')}}">
+<link rel="stylesheet" href="{{url_for('BP_home.static', filename='styles/lightbox.min.css')}}">
 {% endblock page_style %}
 
 {% block body_content %}
 <div class="blog-page">
-    <div class="header">
-        <div class="content">
-            <p class="display-4 text-light text-center">OUR PROJECTS</p>
-            <a href="#" class="text-decoration-none text-light ">
-                <i class="fas fa-3x fa-arrow-circle-down"></i>
+    <div class="blog-header">
+        <div class="header-content d-flex">
+            <img src="{{url_for('BP_home.static', filename='images/asset-3.png')}}" alt="" class="header-img mb-4">
+            <p class="h2 font-weight-bold text-dark text-uppercase text-center">our Journey So far</p>
+            <a href="#first" class="text-decoration-none text-dark">
+                <i class="fas fa-4x fa-arrow-circle-down"></i>
             </a>
         </div>
-    </div>
-
-    <div class="full-page-blog">
-        <div class="container-fluid px-2">
-            
+        <div class="sub-header container text-center d-flex justify-content-center">
+            <p class="font-italic text-light text-center">Here is some of the latest stuff we've been working
+                on.<br>Have a look at the
+                best of KreatiVision. . .</p>
         </div>
     </div>
-
-
+    <div class="container" id="blogItems">
+        <div class="blog-layout row" id="first">
+            <div class="text-container col-md-6 px-2">
+                <p class="h2 text-warning">Design Type 1</p>
+                <p class="font-italic text-light">
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut maiores aspernatur officiis totam quis
+                    asperiores minus sapiente?
+                </p>
+            </div>
+            <div class="col-md-6 px-2">
+                <div class="masonry">
+                    <a href="{{url_for('BP_home.static', filename='images/random-1.jpg')}}" class="grid"
+                        data-lightbox="set1">
+                        <img src="{{url_for('BP_home.static', filename='images/random-1.jpg')}}">
+                    </a>
+                    <a href="{{url_for('BP_home.static', filename='images/random-2.jpg')}}" class="grid"
+                        data-lightbox="set1">
+                        <img src="{{url_for('BP_home.static', filename='images/random-2.jpg')}}">
+                    </a>
+                    <a href="{{url_for('BP_home.static', filename='images/random-3.jpg')}}" class="grid"
+                        data-lightbox="set1">
+                        <img src="{{url_for('BP_home.static', filename='images/random-3.jpg')}}">
+                    </a>
+                    <a href="{{url_for('BP_home.static', filename='images/random-4.jpg')}}" class="grid"
+                        data-lightbox="set1">
+                        <img src="{{url_for('BP_home.static', filename='images/random-4.jpg')}}">
+                    </a>
+                    <a href="{{url_for('BP_home.static', filename='images/random-5.jpg')}}" class="grid"
+                        data-lightbox="set1">
+                        <img src="{{url_for('BP_home.static', filename='images/random-5.jpg')}}">
+                    </a>
+                    <a href="{{url_for('BP_home.static', filename='images/random-6.jpg')}}" class="grid"
+                        data-lightbox="set1">
+                        <img src="{{url_for('BP_home.static', filename='images/random-6.jpg')}}">
+                    </a>
+                </div>
+                <p class="small font-italic text-light text-center">Click on any image to open gallery.</p>
+            </div>
+        </div>
+        <div class="blog-layout row">
+            <div class="text-container col-md-6 px-2">
+                <p class="h2 text-warning">Design Type 2</p>
+                <p class="font-italic text-light">
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut maiores aspernatur officiis totam quis
+                    asperiores minus sapiente?
+                </p>
+            </div>
+            <div class="col-md-6 px-2">
+                <div class="masonry">
+                    <a href="{{url_for('BP_home.static', filename='images/random-6.jpg')}}" class="grid"
+                        data-lightbox="set2">
+                        <img src="{{url_for('BP_home.static', filename='images/random-6.jpg')}}">
+                    </a>
+                    <a href="{{url_for('BP_home.static', filename='images/random-2.jpg')}}" class="grid"
+                        data-lightbox="set2">
+                        <img src="{{url_for('BP_home.static', filename='images/random-2.jpg')}}">
+                    </a>
+                    <a href="{{url_for('BP_home.static', filename='images/random-1.jpg')}}" class="grid"
+                        data-lightbox="set2">
+                        <img src="{{url_for('BP_home.static', filename='images/random-1.jpg')}}">
+                    </a>
+                    <a href="{{url_for('BP_home.static', filename='images/random-4.jpg')}}" class="grid"
+                        data-lightbox="set2">
+                        <img src="{{url_for('BP_home.static', filename='images/random-4.jpg')}}">
+                    </a>
+                    <a href="{{url_for('BP_home.static', filename='images/random-5.jpg')}}" class="grid"
+                        data-lightbox="set2">
+                        <img src="{{url_for('BP_home.static', filename='images/random-5.jpg')}}">
+                    </a>
+                    <a href="{{url_for('BP_home.static', filename='images/random-3.jpg')}}" class="grid"
+                        data-lightbox="set2">
+                        <img src="{{url_for('BP_home.static', filename='images/random-3.jpg')}}">
+                    </a>
+                </div>
+                <p class="small font-italic text-light text-center">Click on any image to open gallery.</p>
+            </div>
+        </div>
+    </div>
     {% include 'fab.html' %}
+    <!-- https://source.unsplash.com/random/6 -->
+    <!-- LIGHTBOX: https://lokeshdhakar.com/projects/lightbox2/ -->
 </div>
 {% endblock body_content %}
 
 {% block page_scripts %}
 <script src=" {{url_for('BP_home.static', filename='js/home.js')}} "></script>
+<script src=" {{url_for('BP_home.static', filename='js/lightbox.min.js')}} "></script>
+<!-- LightBox Config -->
+<script>
+    lightbox.option({
+        'resizeDuration': 450,
+        'alwaysShowNavOnTouchDevices': true,
+        'fadeDuration': 450,
+        'imageFadeDuration': 450
+    })
+</script>
 {% endblock page_scripts%}
