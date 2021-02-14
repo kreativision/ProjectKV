@@ -15,26 +15,17 @@ from app.BP_account import BP_account
 # App config.
 app = Flask(__name__)
 app.config["SECRET_KEY"] = os.environ.get("FLASK_APP_KEY")
-
-# Database config.
 app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("FLASK_DB_URI")
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy(app)
-
-# Mail Configuration.
 app.config["MAIL_SERVER"] = "smtp.googlemail.com"
 app.config["MAIL_PORT"] = 587
 app.config["MAIL_USE_TLS"] = True
 app.config["MAIL_USERNAME"] = os.environ.get("FLASK_MAIL_ID")
 app.config["MAIL_PASSWORD"] = os.environ.get("FLASK_MAIL_PWD")
 mail = Mail(app)
-
-# BCrypt for password encryption.
 encryptor = Bcrypt(app)
-
-# LoginManager for managing user sessions.
 logger = LoginManager(app)
-
 
 # Routes are imported after the configuration to avoid 'circular-import' errors.
 from app import routes
@@ -61,7 +52,6 @@ def create():
     db.drop_all()
     print("====> Creating new database tables ")
     db.create_all()
-
     print("====> Adding Users ")
     # Adding users
     tester = User(
@@ -86,7 +76,6 @@ def create():
     )
     db.session.add_all([tester, tester1, admin])
     db.session.commit()
-
     print("====> Adding Services Catalogue ")
     # Adding Service Catalogue
     logos = Catalogue(
@@ -109,7 +98,6 @@ def create():
     )
     db.session.add_all([logos, posters])
     db.session.commit()
-
     print("====> Adding Services ")
     # Adding Services
     logo_1 = Service(
@@ -164,7 +152,6 @@ def create():
     # addind all services to session and commit
     db.session.add_all([logo_1, logo_2, logo_3, poster_1, poster_2, vCard_1, vCard_2])
     db.session.commit()
-
     print("====> Adding Projects")
     project1 = Project(
         name="Test Project 1",
@@ -176,20 +163,37 @@ def create():
         service="Branding Package",
         description="This is Branding Project No. 2. Ducimus accusantium dignissimos quod ipsum illo nisi deserunt accusamus nihil, quisquam sunt. Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus accusantium dignissimos quod ipsum illo nisi deserunt accusamus nihil, quisquam sunt.",
     )
-
-    image1 = ProjectImage(filepath="wordgrams.png", owner_project=project1)
-    image2 = ProjectImage(filepath="monograms.png", owner_project=project1)
-    image3 = ProjectImage(filepath="symbols.png", owner_project=project1)
-    image4 = ProjectImage(filepath="web-poster.png", owner_project=project2)
-    image5 = ProjectImage(filepath="print-media.png", owner_project=project2)
-    image6 = ProjectImage(filepath="vCardSS.jpg", owner_project=project2)
-    image7 = ProjectImage(filepath="vCardDS.jpg", owner_project=project2)
-
+    image1 = ProjectImage(filepath="random-1.jpg", owner_project=project1)
+    image2 = ProjectImage(filepath="random-2.jpg", owner_project=project1)
+    image3 = ProjectImage(filepath="random-3.jpg", owner_project=project1)
+    image4 = ProjectImage(filepath="random-4.jpg", owner_project=project1)
+    image5 = ProjectImage(filepath="random-5.jpg", owner_project=project1)
+    image6 = ProjectImage(filepath="random-6.jpg", owner_project=project1)
+    image7 = ProjectImage(filepath="random-7.jpg", owner_project=project2)
+    image8 = ProjectImage(filepath="random-8.jpg", owner_project=project2)
+    image9 = ProjectImage(filepath="random-9.jpg", owner_project=project2)
+    image10 = ProjectImage(filepath="random-10.jpg", owner_project=project2)
+    image11 = ProjectImage(filepath="random-11.jpg", owner_project=project2)
+    image12 = ProjectImage(filepath="random-12.jpg", owner_project=project2)
     # adding projects and project images to session and commit
     db.session.add_all([project1, project2])
-    db.session.add_all([image1, image2, image3, image4, image5, image6, image7])
+    db.session.add_all(
+        [
+            image1,
+            image2,
+            image3,
+            image4,
+            image5,
+            image6,
+            image7,
+            image8,
+            image9,
+            image10,
+            image11,
+            image12,
+        ]
+    )
     db.session.commit()
-
     print("====> Database created with mock-data")
 
 

@@ -1,29 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
-<!-- This is the Main/Master Template Page.
-     Extended by all modules and their pages. -->
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <!-- Bootstrap and Fontawesome -->
     <link rel="stylesheet" href="{{url_for('static', filename='styles/bootstrap.css')}}">
     <link rel="stylesheet" href="{{url_for('static', filename='styles/FA.css')}}">
-
-    <!-- Custom Global Styles -->
+    <!-- Custom Styles -->
     <link rel="stylesheet" href="{{url_for('static', filename='styles/global-styles.css')}}">
-
-    <!-- "Floating Action Button" block styles -->
     <link rel="stylesheet" href="{{url_for('static', filename='styles/fab.css')}}">
-
-    <!-- Block to include module specific styles -->
     {% block page_style %} {% endblock %}
-
-    <!-- Dynamic Title -->
     <title>{{title}} | KreatiVision</title>
 </head>
-
 <body>
     <header>
         <!-- Nav Links Configuration -->
@@ -46,9 +34,7 @@
         (url_for('BP_auth.sign_up'), 'register', 'Register'),
         ] %}
         {% endif %}
-
         {% set active = active|default('home') -%}
-
         <!-- Sidebar for Mobile Devices -->
         <nav class="bg-black-glass" id="sidebar">
             <div class="sidebar-header">
@@ -68,7 +54,6 @@
                 {% endfor %}
             </ul>
         </nav>
-
         <!-- Top Navbar for Desktops -->
         <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-black-glass shadow">
             <button type="button" class="btn ml-0" id="sidebarToggle" onclick="toggleSidebar('open')">
@@ -83,7 +68,6 @@
                     <a href="{{href|e}}" class="nav-link">{{caption|e}}</a>
                 </li>
                 {% endfor %}
-                <!-- Dropdown -->
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -145,9 +129,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
         crossorigin="anonymous"></script>
-    <!-- Global JS Script -->
+    <!-- Custom JS Script -->
     <script src="{{url_for('static', filename='js/main.js')}}"></script>
-    <!-- Block to include module specific scripts -->
     {% block page_scripts%} {% endblock %}
 </body>
 
