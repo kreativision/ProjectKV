@@ -11,7 +11,7 @@ class HomeConstants:
         "recentProjectsHead": "Our Projects",
         "servicesHead": "Popular Services",
         "allServicesCTA": "BROWSE ALL SERVICES",
-        "allProjectsCTA": "SEE ALL PROJECTS",
+        "allProjectsCTA": "CHECKOUT OUR PORTFOLIO",
         "reviewHead": "What our Clients Say",
     }
 
