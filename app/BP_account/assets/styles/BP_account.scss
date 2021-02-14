@@ -1,54 +1,119 @@
 
-main {
-    background-image: linear-gradient(to right, #311b61, #0f001f);
-	padding-top: 56px;
-}
-
-
-.flip-card {
-	background-color: transparent;
-	width: 500px;
-	height: 500px;
-	perspective: 1000px;
-    border-radius : 10px;
-    padding: 30px;
-	&:hover {
-		.flip-card-inner {
-			transform: rotateY(180deg);
-		}
+// HTML {
+// 	CSSResult {
+// 		Skip {
+// 			Results {
+// 				Iframe {
+// 					EDIT {
+// 						ON {
+// 							html {
+// 								height: 100%;
+// 								width: 100%;
+// 							}
+// 						}
+// 					}
+// 				}
+// 			}
+// 		}
+// 	}
+// }
+body {
+	height: 100%;
+	width: 100%;
+	main{
+		padding-top: 60px ;
+		background-color: rgb(10, 10, 56);
 	}
 }
-.flip-card-inner {
-	position: relative;
-	width: 100%;
-	height: 100%;
-	text-align: center;
-	transition: transform 0.6s;
-	transform-style: preserve-3d;
-	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-    
+
+.card {
+	//position: absolute;
+	border-radius: 8px;
+	height: 450px;
+	width: 400px;
+	//top: 0;
+	right: 0;
+	left: 0;
+	bottom: 0;
+	margin: auto;
+	background-image: url("../images/profile.webp");
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	box-shadow: 0 0 80px -10px black;
+	overflow: hidden;
+	&:hover {
+		.card-blur {
+			opacity: 0.6;
+		}
+		
+		.info {
+			transform: translateY(0px);
+		}
+	}
+	
 }
-.flip-card-front {
+.card-blur {
 	position: absolute;
-	width: 100%;
 	height: 100%;
-	-webkit-backface-visibility: hidden;
-	backface-visibility: hidden;
-	background-color: rgb(204, 111, 24);
-	color: black;
+	width: calc(100% + 1px);
+	background-color: black;
+	opacity: 0;
+	transition: opacity 0.15s ease-in;
 }
-.flip-card-back {
+
+.footer {
+	z-index: 1;
 	position: absolute;
+	height: 80px;
 	width: 100%;
-	height: 100%;
-	-webkit-backface-visibility: hidden;
-	backface-visibility: hidden;
-	background-color: #2980b9;
-	color: white;
-	transform: rotateY(180deg);
+	bottom: 0;
 }
-h1{
-    font-family: cursive;
-    
-    color: aqua;
+svg#curve {
+	position: absolute;
+	fill: rgb(202, 124, 60);
+	left: 0;
+	bottom: 0;
+	width: 400px;
+	height: 450px;
 }
+
+.info {
+	font-family: Inconsolata;
+	padding-left: 20px;
+	transform: translateY(250px);
+	transition: transform 1s cubic-bezier(.31,1.21,.64,1.02);
+}
+.name {
+	font-weight: bolder;
+	padding-top: 5px;
+	font-family: cursive;
+}
+.member {
+	margin-top: 10px;
+}
+
+.btn-default
+ 
+{
+ 
+background-color: rgb(202, 124, 60);
+ 
+color:rgb(7, 7, 7);
+width: 50%;
+ 
+
+ 
+}
+ 
+.btn-default:hover, .btn-default:focus, .btn-default:active, .btn-default.active, .open .dropdown-toggle.btn-default {
+ 
+ 
+ 
+background-color: rgb(202, 124, 60);
+color: black;
+
+
+ 
+}
+
