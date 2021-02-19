@@ -16,7 +16,6 @@
                 </div>
                 {% else %}
                 {{form.username(class="form-control")}}
-                <!-- <small class="helper-text text-dark">Required.</small> -->
                 {% endif %}
                 {{form.username.label(class="form-control-label")}}
             </div>
@@ -32,6 +31,7 @@
                 </div>
                 {% else %}
                 {{form.email(class="form-control")}}
+                <small class="helper-text text-muted font-italic">Required for account related communication and order updates.</small>
                 {% endif %}
                 {{form.email.label(class="form-control-label")}}
             </div>
@@ -50,7 +50,7 @@
                 </div>
                 {% else %}
                 {{form.contact(class="form-control")}}
-                <small class="helper-text text-muted">We will only use this for sending order updates.</small>
+                <small class="helper-text text-muted font-italic">Required for order related consultation and updates.</small>
                 {% endif %}
                 {{form.contact.label(class="form-control-label")}}
             </div>

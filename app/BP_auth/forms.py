@@ -27,7 +27,7 @@ class RegistrationForm(FlaskForm):
     )
     email = StringField("E-mail *", validators=[DataRequired(), Email()])
     contact = IntegerField(
-        "Contact",
+        "Contact *",
         validators=[
             DataRequired(),
             NumberRange(
