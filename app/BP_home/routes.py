@@ -1,6 +1,6 @@
 from app.BP_home import BP_home
 from app.BP_home.home_constants import HomeConstants, ServicesConstants
-from app.models import Catalogue, Service, Project, ProjectImage
+from app.models import Catalogue, Service, ProjectImage
 from flask.templating import render_template
 
 reviews = [
@@ -31,39 +31,18 @@ reviews = [
         "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC",
         "PDF Edit",
         "October 12, 2020",
-    ),
-    (
-        "Right Colors for right occassion",
-        "Jane Doe",
-        '"Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32',
-        "Poster Design",
-        "November 18, 2020",
-    ),
-    (
-        "Sound Advice.",
-        "RD Barman",
-        "Why do we use it? It is a long established fact that a reader will be distracted by the readable",
-        "Consultation",
-        "January 26, 2021",
-    ),
-    (
-        "Sound Advice.",
-        "RD Barman",
-        '"But I must explain to you how all this mistaken idea of denouncing pleasure',
-        "Other  Stuff",
-        "January 13, 2021",
-    ),
+    )
 ]
 
 
 @BP_home.route("/")
 def home():
     catalogue = Catalogue.query.order_by(Catalogue.start_price).all()
-    projects = Project.query.all()
+    showcase_images = ProjectImage.query.order_by(ProjectImage.date).limit(6).all()
     return render_template(
         "home.html",
         title="Home",
-        projects=projects,
+        showcase=showcase_images,
         services=catalogue,
         reviews=reviews,
         labels=HomeConstants.labels,

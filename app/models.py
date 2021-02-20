@@ -4,6 +4,7 @@ from flask_login import UserMixin
 
 # To generating secure token used for password reset
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
+import datetime
 
 
 @logger.user_loader
@@ -46,6 +47,9 @@ class Catalogue(db.Model):
     description = db.Column(db.String(160))
     start_price = db.Column(db.Integer, nullable=False)
     variations = db.relationship("Service", backref="catalogue", lazy=True)
+    project_img = db.relationship(
+        "ProjectImage", backref="for_catalogue", lazy=True, uselist=True
+    )
 
     def __repr__(self):
         return f"Service Category => {self.name}, Starting @ {self.start_price}"
@@ -56,28 +60,16 @@ class Service(db.Model):
     name = db.Column(db.String(25), nullable=False)
     description = db.Column(db.String(160))
     price = db.Column(db.Integer, nullable=False)
-    image = db.Column(db.String(50), nullable=False)
+    header_img = db.Column(db.String(50), nullable=False)
     catalogue_id = db.Column(db.String(16), db.ForeignKey("catalogue.id"))
 
     def __repr__(self):
         return f"Service => {self.name} is priced at {self.price}"
 
 
-class Project(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(140), nullable=False)
-    service = db.Column(db.String(25), nullable=False)
-    description = db.Column(db.Text)
-    pictures = db.relationship(
-        "ProjectImage", backref="owner_project", lazy=True, uselist=True
-    )
-    show_on_home = db.Column(db.Boolean(), default=True)
-
-    def __repr__(self):
-        return f"Service => {self.name} is priced at {self.service}"
-
-
 class ProjectImage(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     filepath = db.Column(db.String(120), nullable=False)
-    project_id = db.Column(db.Integer, db.ForeignKey("project.id"), nullable=False)
+    image_title = db.Column(db.String(80))
+    date = db.Column(db.DateTime, default=datetime.datetime.utcnow)
+    catalogue_name = db.Column(db.Integer, db.ForeignKey("catalogue.name"), nullable=False)
