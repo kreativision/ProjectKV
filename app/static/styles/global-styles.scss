@@ -143,7 +143,14 @@ body {
     position: fixed;
     z-index: 1000;
     backdrop-filter: none !important;
+    border-radius: 0.4rem;
+    .toast-header {
+        border-top-left-radius: calc(0.4rem - 1px);
+        border-top-right-radius: calc(0.4rem - 1px);
+    }
     .toast-body {
         background-color: #fff;
+        border-bottom-left-radius: calc(0.4rem - 1px);
+        border-bottom-right-radius: calc(0.4rem - 1px);
     }
 }
