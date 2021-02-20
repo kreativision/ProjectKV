@@ -8,7 +8,7 @@
 {% block body_content %}
 <div class="home-sections">
   {#
-  <!-- offer card commeted-->
+  <!-- offer card | commeted-->
   {% if not current_user.admin %}
   <section id="offers" class="card shadow border-0 show">
     <div class="card-header border-0 d-flex justify-content-between pr-2">
@@ -29,7 +29,8 @@
   </section>
   {% endif %}
   #}
-  <!-- Intro -->
+
+  <!-- Site Intro -->
   <section id="intro" class="d-flex flex-column container-fluid px-2 py-5">
     <div class="container" id="artwork">
       <img src="{{url_for('BP_home.static', filename='images/intro-art.svg')}}" alt="">
@@ -52,40 +53,17 @@
         {{labels['exploreServicesCTA']}}
         <span><i class="fas fa-chevron-right ml-2"></i></span>
       </a>
-      <a href="#projGallery" class="btn mb-3 text-light text-uppercase font-weight-bold pl-0">
+      <a href="#projects" class="btn mb-3 text-light text-uppercase font-weight-bold pl-0">
         {{labels['recentProjectsCTA']}}
         <span><i class="fas fa-chevron-right ml-2"></i></span>
       </a>
     </div>
   </section>
 
-  <section id="projGallery" class="pb-3 w-100">
-    <p class="h3 font-weight-light text-center text-light section-head mb-4">What we've been working on!</p>
-    <div class="row no-gutters">
-      {% for image in showcase %}
-      <div class="col-md-4 col-sm-12 gallery-item position-relative">
-        <img src="{{url_for('static', filename='images/project-images/'+image.filepath)}}" alt="" class="w-100 h-100 position-absolute">
-        <div class="about position-absolute w-100">
-          <div class="title pl-2">
-            <p class="h4 text-light">{{image.image_title}}</p>
-            <small class="subtitle text-light font-italic">{{image.catalogue_name}} on {{image.date.strftime('%d, %m, %Y')}}</small>
-          </div>
-        </div>
-      </div>
-      {% endfor %}
-    </div>
-    <div class="container-fluid text-center mt-4">
-      <a href="{{url_for('BP_home.blog')}}" class="btn btn-outline-warning font-weight-bold shadow">
-        {{labels['allProjectsCTA']}} <i class="fas fa-chevron-right ml-2"></i>
-      </a>
-    </div>
-  </section>
-
-  <!-- Heading for section 5 -->
+  <!-- Popular Services Gallery -->
   <div class="section-head sec-5" id="services">
     <p class="h3 font-weight-light text-center text-light mb-4">{{labels['servicesHead']}}</p>
   </div>
-  <!-- section 5 -->
   <section id="serviceGallery">
     <div class="row px-4">
       {% for service in services %}
@@ -116,11 +94,37 @@
     </div>
   </section>
 
-  <!-- Heading for section 4 -->
+  <!-- Projects Gallery -->
+  <div class="section-head" id="projects">
+    <p class="h3 font-weight-light text-center text-light mb-4">What's going on lately!</p>
+  </div>
+  <section id="projGallery" class="pb-3 w-100">
+    <div class="row no-gutters">
+      {% for image in showcase %}
+      <div class="col-md-4 col-sm-12 gallery-item position-relative">
+        <img src="{{url_for('static', filename='images/project-images/'+image.filepath)}}" alt=""
+          class="w-100 h-100 position-absolute">
+        <div class="about position-absolute w-100">
+          <div class="title pl-2">
+            <p class="h4 text-light">{{image.image_title}}</p>
+            <small class="subtitle text-light font-italic">{{image.catalogue_name}} on {{image.date.strftime('%d, %m,
+              %Y')}}</small>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    <div class="container-fluid text-center mt-4">
+      <a href="{{url_for('BP_home.blog')}}" class="btn btn-outline-warning font-weight-bold shadow">
+        {{labels['allProjectsCTA']}} <i class="fas fa-chevron-right ml-2"></i>
+      </a>
+    </div>
+  </section>
+
+  <!-- Recent Reviews -->
   <div class="section-head" id="reviews">
     <p class="h3 font-weight-light text-center text-light mb-4">{{labels['reviewHead']}}</p>
   </div>
-  <!-- section 4 -->
   <section id="reviewGallery">
     <div class="container mb-4">
       <div class="card-columns">
@@ -141,7 +145,6 @@
           </div>
         </div>
         {% endfor %}
-
         <!-- Write a review button. -->
         {% if current_user.is_authenticated %}
         <div class="card shadow rev border-0 review-3">
@@ -162,11 +165,10 @@
     </div>
   </section>
 
+  <!-- Insert Footer Here -->
   {% include 'fab.html' %}
 </div>
 {% endblock body_content %}
-
-
 
 {% block page_scripts %}
 <script src=" {{url_for('BP_home.static', filename='js/home.js')}} "></script>
