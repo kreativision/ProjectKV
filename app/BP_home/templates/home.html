@@ -52,49 +52,30 @@
         {{labels['exploreServicesCTA']}}
         <span><i class="fas fa-chevron-right ml-2"></i></span>
       </a>
-      <a href="#projectGallery" class="btn mb-3 text-light text-uppercase font-weight-bold pl-0">
+      <a href="#projGallery" class="btn mb-3 text-light text-uppercase font-weight-bold pl-0">
         {{labels['recentProjectsCTA']}}
         <span><i class="fas fa-chevron-right ml-2"></i></span>
       </a>
     </div>
   </section>
 
-  <section id="projectGallery" class="d-flex flex-column container-fluid px-1 py-5">
-    <div class="container">
-      <p class="display-4 font-weight-normal text-light repos-header mt-2">{{labels['recentProjectsHead']}}</p>
-    </div>
-    <div class="container mt-3">
-      {% for project in projects %}
-      <div class="d-flex gallery-item flex-row{{'-reverse' if loop.index%2 == 0}}">
-        <div class="about">
-          <p class="h4 font-weight-normal font-italic text-warning">{{project.name}}</p>
-          <p class="h6 text-light mb-2">{{project.service}}</p>
-          <div class="text-light">{{project.description}}</div>
-        </div>
-        {% set galleryId = 'project'+(project.id|string()) %}
-        <div id="{{galleryId}}" class="carousel slide carousel-fade" data-ride="carousel">
-          <div class="carousel-inner">
-            {% for picture in project.pictures %}
-            <div class="carousel-item d-flex justify-content-center {{'active' if loop.index0 == 0}}">
-              <img src="{{url_for('static', filename='images/project-images/'+picture.filepath)}}" alt="" class="h-100">
-            </div>
-            {% endfor %}
+  <section id="projGallery" class="pb-3 w-100">
+    <p class="h3 font-weight-light text-center text-light section-head mb-4">What we've been working on!</p>
+    <div class="row no-gutters">
+      {% for image in showcase %}
+      <div class="col-md-4 col-sm-12 gallery-item position-relative">
+        <img src="{{url_for('static', filename='images/project-images/'+image.filepath)}}" alt="" class="w-100 h-100 position-absolute">
+        <div class="about position-absolute w-100">
+          <div class="title pl-2">
+            <p class="h4 text-light">{{image.image_title}}</p>
+            <small class="subtitle text-light font-italic">{{image.catalogue_name}} on {{image.date.strftime('%d, %m, %Y')}}</small>
           </div>
-          <a class="carousel-control-prev" href="#{{galleryId}}" role="button" data-slide="prev">
-            <i class="fas fa-chevron-left"></i>
-            <span class="sr-only">Previous</span>
-          </a>
-          <a class="carousel-control-next" href="#{{galleryId}}" role="button" data-slide="next">
-            <i class="fas fa-chevron-right"></i>
-            <span class="sr-only">Next</span>
-          </a>
         </div>
       </div>
       {% endfor %}
     </div>
-
-    <div class="container text-center">
-      <a href="{{url_for('BP_home.blog')}}" class="btn btn-outline-warning shadow text-uppercase font-weight-bold mt-3">
+    <div class="container-fluid text-center mt-4">
+      <a href="{{url_for('BP_home.blog')}}" class="btn btn-outline-warning font-weight-bold shadow">
         {{labels['allProjectsCTA']}} <i class="fas fa-chevron-right ml-2"></i>
       </a>
     </div>
@@ -102,7 +83,7 @@
 
   <!-- Heading for section 5 -->
   <div class="section-head sec-5" id="services">
-    <p class="display-4 text-center text-white">{{labels['servicesHead']}}</p>
+    <p class="h3 font-weight-light text-center text-light mb-4">{{labels['servicesHead']}}</p>
   </div>
   <!-- section 5 -->
   <section id="serviceGallery">
@@ -137,7 +118,7 @@
 
   <!-- Heading for section 4 -->
   <div class="section-head" id="reviews">
-    <p class="display-4 text-center text-white">{{labels['reviewHead']}}</p>
+    <p class="h3 font-weight-light text-center text-light mb-4">{{labels['reviewHead']}}</p>
   </div>
   <!-- section 4 -->
   <section id="reviewGallery">
