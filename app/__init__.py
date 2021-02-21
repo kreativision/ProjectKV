@@ -26,6 +26,8 @@ app.config["MAIL_PASSWORD"] = os.environ.get("FLASK_MAIL_PWD")
 mail = Mail(app)
 encryptor = Bcrypt(app)
 logger = LoginManager(app)
+logger.login_view = 'BP_auth.login'
+
 
 # Routes are imported after the configuration to avoid 'circular-import' errors.
 from app import routes

@@ -63,3 +63,5 @@ def service_list():
 @BP_home.route("/blog")
 def blog():
     return render_template("blog.html", title="Blog")
+
+    

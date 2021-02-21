@@ -1,5 +1,5 @@
 from flask_login import login_user, logout_user, current_user
-from flask import redirect, url_for, flash, render_template
+from flask import redirect, url_for, flash, render_template, request
 from markupsafe import Markup
 from app import db, encryptor, mail
 import app.utils as utils
@@ -36,9 +36,11 @@ def login():
         user = User.query.filter_by(email=form.email.data).first()
         if user and encryptor.check_password_hash(user.password, form.password.data):
             login_user(user, remember=form.remember.data)
+
             content = [f"Login Successful", f"You have been successfully logged in."]
             flash(content, category="success")
-            return redirect(url_for("BP_home.home"))
+            next_page = request.args.get('next')
+            return redirect(next_page) if next_page else redirect (url_for("BP_home.home"))
         else:
             content = [
                 f"Login Failed.",
