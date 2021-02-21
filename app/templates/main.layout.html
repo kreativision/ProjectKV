@@ -76,7 +76,7 @@
                     <div class="dropdown-menu dropdown-menu-right shadow" aria-labelledby="navbarDropdown">
                         {% for href, id, caption in navItems[-4:-1] %}
 
-                        <a href="{{href|e}}" class="dropdown-item">
+                        <a href="{{href|e}}" class="dropdown-item {{'active' if active==id else ''}}">
                             <span class="mr-3">{{caption|e}}</span>
                             {% if id == 'cart' %}
                             <span class="badge badge-pill badge-info">2</span>
