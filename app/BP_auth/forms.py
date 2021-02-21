@@ -82,7 +82,7 @@ class RequestResetPasswordForm(FlaskForm):
         user_mail = User.query.filter_by(email=email.data).first()
         if user_mail is None:
             message = Markup(
-                f"You are not registerd. Please <a href='{url_for('BP_auth.sign_up')}'>click here</a> to create an account</a>."
+                f"This email is not registered. <a href='{url_for('BP_auth.sign_up')}'>Please register</a>."
             )
             raise ValidationError(message)
 
