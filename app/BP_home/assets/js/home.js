@@ -41,3 +41,16 @@ function flipIcon(button) {
         text.innerHTML = 'EXPLORE';
     }
 }
+
+function validatePassword() {
+    let newPassword = document.querySelector('#new_password');
+    let cnfPassword = document.querySelector('#confirm_new_password')
+    let confirmationError = cnfPassword.parentElement.querySelector('#conf_pwd_error')
+    if (newPassword.value !== cnfPassword.value) {
+        cnfPassword.classList.add("is-invalid");
+        confirmationError.textContent = "Passwords Don't Match";
+    } else {
+        cnfPassword.classList.remove("is-invalid");
+        confirmationError.textContent = "";
+    }
+}

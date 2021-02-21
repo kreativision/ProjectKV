@@ -40,7 +40,9 @@ class RegistrationForm(FlaskForm):
     )
     password = PasswordField("Password *", validators=[DataRequired()])
     cnf_password = PasswordField(
-        "Confirm Password *", validators=[DataRequired(), EqualTo("password")]
+        "Confirm Password *",
+        validators=[DataRequired(), EqualTo("password")],
+        render_kw={"onkeyup": "validatePassword()"},
     )
     submit = SubmitField("CREATE MY ACCOUNT")
     # check if email in db
@@ -65,7 +67,7 @@ class LoginForm(FlaskForm):
         user_mail = User.query.filter_by(email=email.data).first()
         if not user_mail:
             message = Markup(
-                f"This email is not registered. Please register by <a href='{url_for('BP_auth.sign_up')}'>clicking here</a>."
+                f"This email is not registered. Please <a href='{url_for('BP_auth.sign_up')}'>register</a>."
             )
             raise ValidationError(message)
 
@@ -86,7 +88,9 @@ class RequestResetPasswordForm(FlaskForm):
 
 
 class ResetPasswordForm(FlaskForm):
-    password = PasswordField("Password *", validators=[DataRequired()], render_kw={"autofocus": True})
+    password = PasswordField(
+        "Password *", validators=[DataRequired()], render_kw={"autofocus": True}
+    )
     cnf_password = PasswordField(
         "Confirm Password *", validators=[DataRequired(), EqualTo("password")]
     )

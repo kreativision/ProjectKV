@@ -1,0 +1,75 @@
+{% extends 'main.layout.html' %}
+{% set active='blog' %}
+
+{% block page_style%}
+<link rel="stylesheet" href="{{url_for('BP_home.static', filename='styles/BP_home.css')}}">
+{% endblock page_style %}
+
+{% block body_content %}
+<div style="padding-top: 60px;" class="mt-3 ml-5">
+    <button type="button" class="btn btn-light font-weight-bold" data-toggle="dropdown" aria-haspopup="true"
+        aria-expanded="false">
+        <i class="fas fa-pencil-alt mr-2"></i> EDIT
+    </button>
+    <div class="dropdown-menu">
+        <button class="dropdown-item" href="#">Profile</button>
+        <button class="dropdown-item" href="#" data-toggle="modal" data-target="#editPassword">Password</button>
+    </div>
+</div>
+
+
+<div class="modal fade" id="editPassword" tabindex="-1" aria-labelledby="editPasswordModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content bg-white-glass">
+            <form action="" method="POST">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title text-light" id="editPasswordModal">Edit Password</h5>
+                    <button type="button" class="close text-light" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"><i class="fas fa-times"></i></span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    {{form.hidden_tag()}}
+                    <fieldset>
+                        <div class="container bg-light f-field">
+                            <div class="form-group">
+                                {{form.current_password(class="form-control")}}
+                                {{form.current_password.label(class="form-control-label")}}
+                            </div>
+                        </div>
+
+                        <div class="container bg-light f-field">
+                            <div class="form-group">
+                                {{form.new_password(class="form-control")}}
+                                {{form.new_password.label(class="form-control-label")}}
+                            </div>
+                        </div>
+
+                        <div class="container bg-light f-field">
+                            <div class="form-group">
+                                {{form.confirm_new_password(class="form-control")}}
+                                {{form.confirm_new_password.label(class="form-control-label")}}
+                                <div class="invalid-feedback">
+                                    <span><i class="fas fa-times-circle mr-2"></i></span><span id="conf_pwd_error"></span>
+                                </div>
+                                <!-- <input type="email" name="check" id="email" onblur="validatePassword()"> -->
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary font-weight-bold border-0 shadow"
+                        data-dismiss="modal">CANCEL</button>
+                    <div class="form-group">
+                        {{form.submit(class="btn btn-warning font-weight-bold border-0")}}
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock body_content %}
+
+{% block page_scripts %}
+<script src=" {{url_for('BP_home.static', filename='js/home.js')}} "></script>
+{% endblock page_scripts%}

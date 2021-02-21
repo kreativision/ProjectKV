@@ -17,6 +17,11 @@
         {% else %}
         {{form.email(class="form-control")}}
         {% endif %}
+        {% if not form.email.errors %}
+        <div class="invalid-feedback">
+          <span><i class="fas fa-times-circle mr-2"></i></span><span id="email_error"></span>
+        </div>
+        {% endif %}
         {{form.email.label(class="form-control-label")}}
       </div>
     </div>

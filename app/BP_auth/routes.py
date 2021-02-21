@@ -1,5 +1,5 @@
 from flask_login import login_user, logout_user, current_user
-from flask import redirect, url_for, flash, render_template, request
+from flask import redirect, url_for, flash, render_template, request, jsonify
 from markupsafe import Markup
 from app import db, encryptor, mail
 import app.utils as utils
@@ -203,3 +203,12 @@ def reset_token(token):
         page="Create New Password",
         form=form,
     )
+
+@BP_auth.route("/api/check-email/<email_id>", methods=["GET"])
+def check_email(email_id):
+    print(email_id)
+    is_user = User.query.filter_by(email=email_id).first()
+    if is_user:
+        return jsonify({"registered": 1})
+    else:
+        return jsonify({"registered": 0})
