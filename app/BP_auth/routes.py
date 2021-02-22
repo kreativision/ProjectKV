@@ -12,17 +12,6 @@ from app.BP_auth.forms import (
     ResetPasswordForm,
 )
 
-# Test route to check hard to reach pages
-@BP_auth.route("/test")
-def test_route():
-    form = ResetPasswordForm()
-    form2 = RequestResetPasswordForm()
-    return render_template(
-        "new-password.html",
-        page="test route",
-        form=form
-    )
-
 # Login User
 @BP_auth.route("/login", methods=["GET", "POST"])
 def login():
@@ -204,7 +193,7 @@ def reset_token(token):
         form=form,
     )
 
-@BP_auth.route("/api/check-email/<email_id>", methods=["GET"])
+@BP_auth.route("/api/check-email/<string:email_id>", methods=["GET"])
 def check_email(email_id):
     print(email_id)
     is_user = User.query.filter_by(email=email_id).first()
