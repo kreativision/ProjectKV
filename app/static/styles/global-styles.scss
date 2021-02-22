@@ -1,11 +1,5 @@
 // Global Stylesheet - Used by all modules for common styling.
-$black-50: rgba(
-    $color: #000,
-    $alpha: 0.5,
-);
-
-$topbar-shadow: 0px 4px 10px $black-50;
-$sidebar-shadow: 4px 0px 25px 5px $black-50;
+@import "./variables";
 body {
     overflow: hidden;
     header {
@@ -33,6 +27,15 @@ body {
         width: 90%;
         transform: translate(-50%);
     }
+    .floating-action {
+        bottom: 15px;
+        right: 17px;
+        width: 50px;
+        height: 50px;
+        .fab-item {
+            padding: 8px 12px;
+        }
+    }
 }
 // queries for desktops
 @media only screen and (min-width: 768px) {
@@ -44,6 +47,19 @@ body {
     .toast {
         top: 65px;
         right: 35px;
+    }
+    .floating-action {
+        right: 35px;
+        bottom: 20px;
+        width: 60px;
+        height: 60px;
+        .call {
+            display: none;
+            pointer-events: none;
+        }
+        .fab-item {
+            padding: 8px 22px;
+        }
     }
 }
 // Custom Sidebar.
@@ -121,10 +137,9 @@ body {
     &:active {
         box-shadow: none !important;
         outline: none !important;
-        // border: none !important;
     }
     &.dropdown-toggle::after {
-        vertical-align: .18em;
+        vertical-align: 0.18em;
     }
 }
 // global glass bg classes
@@ -155,5 +170,142 @@ body {
         background-color: #fff;
         border-bottom-left-radius: calc(0.4rem - 1px);
         border-bottom-right-radius: calc(0.4rem - 1px);
+    }
+}
+//Forms - inspired from maaterial
+fieldset {
+    .options {
+        display: flex;
+    }
+    .f-field {
+        padding: 5px 15px;
+        box-shadow: $shadow-small;
+        border-radius: 15px;
+        margin: 10px 0px;
+    }
+    .form-group,
+    .input-group {
+        position: relative;
+        margin-top: 1rem !important;
+        margin-bottom: 0.5rem !important;
+        .form-control {
+            background-color: transparent !important;
+            color: $black-90 !important;
+            border-bottom: 2px solid $black-45;
+            border-top: none !important;
+            border-left: none !important;
+            border-right: none !important;
+            border-radius: 0px !important;
+            padding-left: 0px !important;
+            transition: all 0.3s ease;
+            box-shadow: none !important;
+            ~ .form-control-label {
+                color: $black-45;
+                margin-bottom: 0px !important;
+                position: absolute !important;
+                top: 10px !important;
+                left: 0px !important;
+                transition: all 0.3s ease;
+                &.active {
+                    font-size: 12px;
+                    transform: translateY(-25px);
+                }
+            }
+            &:focus {
+                border-bottom: 2px solid $black-90;
+                outline: none !important;
+                box-shadow: none;
+                ~ .form-control-label {
+                    color: $black-90;
+                    font-size: 12px;
+                    transform: translateY(-25px);
+                }
+            }
+        }
+        .input-group-append {
+            button {
+                background-color: transparent !important;
+                border-bottom: 2px solid $black-45;
+                border-top: none !important;
+                border-left: none !important;
+                border-right: none !important;
+                border-radius: 0px !important;
+            }
+        }
+        .is-invalid {
+            border-color: $invalid-form-field !important;
+            & ~ .form-control-label {
+                color: $invalid-form-field !important;
+            }
+        }
+    }
+}
+// floating action button
+.fab-overlay {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    z-index: 1000;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    &.active {
+        opacity: 1;
+        visibility: visible;
+    }
+}
+.floating-action {
+    z-index: 1001;
+    position: fixed;
+    border-radius: 50%;
+    .fab-toggle {
+        border-radius: 50%;
+        transition: all 0.2s ease;
+        cursor: pointer;
+        font-size: 1.3rem;
+        box-shadow: 0px 6px 15px $black-50;
+        &:hover {
+            color: #b83226;
+        }
+    }
+    .fab-options {
+        position: absolute;
+        bottom: 30px;
+        right: 0px;
+        border-radius: 10px;
+        list-style: none;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.2s ease;
+        .fab-head {
+            cursor: default;
+        }
+        a.fab-link .fab-item {
+            transition: all 0.2s ease;
+            &:hover {
+                background-color: rgb(206, 206, 206);
+                color: $invalid-form-field;
+            }
+            .icon {
+                margin-right: 18px;
+                font-size: 1.2rem;
+                width: 12px;
+            }
+            .text {
+                font-weight: 400;
+            }
+        }
+    }
+    &.active {
+        .fab-toggle {
+            transform: rotate(-45deg);
+        }
+        .fab-options {
+            opacity: 1;
+            visibility: visible;
+            bottom: 45px;
+        }
     }
 }
