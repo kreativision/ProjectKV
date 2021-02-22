@@ -1,66 +1,60 @@
-/**
- * Auth Page Scripts - manipulation of the form-fields on the page.
- */
+// Auth Page Scripts - manipulation of the form-fields on the page.
 const API_URl = `http://${window.location.hostname}:6174/api`;
 const email_pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 
 var formFields = document.querySelectorAll('.form-group .form-control, .input-group .form-control');
 var passwords = document.querySelectorAll('input[type="password"]');
 var toggleIcon = document.querySelector('#pwd-toggle i');
-var email_field = document.querySelector('#email');
 
 /**
- * Events on page load
+ * Events on page load  
  */
 document.addEventListener("DOMContentLoaded", () => {
-  // for form pages, check if fields are prefilled, and position label accordingly.
-  // register the onblur event of the fields.
-  formFields.forEach((element) => {
-    if (element.value) {
-      element.parentNode.querySelector('label').classList.add('active');
+  formFields.forEach((field) => {
+    if (field.value) {
+      field.parentNode.querySelector('label').classList.add('active');
     }
-    element.onblur = () => {
-      if (element.value) {
-        element.parentNode.querySelector('label').classList.add('active');
+    field.onblur = () => {
+      if (field.value) {
+        field.parentNode.querySelector('label').classList.add('active');
       } else {
-        element.parentNode.querySelector('label').classList.remove('active');
+        field.parentNode.querySelector('label').classList.remove('active');
       }
     }
   });
-  // for email sent page, register the closk segment and start the timer.
-  var clock = document.querySelector('.clock');
-  if (clock)
-    timer(clock, 600);
 });
 
 /**
- * countdown timer
+ * Runs a 10-minute countdown timer if on the email-sent page.
  */
-function timer(clockElement, time) {
-  let minutes = clockElement.querySelector('.minutes');
-  let seconds = clockElement.querySelector('.seconds');
-  minutes.textContent = '10m';
-  seconds.textContent = '00s';
-  let countDown = setInterval(() => {
-    'use strict';
-    let min = Math.floor(time / 60), remSec = time % 60;
-    if (remSec < 10) {
-      remSec = '0' + remSec;
-    }
-    if (min < 10) {
-      min = '0' + min;
-    }
-    minutes.textContent = min + 'm';
-    seconds.textContent = remSec + 's';
-    if (time > 0) {
-      time = time - 1;
-    } else {
-      clearInterval(countDown);
-      document.querySelector('.notice').remove();
-      document.querySelector('#resend').classList.add('active');
-    }
-  }, 1000);
-}
+document.addEventListener("DOMContentLoaded", () => {
+  var clock = document.querySelector('.clock');
+  if (clock) {
+    let minutes = clock.querySelector('.minutes');
+    let seconds = clock.querySelector('.seconds');
+    minutes.textContent = '10m';
+    seconds.textContent = '00s';
+    let countDown = setInterval(() => {
+      'use strict';
+      let min = Math.floor(time / 60), remSec = time % 60;
+      if (remSec < 10) {
+        remSec = '0' + remSec;
+      }
+      if (min < 10) {
+        min = '0' + min;
+      }
+      minutes.textContent = min + 'm';
+      seconds.textContent = remSec + 's';
+      if (time > 0) {
+        time = time - 1;
+      } else {
+        clearInterval(countDown);
+        document.querySelector('.notice').remove();
+        document.querySelector('#resend').classList.add('active');
+      }
+    }, 1000);
+  }
+});
 
 /**
  * toggles the visibility of password on checking the checkbox "Show Password".
@@ -76,64 +70,66 @@ function togglePassword() {
       field.type = 'text';
     }
   });
-  toggleIcon.parentElement.blur();
 }
 
 /**
  * Client-Side Password validation.
  */
 function validatePassword() {
-  let password = document.querySelector('#password');
-  let cnfPassword = document.querySelector('#cnf_password')
-  let confirmationError = cnfPassword.parentElement.querySelector('#conf_pwd_error')
-  if (cnfPassword.value === '') {
+  let password = $('#password');
+  let cnfPassword = $('#cnf_password');
+  let confirmationError = cnfPassword.parent().find('#conf_pwd_error');
+  if (cnfPassword.val() === '') {
     return;
   }
-  if (password.value !== cnfPassword.value) {
-    cnfPassword.classList.add("is-invalid");
-    confirmationError.textContent = "Passwords don't match";
+  if (password.val() !== cnfPassword.val()) {
+    cnfPassword.addClass("is-invalid");
+    confirmationError.text("Passwords don't match");
   } else {
-    cnfPassword.classList.remove("is-invalid");
-    confirmationError.textContent = "";
+    cnfPassword.removeClass("is-invalid");
+    confirmationError.text("");
   }
 }
 
 /**
  * API Call for client-side e-mail verification.
  */
-email_field.addEventListener('blur', () => {
-  email_id = email_field.value;
-  if (email_id === '') { return; }
-  // validate e-mail format and make api call for DB validation
-  if (email_pattern.test(email_id)) {
-    const requestUrl = `${API_URl}/check-email/${email_id.toLowerCase()}`;
-    var request = new XMLHttpRequest()
-    request.open('GET', requestUrl, true);
-    // show appropriate validation errors depending on page and field.
-    request.onload = () => {
-      let user = JSON.parse(request.response);
-      if (window.location.pathname.includes('sign-up') && user.registered) {
-        email_field.classList.add("is-invalid");
-        if (email_field.parentElement.querySelector('#email_hint')) {
-          email_field.parentElement.querySelector('#email_hint').remove();
-        }
-        email_field.parentElement.querySelector('#email_error').innerHTML = "This e-mail is already registered. You can <a href='/login'>login</a> or <a href='/forgot-password'>reset your password.</a>";
-      } else if ((window.location.pathname.includes('login') || window.location.pathname.includes('forgot')) && !user.registered) {
-        email_field.classList.add("is-invalid");
-        email_field.parentElement.querySelector('#email_error').innerHTML = "This email is not registered. <a href='/sign-up'>Please register.</a>";
-      } else if (email_field.classList.contains("is-invalid")) {
-        email_field.classList.remove("is-invalid");
-        email_field.parentElement.querySelector("#email_error").innerHTML = "";
-      }
+var jEmail;
+$(document).ready(function () {
+  jEmail = $('#email');
+  jEmail.bind('blur', function () {
+    mailId = jEmail.val();
+    if (mailId === "") {
+      return;
+    } else if (email_pattern.test(mailId)) {
+      $.ajax({
+        url: `${API_URl}/check-email/${jEmail.val()}`,
+        contentType: 'application/json',
+        dataType: 'json',
+        success: function (user) { EmailErrorHandler(user); }
+      })
+    } else {
+      jEmail.addClass("is-invalid");
+      jEmail.parent().find('#email_error').html("Invalid e-mail address");
     }
-    request.send();
-  }
-  // if email is not of valid format
-  else {
-    email_field.classList.add("is-invalid");
-    if (email_field.parentElement.querySelector('#email_hint')) {
-      email_field.parentElement.querySelector('#email_hint').remove();
-    }
-    email_field.parentElement.querySelector('#email_error').innerHTML = "Invalid email address.";
-  }
+  });
 });
+
+/**
+ * UI Manipulation supporting function to show email related errors 
+ */
+function EmailErrorHandler(user) {
+  if (window.location.pathname.includes('sign-up') && user.registered) {
+    jEmail.addClass("is-invalid");
+    if (jEmail.parent().find('#email_hint')) {
+      jEmail.parent().find('#email_hint').remove();
+    }
+    jEmail.parent().find('#email_error').html("This e-mail is already registered. You can <a href='/login'>login</a> or <a href='/forgot-password'>reset your password.</a>");
+  } else if ((window.location.pathname.includes('login') || window.location.pathname.includes('forgot')) && !user.registered) {
+    jEmail.addClass("is-invalid");
+    jEmail.parent().find('#email_error').html("This email is not registered. <a href='/sign-up'>Please register.</a>");
+  } else if (jEmail.hasClass("is-invalid")) {
+    jEmail.removeClass("is-invalid");
+    jEmail.parent().find('#email_error').html("");
+  }
+}
