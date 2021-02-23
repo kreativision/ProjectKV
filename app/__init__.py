@@ -11,6 +11,7 @@ import os
 from app.BP_home import BP_home
 from app.BP_auth import BP_auth
 from app.BP_account import BP_account
+from app.BP_admin import BP_admin
 
 # App config.
 app = Flask(__name__)
@@ -37,11 +38,13 @@ from app import routes
 from app.BP_home import routes
 from app.BP_auth import routes
 from app.BP_account import routes
+from app.BP_admin import routes
 
 # Blueprint registration
 app.register_blueprint(BP_home)
 app.register_blueprint(BP_auth)
 app.register_blueprint(BP_account)
+app.register_blueprint(BP_admin)
 
 
 # setting up cli command to bootstrap the database with mock data for development

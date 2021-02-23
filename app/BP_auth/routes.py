@@ -25,7 +25,8 @@ def login():
         user = User.query.filter_by(email=form.email.data).first()
         if user and encryptor.check_password_hash(user.password, form.password.data):
             login_user(user, remember=form.remember.data)
-
+            if user.admin:
+                return redirect(url_for("BP_admin.home"))
             content = [f"Login Successful", f"You have been successfully logged in."]
             flash(content, category="success")
             next_page = request.args.get('next')
