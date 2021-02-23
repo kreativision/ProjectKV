@@ -6,9 +6,81 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{url_for('static', filename='styles/bootstrap.css')}}">
     <link rel="stylesheet" href="{{url_for('static', filename='styles/FA.css')}}">
+    <link rel="stylesheet" href="{{url_for('BP_admin.static', filename='styles/admin.css')}}">
     <title>{{title}} | KreatiVision</title>
 </head>
 <body>
-    
+    {% set navItems = [
+    (url_for('BP_admin.home'), 'admin_home', 'Admin Home'),
+    ('#', '#', 'Link 2')
+    ] %}
+    {% set active = active|default('admin_home') -%}
+    <header>
+        <nav class="bg-dark" id="sidebar">
+            <div class="sidebar-header">
+                <span class="ml-auto">
+                    <button type="button" class="btn text-light" onclick="toggleSidebar('close')">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </span>
+            </div>
+            <ul class="list-unstyled text-white">
+                {% for href, id, caption in navItems %}
+                <li class="{{'active' if active==id else ''}}">
+                    <a href="{{href|e}}" class="nav-link text-light">
+                        {{caption|e}}<i class="fas fa-chevron-right ml-auto mr-3 mt-1"></i>
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+        </nav>
+        <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark shadow">
+            <button type="button" class="btn ml-0" id="sidebarToggle" onclick="toggleSidebar('open')">
+                <i class="fas fa-stream text-white"></i>
+            </button>
+            <a class="navbar-brand mr-auto ml-2">KV PhotoArts: Admin</a>
+            <ul class="navbar-nav ml-auto mr-3" id="topBar">
+                {% for href, id, caption in navItems %}
+                <li class="nav-item {{'active' if active==id else ''}}">
+                    <a href="{{href|e}}" class="nav-link">{{caption|e}}</a>
+                </li>
+                {% endfor %}
+            </ul>
+        </nav>
+    </header>
+    <main class="content">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        {% for category, content in messages %}
+        <div class="toast shadow" role="alert" aria-live="assertive" aria-atomic="true" data-delay="3500">
+            <div class="toast-header">
+                <strong class="mr-auto text-{{category}}">{{content[0]}}</strong>
+            </div>
+            <div class="toast-body">
+                {{content[1]}}
+            </div>
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+        {% block admin_content %}{% endblock %}
+    </main>
+    <footer>
+        <div class="fab-logout bg-dark shaodw">
+            <span class="fab-toggle d-flex justify-content-center align-items-center h-100">
+                <a href="{{url_for('BP_auth.logout')}}" class="text-light text-decoration-none">
+                    <i class="fas fa-sign-out-alt"></i>
+                </a>
+            </span>
+        </div>
+    </footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
+        integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg=="
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+        crossorigin="anonymous"></script>
+    <script src="{{url_for('BP_admin.static', filename='js/admin.js')}}"></script>
 </body>
+
 </html>
