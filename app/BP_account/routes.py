@@ -5,7 +5,6 @@ from flask_login import login_required
 @BP_account.route("/account-info")
 @login_required
 def account_info():
-    return render_template("acchome.html")
-    
+    return render_template("acchome.html", title = "myAccount")
 
         

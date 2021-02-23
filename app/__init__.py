@@ -27,6 +27,9 @@ mail = Mail(app)
 encryptor = Bcrypt(app)
 logger = LoginManager(app)
 logger.login_view = 'BP_auth.login'
+logger.login_message_category ='info'
+logger.login_message = ['Please login' , 'You need to login to view this page']
+
 
 
 # Routes are imported after the configuration to avoid 'circular-import' errors.

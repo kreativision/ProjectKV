@@ -21,6 +21,7 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(60), nullable=False)
     admin = db.Column(db.Boolean(), default=False)
     verified = db.Column(db.Boolean(), default=False)
+    date = db.Column(db.DateTime, default=datetime.datetime.utcnow) 
 
     # Generates a secure token for the user with a expiration time of 900s/15min
     def generate_token(self, expires_sec=600):
