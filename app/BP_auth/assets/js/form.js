@@ -34,6 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let seconds = clock.querySelector('.seconds');
     minutes.textContent = '10m';
     seconds.textContent = '00s';
+    let time = 600;
     let countDown = setInterval(() => {
       'use strict';
       let min = Math.floor(time / 60), remSec = time % 60;

@@ -7,31 +7,31 @@
 
 {% block body_content %}
 <div class="cotainer-fluid px-2">
-    <div class="container rounded bg-black-glass shadow d-flex flex-column mt-5 p-4">
-        <p class="h1 text-light text-center">Please check your email.</p>
+    <div class="container d-flex flex-column mt-5 p-4">
+        <p class="h1 text-dark text-center">Please check your email.</p>
         {% if case == 'reset' %}
-        <p class="text-light text-center mt-2">
-            We have sent an email with a link at <br><span class="font-italic">{{mail}}</span><br> to reset your password.
+        <p class="text-dark text-center mt-2">
+            We have sent an email with a link at <br><span class="font-italic font-weight-bold">{{mail}}</span><br> to reset your password.
             Please click the same to reset your password.
         </p>
         {% elif case == 'register' %}
-        <p class="text-light text-center mt-2">
+        <p class="text-dark text-center mt-2">
             We have sent an email with a link at <br><span class="font-italic">{{mail}}</span><br> to activate your account.
         </p>
-        <p class="text-light text-center mt-2">
+        <p class="text-dark text-center mt-2">
             Please note that you are ready to use your account.<br>However, some features are disabled until you confirm your email address.
         </p>
         {% endif %}
         <div class="notice">
-            <p class="text-warning text-center">
+            <p class="text-dark text-center font-weight-bold">
                 Kindly note that the link is valid only for
             </p>
-            <p class="h2 text-warning text-center clock">
+            <p class="h2 text-dark text-center clock">
                 <span class="minutes"></span> <span class="seconds"></span>
             </p>
         </div>
         <a href="{{resend_url}}" id="resend" class="btn btn-outline-warning text-uppercase font-weight-bold mx-auto mb-3">Resend activation code</a>
-        <p class="text-center text-light">
+        <p class="text-center text-dark">
             <i class="fas fa-exclamation-circle mr-3"></i>
             If you do not find the mail in your inbox, kindly check once in your spam folder before retrying.
         </p>
