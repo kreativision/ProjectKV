@@ -34,6 +34,9 @@ reviews = [
     )
 ]
 
+@BP_home.route("/check")
+def check():
+    return render_template("test.html")
 
 @BP_home.route("/")
 def home():
