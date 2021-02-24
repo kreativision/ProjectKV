@@ -1,15 +1,34 @@
-<!-- THIS IS JUST SAMPLE CONTENT -->
-<!-- <=====================================> -->
-{% extends 'main.layout.html' %}
-{% set active='login' %}
-{% block page_style%}
-<link rel="stylesheet" href="{{url_for('BP_auth.static', filename='styles/BP_auth.css')}}">
-{% endblock page_style %}
-{% block body_content %}
-<div class="container">
-    <p class="h3 text-white mx-auto">Acc-recovery</p>
-</div>
-{% include 'coming-soon.html' %}
-{% endblock body_content %}
-<!-- <=====================================> -->
-<!-- THIS PAGE SHOULD EXTEND 'auth.layout.html' NOT 'main.layout.html' -->
+{% extends 'auth.layout.html' %}
+{% set active=None %}
+
+{% block form %}
+<form action="" method="POST">
+  {{form.hidden_tag()}}
+  <fieldset>
+    <div class="container bg-light f-field">
+      <div class="form-group">
+        {% if form.email.errors %}
+        {{form.email(class="form-control is-invalid")}}
+        <div class="invalid-feedback">
+          {% for error in form.email.errors %}
+          <span><i class="fas fa-times-circle mr-2"></i></span><span id="email_error">{{error}}</span>
+          {% endfor %}
+        </div>
+        {% else %}
+        {{form.email(class="form-control")}}
+        {% endif %}
+        {% if not form.email.errors %}
+        <div class="invalid-feedback">
+          <span><i class="fas fa-times-circle mr-2"></i></span><span id="email_error"></span>
+        </div>
+        {% endif %}
+        {{form.email.label(class="form-control-label")}}
+      </div>
+    </div>
+  </fieldset>
+
+  <div class="form-group mt-4">
+    {{form.submit(class="btn btn-warning btn-block font-weight-bold shadow")}}
+  </div>
+</form>
+{% endblock form %}

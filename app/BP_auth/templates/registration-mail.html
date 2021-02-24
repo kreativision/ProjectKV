@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{title}}</title>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+    </style>
+</head>
+<body style="overflow: hidden; padding: 0; margin: 0;">
+    <div
+        style="background-color: #7f5a83;background-image: linear-gradient(315deg, #7f5a83 0%, #0d324d 74%);padding: 2rem;">
+        <h1 style="color: rgb(243, 243, 243);font-family: 'Poppins', sans-serif;">
+            Dear {{name.split()[0]}},
+        </h1>
+        <h3 style="color: rgb(243, 243, 243);font-family: 'Poppins', sans-serif;">
+            Greetings from KreatiVision!!
+        </h3>
+        <p style="color: rgb(243, 243, 243);font-family: 'Poppins', sans-serif;">
+            Just one more step to create your first amazing design with us. Click the link below to activate your account and start creating today.<br><br>
+            Kindly note that this activation link is valid only for <strong>10 minutes</strong>.
+        </p>
+        <div style="margin: 25px 0px;">
+            <a href="{{url_for('BP_auth.verify_account', token=token, _external=True)}}" target="_blank"
+                style="font-family: 'Poppins', sans-serif;border-radius: 8px;padding: 8px;color: rgb(226, 226, 226);border: 1px solid rgb(226, 226, 226);text-transform: uppercase;font-weight: 600;text-decoration: none;">
+                Activate Account
+            </a>
+        </div>
+        <p style="color: rgb(243, 243, 243);font-family: 'Poppins', sans-serif;">
+            We look forward to creating something awesome with you!
+        </p>
+        <p style="color: rgb(243, 243, 243);font-family: 'Poppins', sans-serif;">
+            Regards,<br>
+            Team Kreativision
+        </p>
+    </div>
+</body>
+
+
+</html>

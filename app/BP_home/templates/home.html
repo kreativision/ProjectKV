@@ -1,22 +1,14 @@
 {% extends 'main.layout.html' %}
 {% set active='home' %}
-{% import 'home_macros.html' as macros %}
 
 {% block page_style%}
 <link rel="stylesheet" href="{{url_for('BP_home.static', filename='styles/BP_home.css')}}">
 {% endblock page_style %}
 
-<!-- PENDING ITEMS -->
-<!--  Responsive contacts, 
-      Nav Items, 
-      Template Linking
-      dp images
-    -->
-
 {% block body_content %}
 <div class="home-sections">
   {#
-  <!-- offer card commeted-->
+  <!-- offer card | commeted-->
   {% if not current_user.admin %}
   <section id="offers" class="card shadow border-0 show">
     <div class="card-header border-0 d-flex justify-content-between pr-2">
@@ -37,7 +29,8 @@
   </section>
   {% endif %}
   #}
-  <!-- Intro -->
+
+  <!-- Site Intro -->
   <section id="intro" class="d-flex flex-column container-fluid px-2 py-5">
     <div class="container" id="artwork">
       <img src="{{url_for('BP_home.static', filename='images/intro-art.svg')}}" alt="">
@@ -49,8 +42,10 @@
     </div>
     <div class="container">
       <p class="text-light font-italic" id="about">
-        We are a freelancing group of creative individuals aimed at providing creative designing solutions to all kinds of small to large businesses.
-        With a firm belief that reaching your audience the right way is the key to a steady growth, we help your business by providing graphic design solutions that do just that.
+        We are a freelancing group of creative individuals aimed at providing creative designing solutions to all kinds
+        of small to large businesses.
+        With a firm belief that reaching your audience the right way is the key to a steady growth, we help your
+        business by providing graphic design solutions that do just that.
       </p>
     </div>
     <div class="container d-flex justify-content-start" id="links">
@@ -58,109 +53,38 @@
         {{labels['exploreServicesCTA']}}
         <span><i class="fas fa-chevron-right ml-2"></i></span>
       </a>
-      <a href="#projectGallery" class="btn mb-3 text-light text-uppercase font-weight-bold pl-0">
+      <a href="#projects" class="btn mb-3 text-light text-uppercase font-weight-bold pl-0">
         {{labels['recentProjectsCTA']}}
         <span><i class="fas fa-chevron-right ml-2"></i></span>
       </a>
     </div>
   </section>
 
-  <section id="projectGallery" class="d-flex flex-column container-fluid px-1 py-5">
-    <div class="container">
-      <p class="display-4 font-weight-normal text-light repos-header mt-2">{{labels['recentProjectsHead']}}</p>
-    </div>
-    <div class="container mt-3">
-      <div class="d-flex gallery-item flex-row">
-        <div class="about">
-          <p class="h4 font-weight-normal font-italic text-warning">Project Name 1</p>
-          <p class="h6 text-light mb-2">For Service Name 1</p>
-          <p class="text-light">
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus accusantium dignissimos quod ipsum illo
-            nisi deserunt accusamus nihil, quisquam sunt.
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus accusantium dignissimos quod ipsum illo
-            nisi deserunt accusamus nihil, quisquam sunt.
-          </p>
-          <a href="#" class="btn btn-light btn-sm shadow text-uppercase font-weight-bold mr-auro">
-            picture gallery
-          </a>
-        </div>
-        <div id="carouselExampleFade1" class="carousel slide carousel-fade" data-ride="carousel">
-          <div class="carousel-inner">
-            <div class="carousel-item d-flex justify-content-center">
-              <img src="{{url_for('BP_home.static', filename='images/welcome-art.png')}}" class="h-100">
-            </div>
-            <div class="carousel-item active d-flex justify-content-center">
-              <img src="{{url_for('BP_home.static', filename='images/portrait.png')}}" class="h-100">
-            </div>
-            <div class="carousel-item d-flex justify-content-center">
-              <img src="{{url_for('BP_home.static', filename='images/asset-3.png')}}" class="h-100">
-            </div>
-          </div>
-          <a class="carousel-control-prev" href="#carouselExampleFade1" role="button" data-slide="prev">
-            <!-- <span class="carousel-control-prev-icon" aria-hidden="true"></span> -->
-            <i class="fas fa-chevron-left"></i>
-            <span class="sr-only">Previous</span>
-          </a>
-          <a class="carousel-control-next" href="#carouselExampleFade1" role="button" data-slide="next">
-            <!-- <span class="carousel-control-next-icon" aria-hidden="true"></span> -->
-            <i class="fas fa-chevron-right"></i>
-            <span class="sr-only">Next</span>
-          </a>
-        </div>
-      </div>
-
-      <div class="d-flex gallery-item flex-row-reverse">
-        <div class="about">
-          <p class="h4 font-weight-normal font-italic text-warning">Project Name 1</p>
-          <p class="h6 text-light mb-2">For Service Name 1</p>
-          <p class="text-light">
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus accusantium dignissimos quod ipsum illo
-            nisi deserunt accusamus nihil, quisquam sunt.
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus accusantium dignissimos quod ipsum illo
-            nisi deserunt accusamus nihil, quisquam sunt.
-          </p>
-          <a href="#" class="btn btn-light btn-sm shadow text-uppercase font-weight-bold mr-auro">
-            picture gallery
-          </a>
-        </div>
-        <div id="carouselExampleFade1" class="carousel slide carousel-fade" data-ride="carousel">
-          <div class="carousel-inner">
-            <div class="carousel-item d-flex justify-content-center">
-              <img src="{{url_for('BP_home.static', filename='images/welcome-art.png')}}" class="h-100">
-            </div>
-            <div class="carousel-item active d-flex justify-content-center">
-              <img src="{{url_for('BP_home.static', filename='images/portrait.png')}}" class="h-100">
-            </div>
-          </div>
-          <a class="carousel-control-prev" href="#carouselExampleFade1" role="button" data-slide="prev">
-            <i class="fas fa-chevron-left"></i>
-            <span class="sr-only">Previous</span>
-          </a>
-          <a class="carousel-control-next" href="#carouselExampleFade1" role="button" data-slide="next">
-            <i class="fas fa-chevron-right"></i>
-            <span class="sr-only">Next</span>
-          </a>
-        </div>
-      </div>
-    </div>
-
-    <div class="container text-center">
-      <a href="#" class="btn btn-outline-warning shadow text-uppercase font-weight-bold mt-3">
-        {{labels['allProjectsCTA']}} <i class="fas fa-chevron-right ml-2"></i>
-      </a>
-    </div>
-  </section>
-
-  <!-- Heading for section 5 -->
+  <!-- Popular Services Gallery -->
   <div class="section-head sec-5" id="services">
-    <p class="display-4 text-center text-white">{{labels['servicesHead']}}</p>
+    <p class="h3 font-weight-light text-center text-light mb-4">{{labels['servicesHead']}}</p>
   </div>
-  <!-- section 5 -->
   <section id="serviceGallery">
     <div class="row px-4">
       {% for service in services %}
-      {{macros.service_gallery_item(id=service.id, name=service.name, description=service.description,
-      price=service.start_price)}}
+      <div class="col-md-4 col-sm-12 col-lg-4">
+        <div class="card bg-black-glass text-white text-center my-3">
+          <div class="card-header border-0">
+            <h4 class="card-title">{{service.name}}</h4>
+          </div>
+          <div class="card-body">
+            <p class="card-text">{{service.description}}</p>
+            <p class="h3">Starting @ just</p>
+            <p class="display-3"><sup class="h2">₹</sup> {{service.start_price}}/-</p>
+          </div>
+          <div class="card-footer border-0">
+            <a href="{{url_for('BP_home.service_list', _anchor=service.id)}}"
+              class="btn btn-light font-weight-bold text-uppercase">
+              Explore <i class="fas fa-chevron-right ml-2"></i>
+            </a>
+          </div>
+        </div>
+      </div>
       {% endfor %}
     </div>
     <div class="container d-flex justify-content-center text-center mt-3">
@@ -170,19 +94,57 @@
     </div>
   </section>
 
-  <!-- Heading for section 4 -->
-  <div class="section-head" id="reviews">
-    <p class="display-4 text-center text-white">{{labels['reviewHead']}}</p>
+  <!-- Projects Gallery -->
+  <div class="section-head" id="projects">
+    <p class="h3 font-weight-light text-center text-light mb-4">What's going on lately!</p>
   </div>
-  <!-- section 4 -->
+  <section id="projGallery" class="pb-3 w-100">
+    <div class="row no-gutters">
+      {% for image in showcase %}
+      <div class="col-md-4 col-sm-12 gallery-item position-relative">
+        <img src="{{url_for('static', filename='images/project-images/'+image.filepath)}}" alt=""
+          class="w-100 h-100 position-absolute">
+        <div class="about position-absolute w-100">
+          <div class="title pl-2">
+            <p class="h4 text-light">{{image.image_title}}</p>
+            <small class="subtitle text-light font-italic">{{image.catalogue_name}} on {{image.date.strftime('%d, %m,
+              %Y')}}</small>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    <div class="container-fluid text-center mt-4">
+      <a href="{{url_for('BP_home.blog')}}" class="btn btn-outline-warning font-weight-bold shadow">
+        {{labels['allProjectsCTA']}} <i class="fas fa-chevron-right ml-2"></i>
+      </a>
+    </div>
+  </section>
+
+  <!-- Recent Reviews -->
+  <div class="section-head" id="reviews">
+    <p class="h3 font-weight-light text-center text-light mb-4">{{labels['reviewHead']}}</p>
+  </div>
   <section id="reviewGallery">
     <div class="container mb-4">
       <div class="card-columns">
         {% for title, author, content, service, date in reviews %}
-        {{macros.review_card(title=title, author=author, content=content, service=service, date=date,
-        index=loop.index0)}}
+        <div class="card shadow rev border-0 review-{{loop.index0%4}}">
+          <div class="card-header border-0">
+            <h5 class="card-title mb-1">{{title}}</h5>
+            <small class="card-subtitle font-weight-normal">By {{author}}</small>
+          </div>
+          {% if content %}
+          <div class="card-body">
+            <p class="card-tex">{{content}}</p>
+          </div>
+          {% endif %}
+          <div class="card-footer border-0 d-flex justify-content-between">
+            <small class="font-italic font-weight-bold service">For {{service}}</small>
+            <small class="font-italic">Posted on {{date}}</small>
+          </div>
+        </div>
         {% endfor %}
-
         <!-- Write a review button. -->
         {% if current_user.is_authenticated %}
         <div class="card shadow rev border-0 review-3">
@@ -195,13 +157,18 @@
         {% endif %}
       </div>
     </div>
+    <div class="d-flex get-started">
+      <p class="h3 font-weight-normal text-light mb-3">Ready to get started?</p>
+      <a href="{{url_for('BP_home.service_list')}}" class="btn btn-lg btn-primary shadow border-0 text-uppercase">
+        Let's make a design <i class="fas fa-chevron-right ml-3"></i>
+      </a>
+    </div>
   </section>
 
-  {% include 'footer.html' %}
+  <!-- Insert Footer Here -->
+  {% include 'fab.html' %}
 </div>
 {% endblock body_content %}
-
-
 
 {% block page_scripts %}
 <script src=" {{url_for('BP_home.static', filename='js/home.js')}} "></script>

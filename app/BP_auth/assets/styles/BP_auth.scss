@@ -1,112 +1,19 @@
-$black-45: rgba(
-    $color: #000,
-    $alpha: 0.45,
-);
-$black-60: rgba(
-    $color: #000,
-    $alpha: 0.6,
-);
-$black-90: rgba(
-    $color: #000,
-    $alpha: 0.9,
-);
-$white-25: rgba(
-    $color: #fff,
-    $alpha: 0.25,
-);
-$white-60: rgba(
-    $color: #fff,
-    $alpha: 0.6,
-);
-
-$shadow-large: 5px 5px 20px -4px $black-60;
-$shadow-small: 0px 4px 10px -3px $black-60;
-$inactive-field: $black-45;
-$active-field: $black-90;
-$invalid-field: rgba(
-    $color: #dc3545,
-    $alpha: 1,
-);
-
+@import "../../../static/styles/variables";
 main {
-    background-image: linear-gradient(315deg, #0cbaba 0%, #380036 74%);
-    // height: 100vh;
-    // padding-top: 60px;
+    background-image: $auth-module-background;
+    padding-top: 56px;
 }
-
 .card {
     border-radius: 1rem;
     border: none;
-    // .btn-block {
-    //     box-shadow: $shadow-small;
-    // }
 }
-
-fieldset {
-    .options {
-        display: flex;
-    }
-
-    .f-field {
-        padding: 5px 15px;
-        box-shadow: $shadow-small;
-        border-radius: 15px;
-        margin: 10px 0px;
-    }
-
-    .form-group,
-    .input-group {
-        position: relative;
-        margin-top: 1rem !important;
-        margin-bottom: 0.5rem !important;
-        .form-control {
-            background-color: transparent !important;
-            color: $black-90 !important;
-            border-bottom: 2px solid $black-45;
-            border-top: none !important;
-            border-left: none !important;
-            border-right: none !important;
-            border-radius: 0px !important;
-            padding-left: 0px !important;
-            transition: all 0.3s ease;
-            box-shadow: none !important;
-            ~ .form-control-label {
-                color: $black-45;
-                margin-bottom: 0px !important;
-                position: absolute !important;
-                top: 10px !important;
-                left: 0px !important;
-                transition: all 0.3s ease;
-            }
-            &:focus {
-                border-bottom: 2px solid $black-90;
-                outline: none !important;
-                box-shadow: none;
-                ~ .form-control-label {
-                    color: $black-90;
-                    font-size: 12px;
-                    transform: translateY(-25px);
-                }
-            }
-            & ~ label.active {
-                font-size: 12px;
-                transform: translateY(-25px);
-            }
-        }
-
-        .input-group-append {
-            button {
-                background-color: transparent !important;
-                border-bottom: 2px solid $black-45;
-                border-top: none !important;
-                border-left: none !important;
-                border-right: none !important;
-                border-radius: 0px !important;
-            }
-        }
-
-        .is-invalid {
-            border-color: $invalid-field !important;
-        }
+#resend {
+    visibility: hidden;
+    display: none;
+    pointer-events: none;
+    &.active {
+        display: block;
+        pointer-events: all;
+        visibility: visible;
     }
 }

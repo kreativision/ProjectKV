@@ -1,0 +1,14 @@
+Dear {{name.split()[0]}},
+Greetings from KreatiVision.
+
+You have recently requested to reset your account password.
+Please visit the link below to reset your password.
+
+{{url_for('BP_auth.reset_token', token=token, _external=True)}}
+
+Note that the link is valid only for 10 minutes.
+
+If you have not initiated this request, kindly ignore this email. Nothing will be changed.
+
+Regards,
+Team Kreativision.

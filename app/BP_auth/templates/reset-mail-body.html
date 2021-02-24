@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{title}}</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+    </style>
+</head>
+
+<body style="overflow: hidden;">
+    <div
+        style="background-color: #7f5a83;background-image: linear-gradient(315deg, #7f5a83 0%, #0d324d 74%);padding: 2rem;">
+        <h1 style="color: rgb(243, 243, 243);font-family: 'Poppins', sans-serif;">
+            Dear {{name.split()[0]}},
+        </h1>
+        <h3 style="color: rgb(243, 243, 243);font-family: 'Poppins', sans-serif;">
+            Greetings from KreatiVision
+        </h3>
+        <p style="color: rgb(243, 243, 243);font-family: 'Poppins', sans-serif;">
+            You have recently requested to reset your account password.
+            Please Click the button below to reset your password. <br> <br>
+            Please note that the link is valid only for <strong>10 minutes</strong>.
+        </p>
+        <div style="margin: 25px 0px;">
+            <a href="{{url_for('BP_auth.reset_token', token=token, _external=True)}}" target="_blank"
+                style="font-family: 'Poppins', sans-serif;border-radius: 8px;padding: 8px;color: rgb(226, 226, 226);border: 1px solid rgb(226, 226, 226);text-transform: uppercase;font-weight: 600;text-decoration: none;">
+                Reset Password
+            </a>
+        </div>
+
+        <p style="color: rgb(243, 243, 243);font-family: 'Poppins', sans-serif;">
+            If you have not initiated this request, kindly ignore this email. Nothing
+            will be changed.
+        </p>
+        <p style="color: rgb(243, 243, 243);font-family: 'Poppins', sans-serif;">
+            Regards,<br>
+            Team Kreativision
+        </p>
+    </div>
+</body>
+
+</html>

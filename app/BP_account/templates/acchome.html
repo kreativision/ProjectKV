@@ -1,0 +1,50 @@
+{% extends 'main.layout.html' %}
+{% set active='account_info' %}
+{% block page_style%}
+<link rel="stylesheet" href="{{url_for('BP_account.static', filename='styles/BP_account.css')}}">
+{% endblock page_style %}
+
+{%block body_content%}
+<div class="container-fluid px-1">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-sm-12">
+                <div class="card">
+                    <!-- <img class="card-img-top"  src="{{url_for('BP_account.static', filename='images/defaultimg.jpg')}}"> -->
+                    <div class="card-header d-flex justify-content-center border-0">
+                        <img style="width: 150px;height: 150px;border-radius: 50%;"
+                            src="{{url_for('BP_account.static', filename='images/defaultimg.jpg')}}" alt=""
+                            class="mt-3">
+                    </div>
+                    <div class="card-body">
+                        <h4 class="card-title">{{current_user.username}}</h4>
+                        <p class="card-text">{{current_user.email}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-12 d-flex flex-column align-items-center pt-top-5">
+                <a href="#" class="btn btn-default my-5">
+                    Edit Profile
+                </a>
+                <a href="#" class="btn btn-default my-3">
+                    Cart
+                </a>
+                <a href="#" class="btn btn-default my-5">
+                    Orders
+                </a>
+            </div>
+            <div class="col-md-4 col-sm-12 d-flex flex-column align-items-center pt-top-5">
+                <a href="#" class="btn btn-default my-5">
+                    Gallery
+                </a>
+                <a href="#" class="btn btn-default my-3">
+                    Review
+                </a>
+                <a href="#" class="btn btn-default my-5">
+                    Wishlist
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{%endblock%}

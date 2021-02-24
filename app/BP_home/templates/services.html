@@ -6,16 +6,15 @@
 {% endblock page_style %}
 
 {% block body_content %}
-<p class="container display-4 text-center section-head text-light">{{labels['heading']}}</p>
-<section id="service_list">
+<p class="container display-4 text-center text-light section-head">{{labels['heading']}}</p>
+<section class="mb-5 service-list">
     {% for item in catalogue %}
     <div class="container-fluid px-2" id="{{item.id + 'Parent'}}">
         <div class="container review-3 shadow py-4 service-name my-2 rounded">
             <div class="content d-flex">
                 <p class="h2 w-50">{{item.name}}</p>
-                <a class="ml-auto mr-2 btn btn-warning border-0 shadow" 
-                    onclick="flipIcon(this)" data-target="#{{item.id}}" data-toggle="collapse"
-                    aria-controls="{{item.id}}" aria-expanded="false">
+                <a class="ml-auto mr-2 btn btn-warning border-0 shadow" onclick="flipIcon(this)"
+                    data-target="#{{item.id}}" data-toggle="collapse" aria-controls="{{item.id}}" aria-expanded="false">
                     <span class="font-weight-bold">EXPLORE</span> <i class="fas fa-chevron-down ml-2"></i>
                 </a>
             </div>
@@ -26,6 +25,7 @@
             {% for service in item.variations %}
             <div class="col mb-3">
                 <div class="card shadow bg-black-glass text-light border-0 rounded">
+                    <img src="{{url_for('static', filename='images/service-images/'+service.header_img)}}" alt="" class="card-img-top h-50">
                     <div class="card-body">
                         <h3 class="card-title text-center">{{service.name}}</h3>
                         <p class="card-text">{{service.description}}</p>
@@ -45,11 +45,20 @@
         </div>
     </div>
     {% endfor %}
+
+    <div class="container-fluid px-2" id="contactUs">
+        <div class="container review-0 shadow py-4 service-name my-2 rounded">
+            <div class="content d-flex">
+                <p class="h2 w-50">Need something different?</p>
+                <a href="#" class="ml-auto mr-2 btn btn-dark border-0 shadow">
+                    <span class="font-weight-bold text-uppercase">Contact US</span>
+                </a>
+            </div>
+        </div>
+    </div>
 </section>
 
-<div class="mt-5">
-    {% include 'footer.html' %}
-</div>
+{% include 'fab.html' %}
 {% endblock body_content %}
 
 {% block page_scripts %}

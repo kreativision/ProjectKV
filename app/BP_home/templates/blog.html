@@ -1,0 +1,83 @@
+{% extends 'main.layout.html' %}
+{% set active='blog' %}
+
+{% block page_style%}
+<link rel="stylesheet" href="{{url_for('BP_home.static', filename='styles/BP_home.css')}}">
+<link rel="stylesheet" href="{{url_for('BP_home.static', filename='styles/lightbox.min.css')}}">
+{% endblock page_style %}
+
+{% block body_content %}
+<div class="blog-page">
+    <div class="blog-header">
+        <div class="header-content d-flex">
+            <img src="{{url_for('BP_home.static', filename='images/asset-3.png')}}" alt="" class="header-img mb-4">
+            <p class="h2 font-weight-bold text-dark text-uppercase text-center">our Journey So far</p>
+            <a href="#first" class="text-decoration-none text-dark">
+                <i class="fas fa-4x fa-arrow-circle-down"></i>
+            </a>
+        </div>
+        <div class="sub-header container text-center d-flex justify-content-center">
+            <p class="font-italic text-light text-center">Here is some of the latest stuff we've been working
+                on.<br>Have a look at the
+                best of KreatiVision. . .</p>
+        </div>
+    </div>
+    <div class="container" id="blogItems">
+        <div class="blog-layout row" id="first">
+            <div class="text-container col-md-6 px-2">
+                <p class="h2 text-warning">Design Type 1</p>
+                <p class="font-italic text-light">
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut maiores aspernatur officiis totam quis
+                    asperiores minus sapiente?
+                </p>
+            </div>
+            <div class="col-md-6 px-2">
+                <div class="masonry">
+                    <a href="{{url_for('static', filename='images/project-images/random-3.jpg')}}" class="grid"
+                        data-lightbox="set1" data-title="Image part 1">
+                        <img src="{{url_for('static', filename='images/project-images/random-3.jpg')}}">
+                    </a>
+                    <a href="{{url_for('static', filename='images/project-images/random-10.jpg')}}" class="grid"
+                        data-lightbox="set1" data-title="Image checking 2">
+                        <img src="{{url_for('static', filename='images/project-images/random-10.jpg')}}">
+                    </a>
+                    <a href="{{url_for('static', filename='images/project-images/random-7.jpg')}}" class="grid"
+                        data-lightbox="set1" data-title="Image checking 3">
+                        <img src="{{url_for('static', filename='images/project-images/random-7.jpg')}}">
+                    </a>
+                    <a href="{{url_for('static', filename='images/project-images/random-5.jpg')}}" class="grid"
+                        data-lightbox="set1" data-title="Image got you here">
+                        <img src="{{url_for('static', filename='images/project-images/random-5.jpg')}}">
+                    </a>
+                    <a href="{{url_for('static', filename='images/project-images/random-8.jpg')}}" class="grid"
+                        data-lightbox="set1" data-title="Image finally someone did this more text more text more text more text more text more te">
+                        <img src="{{url_for('static', filename='images/project-images/random-8.jpg')}}">
+                    </a>
+                    <a href="{{url_for('static', filename='images/project-images/random-12.jpg')}}" class="grid"
+                        data-lightbox="set1" data-title="Image this one is last">
+                        <img src="{{url_for('static', filename='images/project-images/random-12.jpg')}}">
+                    </a>
+                </div>
+                <p class="small font-italic text-light text-center">Click on any image to open gallery.</p>
+            </div>
+        </div>
+    </div>
+    {% include 'fab.html' %}
+    <!-- https://source.unsplash.com/random/6 -->
+    <!-- LIGHTBOX: https://lokeshdhakar.com/projects/lightbox2/ -->
+</div>
+{% endblock body_content %}
+
+{% block page_scripts %}
+<script src=" {{url_for('BP_home.static', filename='js/home.js')}} "></script>
+<script src=" {{url_for('BP_home.static', filename='js/lightbox.min.js')}} "></script>
+<!-- LightBox Config -->
+<script>
+    lightbox.option({
+        'resizeDuration': 450,
+        'alwaysShowNavOnTouchDevices': true,
+        'fadeDuration': 450,
+        'imageFadeDuration': 450
+    })
+</script>
+{% endblock page_scripts%}

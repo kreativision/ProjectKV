@@ -17,12 +17,12 @@ document.addEventListener('DOMContentLoaded', () => {
     if (location.href.includes('services#')) {
         let section = location.href.substr(location.href.indexOf('#'));
         let collapseParent = document.querySelector(section + 'Parent');
-        collapseParent.scrollIntoView();
         let collapseSection = document.querySelector(section);
         setTimeout(() => {
             collapseSection.classList.add('show');
+            this.flipIcon(collapseParent.querySelector('a'));
+            collapseParent.scrollIntoView();
         }, 500);
-        this.flipIcon(collapseParent.querySelector('a'));
     }
 });
 
@@ -39,5 +39,18 @@ function flipIcon(button) {
     } else {
         icon.classList.replace('fa-chevron-up', 'fa-chevron-down');
         text.innerHTML = 'EXPLORE';
+    }
+}
+
+function validatePassword() {
+    let newPassword = document.querySelector('#new_password');
+    let cnfPassword = document.querySelector('#confirm_new_password')
+    let confirmationError = cnfPassword.parentElement.querySelector('#conf_pwd_error')
+    if (newPassword.value !== cnfPassword.value) {
+        cnfPassword.classList.add("is-invalid");
+        confirmationError.textContent = "Passwords Don't Match";
+    } else {
+        cnfPassword.classList.remove("is-invalid");
+        confirmationError.textContent = "";
     }
 }

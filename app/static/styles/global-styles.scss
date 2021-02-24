@@ -1,20 +1,5 @@
 // Global Stylesheet - Used by all modules for common styling.
-$black-25: rgba(
-    $color: #000,
-    $alpha: 0.25,
-);
-$black-50: rgba(
-    $color: #000,
-    $alpha: 0.5,
-);
-$black-90: rgba(
-    $color: #000,
-    $alpha: 0.9,
-);
-
-$topbar-shadow: 0px 4px 10px $black-50;
-$sidebar-shadow: 4px 0px 25px 5px $black-50;
-
+@import "./variables";
 body {
     overflow: hidden;
     header {
@@ -27,12 +12,10 @@ body {
         height: 100vh;
         overflow-y: scroll;
         overflow-x: hidden;
-        padding-top: 56px;
         scroll-behavior: smooth;
     }
 }
-
-// media queries to make the navigation bar responsive
+// queries for mobile devices
 @media only screen and (max-width: 768px) {
     #topBar {
         display: none;
@@ -44,8 +27,17 @@ body {
         width: 90%;
         transform: translate(-50%);
     }
+    .floating-action {
+        bottom: 15px;
+        right: 17px;
+        width: 50px;
+        height: 50px;
+        .fab-item {
+            padding: 8px 12px;
+        }
+    }
 }
-
+// queries for desktops
 @media only screen and (min-width: 768px) {
     #sidebar,
     #sidebarToggle {
@@ -56,12 +48,20 @@ body {
         top: 65px;
         right: 35px;
     }
+    .floating-action {
+        right: 35px;
+        bottom: 20px;
+        width: 60px;
+        height: 60px;
+        .call {
+            display: none;
+            pointer-events: none;
+        }
+        .fab-item {
+            padding: 8px 22px;
+        }
+    }
 }
-
-.fixed-top {
-    z-index: 999 !important;
-}
-
 // Custom Sidebar.
 #sidebar {
     margin-left: -300px;
@@ -73,12 +73,10 @@ body {
     height: 100vh;
     transition: all 0.3s ease-in-out;
     padding: 15px 15px 15px 0px;
-
     .sidebar-header {
         display: flex;
         flex-direction: row;
     }
-
     .list-unstyled {
         margin-top: 25px;
         li {
@@ -99,125 +97,215 @@ body {
                     display: none;
                 }
             }
-        }
-        li.active {
-            background-color: $black-50;
-            a {
-                color: white !important;
-                i {
-                    display: inline-block;
+            &.active {
+                background-color: $black-50;
+                a {
+                    color: white !important;
+                    i {
+                        display: inline-block;
+                    }
                 }
             }
         }
     }
-}
-
-#sidebar.active {
-    margin-left: 0px;
-    box-shadow: $sidebar-shadow;
-}
-
-#topBar {
-    .nav-item {
-        text-transform: uppercase;
-        font-weight: 500;
-        margin: 0px 10px;
-    }
-    .dropdown-menu {
-        transition: all 0.3s ease;
-        border: none !important;
+    &.active {
+        margin-left: 0px;
+        box-shadow: $sidebar-shadow;
     }
 }
-
-// globally changing the buttons
+.navbar {
+    z-index: 999 !important;
+    #topBar {
+        .nav-item {
+            text-transform: uppercase;
+            font-weight: 500;
+            margin: 0px 10px;
+        }
+        .dropdown-menu {
+            transition: all 0.3s ease;
+            border: none !important;
+            .badge {
+                height: 20px;
+            }
+        }
+    }
+}
+// global customization for BS buttons
 .btn {
     border-radius: 30px;
     &:focus,
     &:active {
         box-shadow: none !important;
         outline: none !important;
-        border: none !important;
+    }
+    &.dropdown-toggle::after {
+        vertical-align: 0.18em;
     }
 }
-
-// Glass background classes
+// global glass bg classes
 .bg-clear-glass {
     background: transparent;
     background-color: transparent !important;
     backdrop-filter: blur(10px);
 }
-
 .bg-black-glass {
     background: rgba($color: #000, $alpha: 0.3);
     backdrop-filter: blur(10px);
 }
-
 .bg-white-glass {
     background: rgba($color: #fff, $alpha: 0.3);
     backdrop-filter: blur(10px);
 }
-
+// toast mesasges
 .toast {
     position: fixed;
     z-index: 1000;
     backdrop-filter: none !important;
+    border-radius: 0.4rem;
+    .toast-header {
+        border-top-left-radius: calc(0.4rem - 1px);
+        border-top-right-radius: calc(0.4rem - 1px);
+    }
     .toast-body {
         background-color: #fff;
+        border-bottom-left-radius: calc(0.4rem - 1px);
+        border-bottom-right-radius: calc(0.4rem - 1px);
     }
 }
-
-.footer {
-    .row {
-        min-height: 50vh;
-        .d-flex {
-            align-items: center;
-        }
-        .btn {
-            border: 0 !important;
-            span {
-                font-weight: 300;
-                letter-spacing: 0.7px;
+//Forms - inspired from maaterial
+fieldset {
+    .options {
+        display: flex;
+    }
+    .f-field {
+        padding: 5px 15px;
+        box-shadow: $shadow-small;
+        border-radius: 15px;
+        margin: 10px 0px;
+    }
+    .form-group,
+    .input-group {
+        position: relative;
+        margin-top: 1rem !important;
+        margin-bottom: 0.5rem !important;
+        .form-control {
+            background-color: transparent !important;
+            color: $black-90 !important;
+            border-bottom: 2px solid $black-45;
+            border-top: none !important;
+            border-left: none !important;
+            border-right: none !important;
+            border-radius: 0px !important;
+            padding-left: 0px !important;
+            transition: all 0.3s ease;
+            box-shadow: none !important;
+            ~ .form-control-label {
+                color: $black-45;
+                margin-bottom: 0px !important;
+                position: absolute !important;
+                top: 10px !important;
+                left: 0px !important;
+                transition: all 0.3s ease;
+                &.active {
+                    font-size: 12px;
+                    transform: translateY(-25px);
+                }
+            }
+            &:focus {
+                border-bottom: 2px solid $black-90;
+                outline: none !important;
+                box-shadow: none;
+                ~ .form-control-label {
+                    color: $black-90;
+                    font-size: 12px;
+                    transform: translateY(-25px);
+                }
             }
         }
-        .whatsapp {
-            background-color: #25d366;
-            &:hover {
-                background-color: #1fb656;
-            }
-            .fab {
-                font-size: 19px;
-            }
-        }
-        .gmail {
-            background-color: #ea4335;
-            &:hover {
-                background-color: #b83226;
+        .input-group-append {
+            button {
+                background-color: transparent !important;
+                border-bottom: 2px solid $black-45;
+                border-top: none !important;
+                border-left: none !important;
+                border-right: none !important;
+                border-radius: 0px !important;
             }
         }
-        .instagram {
+        .is-invalid {
+            border-color: $invalid-form-field !important;
+            & ~ .form-control-label {
+                color: $invalid-form-field !important;
+            }
+        }
+    }
+}
+// floating action button
+.fab-overlay {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    z-index: 1000;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    &.active {
+        opacity: 1;
+        visibility: visible;
+    }
+}
+.floating-action {
+    z-index: 1001;
+    position: fixed;
+    border-radius: 50%;
+    .fab-toggle {
+        border-radius: 50%;
+        transition: all 0.2s ease;
+        cursor: pointer;
+        font-size: 1.3rem;
+        box-shadow: 0px 6px 15px $black-50;
+        &:hover {
+            color: #b83226;
+        }
+    }
+    .fab-options {
+        position: absolute;
+        bottom: 30px;
+        right: 0px;
+        border-radius: 10px;
+        list-style: none;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.2s ease;
+        .fab-head {
+            cursor: default;
+        }
+        a.fab-link .fab-item {
             transition: all 0.2s ease;
-            background-color: #fdf497;
             &:hover {
-                background-color: #d8ce5a;
+                background-color: rgb(206, 206, 206);
+                color: $invalid-form-field;
+            }
+            .icon {
+                margin-right: 18px;
+                font-size: 1.2rem;
+                width: 12px;
+            }
+            .text {
+                font-weight: 400;
             }
         }
-
-        .card {
-            // border-radius: 0.6rem;
-            .team {
-                justify-content: space-between;
-                flex: 1 3 auto;
-                .dp {
-                    width: 55px;
-                    height: 55px;
-                    border-radius: 50%;
-                    background-color: transparent;
-                    border: 5px double #25d366;
-                }
-                .card-footer {
-                    flex: 1 1 auto;
-                }
-            }
+    }
+    &.active {
+        .fab-toggle {
+            transform: rotate(-45deg);
+        }
+        .fab-options {
+            opacity: 1;
+            visibility: visible;
+            bottom: 45px;
         }
     }
 }

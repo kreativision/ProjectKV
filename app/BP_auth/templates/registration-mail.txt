@@ -1,0 +1,11 @@
+Dear {{name.split()[0]}},
+Greetings from KreatiVision!!
+Just one more step to create your first amazing design with us. Click the link below to activate your account and start creating today. Kindly note that this activation link is valid only for 10 minutes.
+
+
+{{url_for('BP_auth.verify_account', token=token, _external=True)}}
+We look forward to creating something awesome with you!
+
+
+Regards,
+Team KreatiVision
