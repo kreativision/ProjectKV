@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Bootstrap and Fontawesome -->
-    <link rel="stylesheet" href="{{url_for('static', filename='styles/bootstrap.css')}}">
-    <link rel="stylesheet" href="{{url_for('static', filename='styles/FA.css')}}">
+    <!-- Bootstrap and Fontawesome compiled together -->
+    <link rel="stylesheet" href="{{url_for('static', filename='styles/vendors.css')}}">
     <!-- Custom Styles -->
     <link rel="stylesheet" href="{{url_for('static', filename='styles/global-styles.css')}}">
     {% block page_style %} {% endblock %}
