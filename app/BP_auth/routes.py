@@ -12,6 +12,10 @@ from app.BP_auth.forms import (
     ResetPasswordForm,
 )
 
+@BP_auth.route("/test")
+def test():
+    return render_template("new-password.html", form=ResetPasswordForm())
+
 # Login User
 @BP_auth.route("/login", methods=["GET", "POST"])
 def login():
