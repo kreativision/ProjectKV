@@ -24,4 +24,7 @@ document.addEventListener('click', function (e) {
  */
 $(document).ready(function () {
     $(".toast").toast('show');
+    if ((navigator.userAgent.indexOf('Android') === -1)) {
+        $('#sidebar').addClass('active');
+    }
 })

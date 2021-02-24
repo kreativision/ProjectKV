@@ -4,26 +4,23 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{url_for('static', filename='styles/bootstrap.css')}}">
-    <link rel="stylesheet" href="{{url_for('static', filename='styles/FA.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='styles/vendors.css')}}">
+    <!-- <link rel="stylesheet" href="{{url_for('static', filename='styles/FA.css')}}"> -->
     <link rel="stylesheet" href="{{url_for('BP_admin.static', filename='styles/admin.css')}}">
-    <title>{{title}} | KreatiVision</title>
+    <title>{{title}} | KV Admin</title>
 </head>
 <body>
     {% set navItems = [
-    (url_for('BP_admin.home'), 'admin_home', 'Admin Home'),
-    ('#', '#', 'Link 2')
+    (url_for('BP_admin.home'), 'dashboard', 'Dashboard'),
+    (url_for('BP_admin.orders'), 'orders', 'Orders'),
+    (url_for('BP_admin.reviews'), 'reviews', 'Reviews'),
+    (url_for('BP_admin.services'), 'services', 'Services'),
+    (url_for('BP_admin.blog'), 'blog', 'Blog'),
+    (url_for('BP_admin.offers'), 'offers', 'Offers')
     ] %}
     {% set active = active|default('admin_home') -%}
     <header>
         <nav class="bg-dark" id="sidebar">
-            <div class="sidebar-header">
-                <span class="ml-auto">
-                    <button type="button" class="btn text-light" onclick="toggleSidebar('close')">
-                        <i class="fas fa-times"></i>
-                    </button>
-                </span>
-            </div>
             <ul class="list-unstyled text-white">
                 {% for href, id, caption in navItems %}
                 <li class="{{'active' if active==id else ''}}">
@@ -39,13 +36,6 @@
                 <i class="fas fa-stream text-white"></i>
             </button>
             <a class="navbar-brand mr-auto ml-2">KV PhotoArts: Admin</a>
-            <ul class="navbar-nav ml-auto mr-3" id="topBar">
-                {% for href, id, caption in navItems %}
-                <li class="nav-item {{'active' if active==id else ''}}">
-                    <a href="{{href|e}}" class="nav-link">{{caption|e}}</a>
-                </li>
-                {% endfor %}
-            </ul>
         </nav>
     </header>
     <main class="content">

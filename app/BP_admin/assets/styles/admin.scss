@@ -1,9 +1,8 @@
 @import "../../../static/styles/variables";
 
 @media only screen and (max-width: 768px) {
-    #topBar {
-        display: none;
-        pointer-events: none;
+    #sidebar {
+        margin-left: -180px;
     }
     .toast {
         top: 80%;
@@ -20,10 +19,15 @@
 }
 
 @media only screen and (min-width: 768px) {
-    #sidebar,
     #sidebarToggle {
         display: none;
         pointer-events: none;
+    }   
+    main {
+        padding-left: 180px;
+    }
+    #sidebar {
+        margin-left: 0px;
     }
     .toast {
         top: 65px;
@@ -56,10 +60,10 @@ body {
 }
 
 #sidebar {
-    margin-left: -300px;
-    width: 300px;
+    // margin-left: -300px;
+    width: 180px;
     position: absolute;
-    top: 0;
+    top: 56px;
     left: 0;
     z-index: 1000;
     height: 100vh;
@@ -102,7 +106,7 @@ body {
     }
     &.active {
         margin-left: 0px;
-        box-shadow: $sidebar-shadow;
+        // box-shadow: $sidebar-shadow;
     }
 }
 
