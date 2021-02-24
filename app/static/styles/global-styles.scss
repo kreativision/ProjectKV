@@ -161,15 +161,15 @@ body {
     position: fixed;
     z-index: 1000;
     backdrop-filter: none !important;
-    border-radius: 0.4rem;
+    border-radius: 0.5rem;
     .toast-header {
-        border-top-left-radius: calc(0.4rem - 1px);
-        border-top-right-radius: calc(0.4rem - 1px);
+        border-top-left-radius: $toast-border-radius;
+        border-top-right-radius: $toast-border-radius;
     }
     .toast-body {
         background-color: #fff;
-        border-bottom-left-radius: calc(0.4rem - 1px);
-        border-bottom-right-radius: calc(0.4rem - 1px);
+        border-bottom-left-radius: $toast-border-radius;
+        border-bottom-right-radius: $toast-border-radius;
     }
 }
 //Forms - inspired from maaterial
@@ -267,7 +267,7 @@ fieldset {
         font-size: 1.3rem;
         box-shadow: 0px 6px 15px $black-50;
         &:hover {
-            color: #b83226;
+            color: $invalid-form-field;
         }
     }
     .fab-options {
