@@ -2,7 +2,7 @@
 
 @media only screen and (max-width: 768px) {
     #sidebar {
-        margin-left: -180px;
+        margin-left: -200px;
     }
     .toast {
         top: 80%;
@@ -22,9 +22,9 @@
     #sidebarToggle {
         display: none;
         pointer-events: none;
-    }   
+    }
     main {
-        padding-left: 180px;
+        padding-left: 200px;
     }
     #sidebar {
         margin-left: 0px;
@@ -55,13 +55,13 @@ body {
         overflow-x: hidden;
         scroll-behavior: smooth;
         padding-top: 56px;
-        background-image: $admin-module-background
+        background-image: $admin-module-background;
     }
 }
 
 #sidebar {
     // margin-left: -300px;
-    width: 180px;
+    width: 200px;
     position: absolute;
     top: 56px;
     left: 0;
@@ -89,7 +89,7 @@ body {
                 width: -webkit-fill-available;
                 width: fill-available;
                 width: -moz-available;
-                i {
+                .active-ico {
                     display: none;
                 }
             }
@@ -97,7 +97,7 @@ body {
                 background-color: $black-50;
                 a {
                     color: white !important;
-                    i {
+                    .active-ico {
                         display: inline-block;
                     }
                 }
@@ -138,8 +138,106 @@ body {
         cursor: pointer;
         font-size: 1.3rem;
         box-shadow: 0px 6px 15px $black-50;
-        &:hover {
-            color: #b83226;
+    }
+    &:hover span i {
+        color: #eb5a4d;
+    }
+}
+
+.acc-info {
+    // margin-top: -60px;
+    // padding-top: 60px;
+    .img-container {
+        .acc-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+        }
+        .edit-img-btn {
+            position: absolute;
+            top: 75%;
+            left: 75%;
+            border: 3px solid #ccccff;
+            border-radius: 50%;
+        }
+    }
+    .row {
+        width: 51%;
+    }
+}
+
+.collapse {
+    margin-bottom: 100px;
+    .card, .card-header {
+        border-radius: 1rem;
+    }
+}
+
+//Forms - inspired from maaterial
+fieldset {
+    .options {
+        display: flex;
+    }
+    .f-field {
+        padding: 5px 15px;
+        box-shadow: $shadow-small;
+        border-radius: 15px;
+        margin: 10px 0px;
+    }
+    .form-group,
+    .input-group {
+        position: relative;
+        margin-top: 1rem !important;
+        margin-bottom: 0.5rem !important;
+        .form-control {
+            background-color: transparent !important;
+            color: $black-90 !important;
+            border-bottom: 2px solid $black-45;
+            border-top: none !important;
+            border-left: none !important;
+            border-right: none !important;
+            border-radius: 0px !important;
+            padding-left: 0px !important;
+            transition: all 0.3s ease;
+            box-shadow: none !important;
+            ~ .form-control-label {
+                color: $black-45;
+                margin-bottom: 0px !important;
+                position: absolute !important;
+                top: 10px !important;
+                left: 0px !important;
+                transition: all 0.3s ease;
+                &.active {
+                    font-size: 12px;
+                    transform: translateY(-25px);
+                }
+            }
+            &:focus {
+                border-bottom: 2px solid $black-90;
+                outline: none !important;
+                box-shadow: none;
+                ~ .form-control-label {
+                    color: $black-90;
+                    font-size: 12px;
+                    transform: translateY(-25px);
+                }
+            }
+        }
+        .input-group-append {
+            button {
+                background-color: transparent !important;
+                border-bottom: 2px solid $black-45;
+                border-top: none !important;
+                border-left: none !important;
+                border-right: none !important;
+                border-radius: 0px !important;
+            }
+        }
+        .is-invalid {
+            border-color: $invalid-form-field !important;
+            & ~ .form-control-label {
+                color: $invalid-form-field !important;
+            }
         }
     }
 }

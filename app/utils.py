@@ -1,9 +1,11 @@
 # Utility functions to use throughout the app.
 
 from flask_mail import Message
-from app import app, mail
+from app import app, mail, db
+from app.models import User
 from threading import Thread
 from app.decorators import threader
+from app import encryptor
 
 # Redacts the email ID to show on the email-sent page.
 def redact_email(mail_id):
@@ -24,3 +26,10 @@ def send_email(subject, sender, recipients, text_body, html_body):
 def send_mail_async(app, msg):
     with app.app_context():
         mail.send(msg)
+
+def update_user(user_mail, form_data):
+    user = User.query.filter_by(email=user_mail).first()
+    user.username = form_data['username']
+    user.email = form_data['email']
+    user.contact = form_data['contact']
+    db.session.commit()
