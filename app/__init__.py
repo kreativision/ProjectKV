@@ -27,10 +27,9 @@ app.config["MAIL_PASSWORD"] = os.environ.get("FLASK_MAIL_PWD")
 mail = Mail(app)
 encryptor = Bcrypt(app)
 logger = LoginManager(app)
-logger.login_view = 'BP_auth.login'
-logger.login_message_category ='info'
-logger.login_message = ['Please login' , 'You need to login to view this page']
-
+logger.login_view = "BP_auth.login"
+logger.login_message_category = "info"
+logger.login_message = ["Please login", "You need to login to view this page"]
 
 
 # Routes are imported after the configuration to avoid 'circular-import' errors.
@@ -162,18 +161,66 @@ def create():
     db.session.add_all([logo_1, logo_2, logo_3, poster_1, poster_2, vCard_1, vCard_2])
     db.session.commit()
     print("====> Adding Showcase Images")
-    image1 = ProjectImage(filepath="random-1.jpg", for_catalogue=logos, image_title="Description for img 1")
-    image2 = ProjectImage(filepath="random-2.jpg", for_catalogue=logos, image_title="Description for img 2")
-    image3 = ProjectImage(filepath="random-3.jpg", for_catalogue=logos, image_title="Description for img 3")
-    image4 = ProjectImage(filepath="random-4.jpg", for_catalogue=logos, image_title="Description random text")
-    image5 = ProjectImage(filepath="random-5.jpg", for_catalogue=posters, image_title="Poster description 001")
-    image6 = ProjectImage(filepath="random-6.jpg", for_catalogue=posters, image_title="Poster description 002")
-    image7 = ProjectImage(filepath="random-7.jpg", for_catalogue=posters, image_title="Poster description third")
-    image8 = ProjectImage(filepath="random-8.jpg", for_catalogue=posters, image_title="Poster description some ther")
-    image9 = ProjectImage(filepath="random-9.jpg", for_catalogue=posters, image_title="Poster description gone now")
-    image10 = ProjectImage(filepath="random-10.jpg", for_catalogue=vCards, image_title="vCard Description here")
-    image11 = ProjectImage(filepath="random-11.jpg", for_catalogue=vCards, image_title="vCard Description here")
-    image12 = ProjectImage(filepath="random-12.jpg", for_catalogue=vCards, image_title="vCard Description here")
+    image1 = ProjectImage(
+        filepath="random-1.jpg",
+        for_catalogue=logos,
+        image_title="Description for img 1",
+    )
+    image2 = ProjectImage(
+        filepath="random-2.jpg",
+        for_catalogue=logos,
+        image_title="Description for img 2",
+    )
+    image3 = ProjectImage(
+        filepath="random-3.jpg",
+        for_catalogue=logos,
+        image_title="Description for img 3",
+    )
+    image4 = ProjectImage(
+        filepath="random-4.jpg",
+        for_catalogue=logos,
+        image_title="Description random text",
+    )
+    image5 = ProjectImage(
+        filepath="random-5.jpg",
+        for_catalogue=posters,
+        image_title="Poster description 001",
+    )
+    image6 = ProjectImage(
+        filepath="random-6.jpg",
+        for_catalogue=posters,
+        image_title="Poster description 002",
+    )
+    image7 = ProjectImage(
+        filepath="random-7.jpg",
+        for_catalogue=posters,
+        image_title="Poster description third",
+    )
+    image8 = ProjectImage(
+        filepath="random-8.jpg",
+        for_catalogue=posters,
+        image_title="Poster description some ther",
+    )
+    image9 = ProjectImage(
+        filepath="random-9.jpg",
+        for_catalogue=posters,
+        image_title="Poster description gone now",
+    )
+    image10 = ProjectImage(
+        filepath="random-10.jpg",
+        for_catalogue=vCards,
+        image_title="vCard Description here",
+    )
+    image11 = ProjectImage(
+        filepath="random-11.jpg",
+        for_catalogue=vCards,
+        image_title="vCard Description here",
+    )
+    image12 = ProjectImage(
+        filepath="random-12.jpg",
+        for_catalogue=vCards,
+        image_title="vCard Description here",
+    )
     db.session.add_all(
         [
             image1,

@@ -16,6 +16,25 @@
         width: 50px;
         height: 50px;
     }
+
+    .acc-info {
+        flex-direction: column;
+        justify-content: center;
+        padding: 1rem 2.6rem;
+        .img-container {
+            padding: 1rem 1.5rem;
+            .edit-img-btn {
+                left: 56% !important;
+            }
+        }
+        .info-container {
+            align-items: center;
+            text-align: center;
+            border-top: 1px solid #999;
+            margin-top: 25px;
+            padding-top: 20px;
+        }
+    }
 }
 
 @media only screen and (min-width: 768px) {
@@ -38,6 +57,47 @@
         bottom: 20px;
         width: 60px;
         height: 60px;
+    }
+
+    .acc-info {
+        padding: 2rem 1.4rem;
+        justify-content: start;
+        .img-container {
+            padding: 0rem 1rem;
+        }
+        .info-container {
+            padding: 0rem 1.7rem;
+            border-left: 1px solid #999;
+        }
+    }
+}
+
+.acc-info {
+    background-image: linear-gradient(154deg, #A1FFCE, #FAFFD1);
+    .img-container {
+        .acc-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin-left: 12px;
+        }
+        .edit-img-btn {
+            position: absolute;
+            top: 75%;
+            left: 75%;
+            border: 3px solid #ccccff;
+            border-radius: 50%;
+        }
+    }
+    .info-container .dropdown-item {
+        color: #ffc107;
+        transition: all 0.15s ease-in-out;
+        &:hover {
+            color: #232323;
+        }
+    }
+    .row {
+        width: 51%;
     }
 }
 
@@ -144,31 +204,10 @@ body {
     }
 }
 
-.acc-info {
-    // margin-top: -60px;
-    // padding-top: 60px;
-    .img-container {
-        .acc-img {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-        }
-        .edit-img-btn {
-            position: absolute;
-            top: 75%;
-            left: 75%;
-            border: 3px solid #ccccff;
-            border-radius: 50%;
-        }
-    }
-    .row {
-        width: 51%;
-    }
-}
-
 .collapse {
     margin-bottom: 100px;
-    .card, .card-header {
+    .card,
+    .card-header {
         border-radius: 1rem;
     }
 }

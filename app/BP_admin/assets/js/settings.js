@@ -1,66 +1,27 @@
 const EMAIL_PATTERN = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 let formScopeState;
+let stateChanged = false;
 
-/**
- * On page load
- */
+// Page Load events:
 $(document).ready(() => {
-    // check if there is already a form rendered with errors.
-    if (document.querySelector('.collapse.show')) {
-        let errorForm = $('.collapse.show').attr("id");
-        formScopeState = $('.collapse.show form input[type="text"]').serialize();
-        enableLabelsBehaviour(`#${errorForm}`);
+    formScopeState = undefined;
+    if (document.querySelector(".info-invalid")) {
+        $('#infoModal').modal('show');
     }
 });
 
 /**
- * Function to enable the floating labels bahaviour and focus the first input.
- * @param {*} form the selected form
+ * begins validation of edit-account-info form on modal load.
  */
-function enableLabelsBehaviour(form) {
-    let inputs = document.querySelectorAll(`${form} input[type="text"], ${form} input[type="password"]`);
-    inputs.forEach(field => {
-        if (field.value) {
-            field.parentNode.querySelector('label').classList.add('active');
-        }
-        field.onblur = () => {
-            if (field.value) {
-                field.parentNode.querySelector('label').classList.add('active');
-            } else {
-                field.parentNode.querySelector('label').classList.remove('active');
-            }
-        }
-    })
-    let end = inputs[0].value.length;
-    inputs[0].setSelectionRange(end, end);
-    inputs[0].focus();
-    // Start the corresponding form validations
-    if (form.includes('detailsCollapse')) { validateInfo(form); }
-}
-
-/**
- * Function to close a particular form; called from HTML
- * @param {*} collapse the section to close
- */
-function closeCollapse(collapse) {
-    $(collapse).collapse('hide');
-}
-
-/**
- * Function to open a form section on the settings page.
- * @param {*} open the section to open
- * @param {*} close the section to close
- */
-function triggerForm(open, close) {
-    $(open).collapse('show');
-    $(close).collapse('hide');
-    if (open === '#detailsCollapse') {
-        $('#password').removeClass("is-invalid");
-        autoFillForm($('#adminEmail').text());
+$('#infoModal').on('shown.bs.modal', () => {
+    if (!$('#password').hasClass("is-invalid")) {
+        autoFillForm($('#adminMail').text());
     } else {
-        enableLabelsBehaviour(open);
+        formScopeState = $('#infoModal form input[type="text"]').serialize();
+        stateChanged = true;
+        enableLabelsBehaviour('#infoModal form');
     }
-}
+});
 
 /**
  * Function to fetch user data from the database and pre-fill the form values
@@ -76,7 +37,7 @@ function autoFillForm(email) {
             $('#email').val(user.email);
             $('#contact').val(user.contact);
             setTimeout(() => {
-                enableLabelsBehaviour('#detailsCollapse form');
+                enableLabelsBehaviour('#infoModal form');
             }, 100);
         }
     });
@@ -99,12 +60,11 @@ function enableLabelsBehaviour(form) {
                 field.parentNode.querySelector('label').classList.remove('active');
             }
         }
-    })
+    });
     let end = inputs[0].value.length;
     inputs[0].setSelectionRange(end, end);
     inputs[0].focus();
-    // Start the corresponding form validations
-    if (form.includes('detailsCollapse')) { validateInfo(form); }
+    validateInfo('#infoModal form');
 }
 
 /**
@@ -122,13 +82,15 @@ function validateInfo(form) {
     var password = $(`${form} #password`);
     password.val("");
     var formScope = $(`${form} input[type="text"]`);
-    formScopeState = formScope.serialize();
+    if (!formScopeState) {
+        formScopeState = formScope.serialize();
+    }
     $(`${form} #username, ${form} #email, ${form} #contact, ${form} #password`).bind('keyup', () => {
         nameValidation();
         contactValidation();
         emailVAlidation();
         passwordValidation();
-        var formStateChanged = formScopeState !== formScope.serialize();
+        var formStateChanged = stateChanged ? true : formScopeState !== formScope.serialize();
         var formScopeEmpty = isFormScopeEmpty(form);
         var pwdFieldHasData = $(`${form} #password`).val();
         var errors = document.querySelectorAll(".is-invalid").length;
@@ -139,7 +101,7 @@ function validateInfo(form) {
         }
         disableSubmit(form, disable);
     });
-    
+
     function nameValidation() {
         var nameLength = username.val().length;
         if ((nameLength > 0 && nameLength <= 3) || nameLength > 50) {
@@ -152,7 +114,7 @@ function validateInfo(form) {
             username.removeClass("is-invalid");
         }
     }
-    
+
     function contactValidation() {
         var number = parseInt(contact.val());
         if (!number || isNaN(number)) {
@@ -165,7 +127,7 @@ function validateInfo(form) {
             contact.removeClass("is-invalid");
         }
     }
-    
+
     function emailVAlidation() {
         var emailId = email.val();
         if (!emailId) {
@@ -174,7 +136,7 @@ function validateInfo(form) {
         } else if (!EMAIL_PATTERN.test(emailId)) {
             email.addClass("is-invalid");
             email.parent().find('#email_error').text("Invalid email address.");
-        } else if ($('#adminEmail').text() !== email.val()) {
+        } else if ($('#adminMail').text() !== email.val()) {
             $.ajax({
                 url: `${API_URl}/check-email/${email.val()}`,
                 contentType: 'application/json',
@@ -187,7 +149,7 @@ function validateInfo(form) {
                         email.removeClass("is-invalid");
                     }
                 }
-            })
+            });
         }
     }
 
@@ -196,19 +158,20 @@ function validateInfo(form) {
             password.removeClass("is-invalid");
         }
     }
-}
 
-function isFormScopeEmpty(form) {
-    state = false;
-    document.querySelectorAll(`${form} input[type="text"]`).forEach((field) => {
-        if (!field.value) {
-            state = true;
-        }
-    })
-    return state;
+    function isFormScopeEmpty(form) {
+        state = false;
+        document.querySelectorAll(`${form} input[type="text"]`).forEach((field) => {
+            if (!field.value) {
+                state = true;
+            }
+        })
+        return state;
+    }
 }
 
 function disableSubmit(form, state) {
     var submitBtn = $(form).find('input[type="submit"]');
     submitBtn.prop('disabled', state);
 }
+
