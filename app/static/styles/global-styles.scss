@@ -131,36 +131,6 @@ body {
     }
 }
 
-// global glass bg classes
-.bg-clear-glass {
-    background: transparent;
-    background-color: transparent !important;
-    backdrop-filter: blur(10px);
-}
-.bg-black-glass {
-    background: rgba($color: #000, $alpha: 0.3);
-    backdrop-filter: blur(10px);
-}
-.bg-white-glass {
-    background: rgba($color: #fff, $alpha: 0.3);
-    backdrop-filter: blur(10px);
-}
-// toast mesasges
-.toast {
-    position: fixed;
-    z-index: 1000;
-    backdrop-filter: none !important;
-    border-radius: 0.5rem;
-    .toast-header {
-        border-top-left-radius: $toast-border-radius;
-        border-top-right-radius: $toast-border-radius;
-    }
-    .toast-body {
-        background-color: #fff;
-        border-bottom-left-radius: $toast-border-radius;
-        border-bottom-right-radius: $toast-border-radius;
-    }
-}
 //Forms - inspired from maaterial
 fieldset {
     .options {
