@@ -17,7 +17,7 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(25), nullable=False)
     email = db.Column(db.String(100), unique=True, nullable=False)
     contact = db.Column(db.String(10), default=None)
-    dp_file = db.Column(db.String(20), nullable=False, default="none.jpeg")
+    dp_file = db.Column(db.String(20), nullable=False, default="default.png")
     password = db.Column(db.String(60), nullable=False)
     admin = db.Column(db.Boolean(), default=False)
     verified = db.Column(db.Boolean(), default=False)

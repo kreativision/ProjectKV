@@ -1,6 +1,6 @@
 from app import db, encryptor
 from app.BP_admin import BP_admin
-from app.BP_admin.forms import EditAdminDetailsForm, EditAdminPasswordForm
+from app.BP_admin.forms import EditAdminDetailsForm, EditAdminPasswordForm, EditDPForm
 from app.models import User
 from app.decorators import admin_required
 import app.utils as utils
@@ -55,18 +55,22 @@ def offers():
 @login_required
 @admin_required
 def settings():
-    edit_form = EditAdminDetailsForm()
-    change_pwd_form = EditAdminPasswordForm()
+    edit_form_prefix = "detailsForm"
+    edit_form = EditAdminDetailsForm(prefix=edit_form_prefix)
+    change_pwd_form_prefix = "passwordForm"
+    change_pwd_form = EditAdminPasswordForm(prefix=change_pwd_form_prefix)
+    dp_form_prefix = "dpForm"
+    dp_form = EditDPForm(prefix=dp_form_prefix)
     if request.method == "POST" and request.form["form"] == "pwd":
         if change_pwd_form.validate_on_submit():
             utils.change_password(change_pwd_form.new_password.data)
-            content = [f"Success", f"Password updated successfully!"]
+            content = [f"Success", f"Your assword is updated."]
             flash(content, category="success")
             return redirect(url_for("BP_admin.settings"))
     elif request.method == "POST" and request.form["form"] == "info":
         if edit_form.validate_on_submit():
             utils.update_user(edit_form.data)
-            content = [f"Success", f"Your details updated successfully!"]
+            content = [f"Success", f"Your details are updated."]
             flash(content, category="success")
             return redirect(url_for("BP_admin.settings"))
     return render_template(
@@ -74,4 +78,5 @@ def settings():
         title="Admin Settings",
         detailsForm=edit_form,
         passwordForm=change_pwd_form,
+        dpForm=dp_form,
     )

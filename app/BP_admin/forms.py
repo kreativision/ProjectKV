@@ -1,4 +1,5 @@
 from flask_wtf import FlaskForm
+from flask_wtf.file import FileField, FileAllowed
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, IntegerField
 from wtforms.validators import (
     DataRequired,
@@ -61,3 +62,9 @@ class EditAdminPasswordForm(FlaskForm):
     def validate_new_password(self, new_password):
         if encryptor.check_password_hash(current_user.password, new_password.data):
             raise ValidationError("New password cannot be same as old password")
+
+
+class EditDPForm(FlaskForm):
+    dp_image = FileField("Change", validators=[FileAllowed(["jpeg", "jpg", "png"])],
+        render_kw={"accept": ".png,.jpg,.jpeg"})
+    submitDp = SubmitField("Upload")

@@ -2,6 +2,9 @@ const EMAIL_PATTERN = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"
 let formScopeState;
 let stateChanged = false;
 let userData;
+let dpModalOpen = false;
+
+
 
 /**
  * On page load, open the form modal which has errors.
@@ -16,10 +19,51 @@ $(document).ready(() => {
 });
 
 /**
+ * Trigger file upload from edit button press.
+ */
+function initiateFileUpload() {
+    $("#dpForm-dp_image").trigger('click');
+}
+
+$("#dpForm-dp_image").change(() => {
+    if(!dpModalOpen) {
+        $('#dpModal').modal({
+            backdrop: "static"
+        });
+        dpModalOpen = true;
+    } else {
+        previewFile(document.querySelector("#dpForm-dp_image"));
+    }
+});
+
+$('#dpModal').on("shown.bs.modal", () => {
+    previewFile(document.querySelector("#dpForm-dp_image"));
+    // $('#preview').attr('src', '#');
+});
+
+$('#dpModal').on("hidden.bs.modal", () => {
+    dpModalOpen = false;
+    // document.getElementById('dpForm').reset();
+});
+
+function previewFile(fileInput) {
+    if (fileInput.files.length && fileInput.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            $('#preview').attr('src', e.target.result);
+        }
+        console.log(fileInput.files);
+        reader.readAsDataURL(fileInput.files[0]); // convert to base64 string
+    }
+}
+
+
+
+/**
  * Enable form validation for password form when it is loaded.
  */
 $('#pwdModal').on('shown.bs.modal', () => {
-    activateFormBehaviour("#pwdModal form");
+    activateFormBehaviour("#pwdModal");
 });
 
 /**
@@ -36,10 +80,10 @@ $('#pwdModal').on('hidden.bs.modal', () => {
  * Enable form validation for details form when it is loaded.
  */
 $('#infoModal').on('shown.bs.modal', () => {
-    if (!$('#password').hasClass("is-invalid")) {
+    if (!$('#detailsForm-password').hasClass("is-invalid")) {
         autoFillForm($('#adminMail').text());
     } else {
-        formScopeState = $('#infoModal form input[type="text"]').serialize();
+        formScopeState = $('#infoModal input[type="text"]').serialize();
         stateChanged = true;
         activateFormBehaviour('#infoModal form');
     }
@@ -93,7 +137,7 @@ function autoFillForm(email) {
         success: function (user) {
             userData = user;
             for (let key in user)
-                $(`#${key}`).val(user[key]);
+                $(`#detailsForm-${key}`).val(user[key]);
             setTimeout(() => {
                 activateFormBehaviour('#infoModal form');
             }, 100);
@@ -108,15 +152,16 @@ function autoFillForm(email) {
  * @param {*} form the password validation form
  */
 function validatePasswords(form) {
+    const pwdFormPrefix = `${form} #passwordForm-`;
     var disable = true;
     disableSubmit(form, disable);
-    var currentPassword = $(`${form} #current`);
-    var newPassword = $(`${form} #new_password`);
-    var confirmNewPassword = $(`${form} #confirm_new_password`);
+    var currentPassword = $(`${pwdFormPrefix}current`);
+    var newPassword = $(`${pwdFormPrefix}new_password`);
+    var confirmNewPassword = $(`${pwdFormPrefix}confirm_new_password`);
     currentPassword.val("");
     newPassword.val("");
     confirmNewPassword.val("");
-    $(`${form} #current, ${form} #new_password, ${form} #confirm_new_password`).bind('keyup', () => {
+    $(`${pwdFormPrefix}current, ${pwdFormPrefix}new_password, ${pwdFormPrefix}confirm_new_password`).bind('keyup', () => {
         var fieldsPopulated = areFieldsPopulated();
         arePasswordsDifferent();
         passwordMatcher();
@@ -168,23 +213,26 @@ function validatePasswords(form) {
  * @param {*} form the form to validate.
  */
 function validateInfo(form) {
+    const formFieldPrefix = `${form} #detailsForm-`
     var disable = true;
     disableSubmit(form, disable);
-    var username = $(`${form} #username`);
-    var email = $(`${form} #email`);
-    var contact = $(`${form} #contact`);
-    var password = $(`${form} #password`);
+    var username = $(`${formFieldPrefix}username`);
+    var email = $(`${formFieldPrefix}email`);
+    var contact = $(`${formFieldPrefix}contact`);
+    var password = $(`${formFieldPrefix}password`);
     password.val("");
     var formScope = $(`${form} input[type="text"]`);
-    if (!formScopeState) { formScopeState = formScope.serialize(); }
-    $(`${form} #username, ${form} #email, ${form} #contact, ${form} #password`).bind('keyup', () => {
+    if (!formScopeState) {
+        formScopeState = formScope.serialize();
+    }
+    $(`${formFieldPrefix}username, ${formFieldPrefix}email, ${formFieldPrefix}contact, ${formFieldPrefix}password`).bind('keyup', () => {
         nameValidation();
         contactValidation();
         emailVAlidation();
         passwordValidation();
         var formStateChanged = stateChanged ? true : formScopeState !== formScope.serialize();
         var formScopeEmpty = isFormScopeEmpty(form);
-        var pwdFieldHasData = $(`${form} #password`).val();
+        var pwdFieldHasData = $(`${formFieldPrefix}password`).val();
         var errors = document.querySelectorAll(".is-invalid").length;
         if (formStateChanged && !formScopeEmpty && pwdFieldHasData && !errors) {
             disable = false;
