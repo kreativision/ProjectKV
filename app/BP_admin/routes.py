@@ -4,7 +4,7 @@ from app.BP_admin.forms import EditAdminDetailsForm, EditAdminPasswordForm
 from app.models import User
 from app.decorators import admin_required
 import app.utils as utils
-from flask import request, flash
+from flask import request, flash, redirect, url_for
 from flask.templating import render_template
 from flask_login import login_required, current_user
 
@@ -59,14 +59,16 @@ def settings():
     change_pwd_form = EditAdminPasswordForm()
     if request.method == "POST" and request.form["form"] == "pwd":
         if change_pwd_form.validate_on_submit():
-            utils.change_password(current_user.id, change_pwd_form.new_password.data)
+            utils.change_password(change_pwd_form.new_password.data)
             content = [f"Success", f"Password updated successfully!"]
             flash(content, category="success")
+            return redirect(url_for("BP_admin.settings"))
     elif request.method == "POST" and request.form["form"] == "info":
         if edit_form.validate_on_submit():
-            utils.update_user(current_user.id, edit_form.data)
+            utils.update_user(edit_form.data)
             content = [f"Success", f"Your details updated successfully!"]
             flash(content, category="success")
+            return redirect(url_for("BP_admin.settings"))
     return render_template(
         "settings.html",
         title="Admin Settings",

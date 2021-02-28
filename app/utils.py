@@ -1,6 +1,7 @@
 # Utility functions to use throughout the app.
 
 from flask_mail import Message
+from flask_login import current_user
 from app import app, mail, db
 from app.models import User
 from threading import Thread
@@ -30,15 +31,13 @@ def send_mail_async(app, msg):
         mail.send(msg)
 
 # Updates user details.
-def update_user(user_id, form_data):
-    user = User.query.filter_by(id=user_id).first()
-    user.username = form_data["username"]
-    user.email = form_data["email"]
-    user.contact = form_data["contact"]
+def update_user(form_data):
+    current_user.username = form_data["username"]
+    current_user.email = form_data["email"]
+    current_user.contact = form_data["contact"]
     db.session.commit()
 
 # updates user password
-def change_password(user_id, new_password):
-    user = User.query.filter_by(id=user_id).first()
-    user.password = encryptor.generate_password_hash(new_password).decode("utf-8")
+def change_password(new_password):
+    current_user.password = encryptor.generate_password_hash(new_password).decode("utf-8")
     db.session.commit()

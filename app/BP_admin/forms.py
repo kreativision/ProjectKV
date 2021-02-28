@@ -41,8 +41,7 @@ class EditAdminDetailsForm(FlaskForm):
     submitInfo = SubmitField("Save Changes")
 
     def validate_password(self, password):
-        user = User.query.filter_by(email=current_user.email).first()
-        if not encryptor.check_password_hash(user.password, password.data):
+        if not encryptor.check_password_hash(current_user.password, password.data):
             raise ValidationError("Incorrect Password")
 
 # Form for updating user password
@@ -56,11 +55,9 @@ class EditAdminPasswordForm(FlaskForm):
     submitPwd = SubmitField("Change Password")
 
     def validate_current(self, current):
-        user = User.query.filter_by(id=current_user.id).first()
-        if not encryptor.check_password_hash(user.password, current.data):
+        if not encryptor.check_password_hash(current_user.password, current.data):
             raise ValidationError("Incorrect Password")
 
     def validate_new_password(self, new_password):
-        user = User.query.filter_by(id=current_user.id).first()
-        if encryptor.check_password_hash(user.password, new_password.data):
+        if encryptor.check_password_hash(current_user.password, new_password.data):
             raise ValidationError("New password cannot be same as old password")
