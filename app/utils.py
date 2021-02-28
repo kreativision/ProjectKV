@@ -14,6 +14,7 @@ def redact_email(mail_id):
     redact = m_id[0:3] + ("*" * len(m_id[3:])) + m_domain
     return redact
 
+
 # Send the mail
 def send_email(subject, sender, recipients, text_body, html_body):
     msg = Message(subject, sender=sender, recipients=recipients)
@@ -21,15 +22,23 @@ def send_email(subject, sender, recipients, text_body, html_body):
     msg.html = html_body
     send_mail_async(app, msg)
 
+
 # creates additional thread to actually send the email
 @threader
 def send_mail_async(app, msg):
     with app.app_context():
         mail.send(msg)
 
-def update_user(user_mail, form_data):
-    user = User.query.filter_by(email=user_mail).first()
-    user.username = form_data['username']
-    user.email = form_data['email']
-    user.contact = form_data['contact']
+# Updates user details.
+def update_user(user_id, form_data):
+    user = User.query.filter_by(id=user_id).first()
+    user.username = form_data["username"]
+    user.email = form_data["email"]
+    user.contact = form_data["contact"]
+    db.session.commit()
+
+# updates user password
+def change_password(user_id, new_password):
+    user = User.query.filter_by(id=user_id).first()
+    user.password = encryptor.generate_password_hash(new_password).decode("utf-8")
     db.session.commit()

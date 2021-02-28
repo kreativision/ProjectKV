@@ -27,7 +27,6 @@ def login():
         return redirect(url_for("BP_home.home"))
     form = LoginForm()
     if form.validate_on_submit():
-        print("Are we here?")
         user = User.query.filter_by(email=form.email.data).first()
         if user and encryptor.check_password_hash(user.password, form.password.data):
             login_user(user, remember=form.remember.data)

@@ -4,7 +4,7 @@ from app.BP_admin.forms import EditAdminDetailsForm, EditAdminPasswordForm
 from app.models import User
 from app.decorators import admin_required
 import app.utils as utils
-from flask import request
+from flask import request, flash
 from flask.templating import render_template
 from flask_login import login_required, current_user
 
@@ -57,12 +57,16 @@ def offers():
 def settings():
     edit_form = EditAdminDetailsForm()
     change_pwd_form = EditAdminPasswordForm()
-    if request.method == "POST":
-        # update user details
-        if request.form["form"] == "info" and edit_form.validate_on_submit():
-            utils.update_user(current_user.email, edit_form.data)
-        if request.form["form"] == "password" and change_pwd_form.validate_on_submit():
-            pass
+    if request.method == "POST" and request.form["form"] == "pwd":
+        if change_pwd_form.validate_on_submit():
+            utils.change_password(current_user.id, change_pwd_form.new_password.data)
+            content = [f"Success", f"Password updated successfully!"]
+            flash(content, category="success")
+    elif request.method == "POST" and request.form["form"] == "info":
+        if edit_form.validate_on_submit():
+            utils.update_user(current_user.id, edit_form.data)
+            content = [f"Success", f"Your details updated successfully!"]
+            flash(content, category="success")
     return render_template(
         "settings.html",
         title="Admin Settings",
