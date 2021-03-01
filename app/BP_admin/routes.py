@@ -73,6 +73,12 @@ def settings():
             content = [f"Success", f"Your details are updated."]
             flash(content, category="success")
             return redirect(url_for("BP_admin.settings"))
+    elif request.method == "POST" and request.form["form"] == "dp":
+        if dp_form.validate_on_submit():
+            utils.update_dp(dp_form.dp_image.data)
+            content = [f"Success", f"Your profile image is updated."]
+            flash(content, category="success")
+            return redirect(url_for("BP_admin.settings"))
     return render_template(
         "settings.html",
         title="Admin Settings",

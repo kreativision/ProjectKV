@@ -7,6 +7,8 @@ from app.models import User
 from threading import Thread
 from app.decorators import threader
 from app import encryptor
+import os
+import secrets
 
 # Redacts the email ID to show on the email-sent page.
 def redact_email(mail_id):
@@ -30,6 +32,7 @@ def send_mail_async(app, msg):
     with app.app_context():
         mail.send(msg)
 
+
 # Updates user details.
 def update_user(form_data):
     current_user.username = form_data["username"]
@@ -37,7 +40,18 @@ def update_user(form_data):
     current_user.contact = form_data["contact"]
     db.session.commit()
 
+
 # updates user password
 def change_password(new_password):
-    current_user.password = encryptor.generate_password_hash(new_password).decode("utf-8")
+    current_user.password = encryptor.generate_password_hash(new_password).decode(
+        "utf-8"
+    )
+    db.session.commit()
+
+# updates the user's display picture.
+def update_dp(image):
+    f_name = f"dp-user-{secrets.token_hex(6)}{os.path.splitext(image.filename)[1]}"
+    dp_path = os.path.join(app.root_path, "static/images/user-dp", f_name)
+    image.save(dp_path)
+    current_user.dp_file = f_name
     db.session.commit()
