@@ -4,8 +4,6 @@ let stateChanged = false;
 let userData;
 let dpModalOpen = false;
 
-
-
 /**
  * On page load, open the form modal which has errors.
  */
@@ -16,17 +14,24 @@ $(document).ready(() => {
     } else if (document.querySelector("#pwdModal .info-invalid")) {
         $('#pwdModal').modal('show');
     }
+    // resize the dp to fit properly into the dp area.
+    dpImg = document.querySelector(".acc-img");
+    setTimeout(() => {
+        if (dpImg.clientHeight > dpImg.clientWidth) {
+            dpImg.classList.remove("acc-horizontal");
+            dpImg.classList.add("acc-vertical");
+        } else {
+            dpImg.classList.remove("acc-vertical");
+            dpImg.classList.add("acc-horizontal");
+        }
+    }, 200)
 });
 
 /**
- * Trigger file upload from edit button press.
+ * open the image-preview modal window if file is selected for upload.
  */
-function initiateFileUpload() {
-    $("#dpForm-dp_image").trigger('click');
-}
-
 $("#dpForm-dp_image").change(() => {
-    if(!dpModalOpen) {
+    if (!dpModalOpen) {
         $('#dpModal').modal({
             backdrop: "static"
         });
@@ -38,15 +43,16 @@ $("#dpForm-dp_image").change(() => {
 
 $('#dpModal').on("shown.bs.modal", () => {
     previewFile(document.querySelector("#dpForm-dp_image"));
-    // $('#preview').attr('src', '#');
 });
 
-$('#dpModal').on("hidden.bs.modal", () => {
-    dpModalOpen = false;
-    // document.getElementById('dpForm').reset();
-});
+$('#dpModal').on("hidden.bs.modal", () => dpModalOpen = false);
 
+/**
+ * Function to read the file added to the input and display.
+ * @param {*} fileInput the input [type="file"]
+ */
 function previewFile(fileInput) {
+    // loads image into the preview panel
     if (fileInput.files.length && fileInput.files[0]) {
         var reader = new FileReader();
         reader.onload = function (e) {
@@ -55,6 +61,17 @@ function previewFile(fileInput) {
         console.log(fileInput.files);
         reader.readAsDataURL(fileInput.files[0]); // convert to base64 string
     }
+    // resize image to fit into the preview panel
+    previewImg = document.querySelector("#preview");
+    setTimeout(() => {
+        if (previewImg.clientHeight > previewImg.clientWidth) {
+            previewImg.classList.remove("preview-horizontal");
+            previewImg.classList.add("preview-vertical");
+        } else {
+            previewImg.classList.remove("preview-vertical");
+            previewImg.classList.add("preview-horizontal");
+        }
+    }, 200)
 }
 
 
