@@ -4,13 +4,13 @@
 {% block admin_content %}
 <div class="container-fluid px-1 mt-4">
   <div class="container">
-    <div class="card shadow border-0">
+    <div class="card shadow border-0 bg-dark">
       <div class="card-body d-flex rounded acc-info">
         <div class="img-container position-relative">
-          <div class="img shadow">
+          <div class="img shadow d-flex justify-content-center align-items-center">
             <img src="{{url_for('static', filename='images/user-dp/'+current_user.dp_file)}}" alt="" class="acc-img">
           </div>
-          <label class="btn btn-sm btn-warning edit-img-btn shadow" for="dpForm-dp_image">
+          <label class="btn btn-sm btn-warning edit-img-btn shadow position-absolute" for="dpForm-dp_image">
             <i class="fas fa-pencil-alt"></i>
           </label>
         </div>
@@ -35,7 +35,7 @@
             <button class="btn btn-sm btn-warning font-weight-bold shadow mt-3" type="button" data-toggle="dropdown">
               <i class="fas fa-pencil-alt mr-2"></i> EDIT
             </button>
-            <div class="dropdown-menu bg-dark shadow border-0">
+            <div class="dropdown-menu bg-dark shadow">
               <button class="dropdown-item" data-toggle="modal" data-target="#infoModal" data-backdrop="static">Account
                 Info</button>
               <button class="dropdown-item" data-toggle="modal" data-target="#pwdModal"
@@ -63,7 +63,7 @@
             class="modal-body {{'info-invalid' if passwordForm.errors else ''}} d-flex flex-column align-items-center">
             {{dpForm.dp_image(class="form-control-file")}}
             <div class="preview-container position-relative">
-              <div class="img shadow">
+              <div class="img shadow d-flex justify-content-center align-items-center">
                 <img src="#" alt="" id="preview" class="preview">
               </div>
             </div>

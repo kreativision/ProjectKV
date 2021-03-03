@@ -4,6 +4,20 @@ let stateChanged = false;
 let userData;
 let dpModalOpen = false;
 
+
+/**
+ * Funtion to fit an image in it's parent container irrespective of the aspect-ratio.
+ */
+function fitImage(image) {
+    if (image.clientHeight > image.clientWidth) {
+        image.classList.remove("horizontal");
+        image.classList.add("vertical");
+    } else {
+        image.classList.remove("vertical");
+        image.classList.add("horizontal");
+    }
+}
+
 /**
  * On page load, open the form modal which has errors.
  */
@@ -14,21 +28,15 @@ $(document).ready(() => {
     } else if (document.querySelector("#pwdModal .info-invalid")) {
         $('#pwdModal').modal('show');
     }
-    // resize the dp to fit properly into the dp area.
+    // resize the dp to fit properly into the dp container.
     dpImg = document.querySelector(".acc-img");
     setTimeout(() => {
-        if (dpImg.clientHeight > dpImg.clientWidth) {
-            dpImg.classList.remove("acc-horizontal");
-            dpImg.classList.add("acc-vertical");
-        } else {
-            dpImg.classList.remove("acc-vertical");
-            dpImg.classList.add("acc-horizontal");
-        }
+        fitImage(dpImg);
     }, 200)
 });
 
 /**
- * open the image-preview modal window if file is selected for upload.
+ * load updaed image into the preview panel if image is changed from within the modal.
  */
 $("#dpForm-dp_image").change(() => {
     if (!dpModalOpen) {
@@ -41,10 +49,16 @@ $("#dpForm-dp_image").change(() => {
     }
 });
 
+/**
+ * Load selected image into the preview container on preview modal open
+ */
 $('#dpModal').on("shown.bs.modal", () => {
     previewFile(document.querySelector("#dpForm-dp_image"));
 });
 
+/**
+ * Reset preview modal state when modal is closed.
+ */
 $('#dpModal').on("hidden.bs.modal", () => dpModalOpen = false);
 
 /**
@@ -61,20 +75,12 @@ function previewFile(fileInput) {
         console.log(fileInput.files);
         reader.readAsDataURL(fileInput.files[0]); // convert to base64 string
     }
-    // resize image to fit into the preview panel
+    // resize image to fit into the preview container panel.
     previewImg = document.querySelector("#preview");
     setTimeout(() => {
-        if (previewImg.clientHeight > previewImg.clientWidth) {
-            previewImg.classList.remove("preview-horizontal");
-            previewImg.classList.add("preview-vertical");
-        } else {
-            previewImg.classList.remove("preview-vertical");
-            previewImg.classList.add("preview-horizontal");
-        }
+        fitImage(previewImg);
     }, 200)
 }
-
-
 
 /**
  * Enable form validation for password form when it is loaded.
