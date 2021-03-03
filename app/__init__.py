@@ -49,7 +49,7 @@ app.register_blueprint(BP_admin)
 # setting up cli command to bootstrap the database with mock data for development
 import click
 from flask.cli import with_appcontext
-from app.models import User, Catalogue, Service, ProjectImage
+from app.models import User, Catalogue, Service, ProjectImage, Review
 
 
 @click.command(name="create")
@@ -85,6 +85,7 @@ def create():
     )
     db.session.add_all([tester, tester1, admin])
     db.session.commit()
+
     print("====> Adding Services Catalogue ")
     # Adding Service Catalogue
     logos = Catalogue(
@@ -160,6 +161,33 @@ def create():
     )
     db.session.add_all([logo_1, logo_2, logo_3, poster_1, poster_2, vCard_1, vCard_2])
     db.session.commit()
+    # ADDING MOCK REVIEWS - ADDED ON 0303
+    print("====> Adding user reviews")
+    review1 = Review(by_user=tester, title="Always good stuff", review_for=logos)
+    review2 = Review(
+        by_user=tester,
+        title="It gets better every time.",
+        content="It seems like every time I make an order, the design quality gets better. These people always keep learning.",
+        review_for=posters,
+    )
+    review3 = Review(
+        by_user=tester1, title="Consultations are great", review_for=vCards
+    )
+    review4 = Review(
+        by_user=tester1,
+        title="Print quality is uncompromised",
+        content="The designs print just as what looks on the screen, clean, high-quality and vibrant.",
+        review_for=vCards,
+    )
+    review5 = Review(
+        by_user=tester1,
+        title="Timely Work",
+        content="No matter how urgent you need something done, they're ready to get it done for you. Pretty Neat!!",
+        review_for=vCards,
+    )
+    db.session.add_all([review1, review2, review3, review4])
+    db.session.commit()
+
     print("====> Adding Showcase Images")
     image1 = ProjectImage(
         filepath="random-1.jpg",

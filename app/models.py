@@ -21,7 +21,8 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(60), nullable=False)
     admin = db.Column(db.Boolean(), default=False)
     verified = db.Column(db.Boolean(), default=False)
-    date = db.Column(db.DateTime, default=datetime.datetime.utcnow) 
+    date = db.Column(db.DateTime, default=datetime.datetime.utcnow)
+    reviews = db.relationship("Review", backref="by_user", lazy=True, uselist=True)
 
     # Generates a secure token for the user with a expiration time of 900s/15min
     def generate_token(self, expires_sec=600):
@@ -51,6 +52,7 @@ class Catalogue(db.Model):
     project_img = db.relationship(
         "ProjectImage", backref="for_catalogue", lazy=True, uselist=True
     )
+    reviews = db.relationship("Review", backref="review_for", lazy=True, uselist=True)
 
     def __repr__(self):
         return f"Service Category => {self.name}, Starting @ {self.start_price}"
@@ -73,4 +75,21 @@ class ProjectImage(db.Model):
     filepath = db.Column(db.String(120), nullable=False)
     image_title = db.Column(db.String(80))
     date = db.Column(db.DateTime, default=datetime.datetime.utcnow)
-    catalogue_name = db.Column(db.Integer, db.ForeignKey("catalogue.name"), nullable=False)
+    catalogue_name = db.Column(
+        db.Integer, db.ForeignKey("catalogue.name"), nullable=False
+    )
+
+# REVIEW TABLE MODEL - ADDED 0303
+class Review(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    author = db.Column(db.Integer, db.ForeignKey("user.username"))
+    title = db.Column(db.String(140), nullable=False)
+    content = db.Column(db.Text)
+    catalogue = db.Column(
+        db.String(25), db.ForeignKey("catalogue.name"), nullable=False
+    )
+    date = db.Column(db.DateTime, default=datetime.datetime.utcnow)
+    status = db.Column(db.String(10), default="NEW")
+
+    def __repr__(self):
+        return f"Review => {self.title} by {self.author} for catalog {self.catalogue} on {self.date}"

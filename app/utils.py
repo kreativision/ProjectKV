@@ -3,7 +3,7 @@
 from flask_mail import Message
 from flask_login import current_user
 from app import app, mail, db
-from app.models import User
+from app.models import User, Review
 from threading import Thread
 from app.decorators import threader
 from app import encryptor
@@ -48,6 +48,7 @@ def change_password(new_password):
     )
     db.session.commit()
 
+
 # updates the user's display picture.
 def update_dp(image):
     f_name = f"dp-user-{secrets.token_hex(6)}{os.path.splitext(image.filename)[1]}"
@@ -55,3 +56,37 @@ def update_dp(image):
     image.save(dp_path)
     current_user.dp_file = f_name
     db.session.commit()
+
+
+# Admin's Uitils - FUNCTIONS TO CHANGE REVIEW STATE - 0303
+def mark_all_as_reviewed():
+    new_reviews = (
+        Review.query.filter(Review.status == "NEW").order_by(Review.date.desc()).all()
+    )
+    for review in new_reviews:
+        review.status = "REVIEWED"
+    db.session.commit()
+
+def edit_review(revId, form_data):
+    review = Review.query.filter_by(id=revId).first()
+    review.status = "EDITED"
+    review.title = form_data["review_title"]
+    review.content = form_data["review_content"]
+    db.session.commit()
+
+def remove_review(revId):
+    review = Review.query.filter_by(id=revId).first()
+    review.status = "REMOVED"
+    db.session.commit()
+
+def delete_review(revId):
+    review = Review.query.filter_by(id=revId).first()
+    db.session.delete(review)
+    db.session.commit()
+
+def restore_review(revId):
+    review = Review.query.filter_by(id=revId).first()
+    review.status="NEW"
+    db.session.commit()
+
+

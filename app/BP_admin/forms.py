@@ -1,6 +1,13 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed
-from wtforms import StringField, PasswordField, SubmitField, BooleanField, IntegerField
+from wtforms import (
+    StringField,
+    PasswordField,
+    SubmitField,
+    BooleanField,
+    IntegerField,
+    TextAreaField,
+)
 from wtforms.validators import (
     DataRequired,
     Email,
@@ -45,6 +52,7 @@ class EditAdminDetailsForm(FlaskForm):
         if not encryptor.check_password_hash(current_user.password, password.data):
             raise ValidationError("Incorrect Password")
 
+
 # Form for updating user password
 class EditAdminPasswordForm(FlaskForm):
     current = PasswordField("Current Password *", validators=[DataRequired()])
@@ -65,6 +73,17 @@ class EditAdminPasswordForm(FlaskForm):
 
 
 class EditDPForm(FlaskForm):
-    dp_image = FileField("Change", validators=[FileAllowed(["jpeg", "jpg", "png"])],
-        render_kw={"accept": ".png,.jpg,.jpeg"})
+    dp_image = FileField(
+        "Change",
+        validators=[FileAllowed(["jpeg", "jpg", "png"])],
+        render_kw={"accept": ".png,.jpg,.jpeg"},
+    )
     submitDp = SubmitField("Upload")
+
+# EDIT REVIEW FORM - ADDED 0303
+class EditReviewForm(FlaskForm):
+    review_title = StringField(
+        "Review Title *", validators=[DataRequired()], render_kw={"maxlength": "140"}
+    )
+    review_content = TextAreaField("Review Content", validators=[Optional()], render_kw={"rows": "8"})
+    submit_review = SubmitField("Save")

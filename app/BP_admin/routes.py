@@ -1,7 +1,12 @@
 from app import db, encryptor
 from app.BP_admin import BP_admin
-from app.BP_admin.forms import EditAdminDetailsForm, EditAdminPasswordForm, EditDPForm
-from app.models import User
+from app.BP_admin.forms import (
+    EditAdminDetailsForm,
+    EditAdminPasswordForm,
+    EditDPForm,
+    EditReviewForm,
+)
+from app.models import User, Review
 from app.decorators import admin_required
 import app.utils as utils
 from flask import request, flash, redirect, url_for
@@ -23,13 +28,6 @@ def orders():
     return render_template("orders.html", title="Manage Orders")
 
 
-@BP_admin.route("/a/reviews")
-@login_required
-@admin_required
-def reviews():
-    return render_template("reviews.html", title="Manage Reviews")
-
-
 @BP_admin.route("/a/services")
 @login_required
 @admin_required
@@ -49,6 +47,81 @@ def blog():
 @admin_required
 def offers():
     return render_template("offers.html", title="Manage Offers")
+
+
+@BP_admin.route("/a/reviews")
+def reviews():
+    return redirect(url_for("BP_admin.review_type", type="new"))
+
+
+@BP_admin.route("/a/r/<string:type>", methods=["GET", "POST"])
+@login_required
+@admin_required
+def review_type(type):
+    edit_review_form = EditReviewForm()
+    if edit_review_form.validate_on_submit():
+        utils.edit_review(request.form["review_id"], edit_review_form.data)
+        content = [
+            "Review edited successfully!",
+            "The review is moved to EDITED state.",
+        ]
+        flash(content, category="success")
+        return redirect(request.referrer)
+    if type == "all":
+        reviews = Review.query.order_by(Review.date.desc()).all()
+    else:
+        reviews = (
+            Review.query.filter(Review.status == type.upper())
+            .order_by(Review.date.desc())
+            .all()
+        )
+    return render_template(
+        "reviews.html",
+        title="Manage Reviews",
+        reviews=reviews,
+        type=type,
+        editForm=edit_review_form,
+    )
+
+
+@BP_admin.route("/a/remove-review/<string:id>")
+@login_required
+@admin_required
+def remove_review(id):
+    utils.remove_review(id)
+    content = ["Review removed successfully!", ""]
+    flash(content, category="success")
+    return redirect(request.referrer)
+
+
+@BP_admin.route("/a/reviews/mark-as-read")
+@login_required
+@admin_required
+def mark_all_as_reviewed():
+    utils.mark_all_as_reviewed()
+    content = ["Success", "All NEW reviews marked as REVIEWED."]
+    flash(content, category="success")
+    return redirect(url_for("BP_admin.review_type", type="new"))
+
+
+@BP_admin.route("/a/delete-review/<string:revId>")
+@login_required
+@admin_required
+def delete_review(revId):
+    utils.delete_review(revId)
+    content = ["Review deleted successfully.", ""]
+    flash(content, category="success")
+    return redirect(request.referrer)
+
+
+@BP_admin.route("/a/restore-review/<string:revId>")
+@login_required
+@admin_required
+def restore_review(revId):
+    utils.restore_review(revId)
+    content = ["Review restored", "The review is restored to NEW state."]
+    flash(content, category="success")
+    return redirect(request.referrer)
 
 
 @BP_admin.route("/a/settings", methods=["GET", "POST"])

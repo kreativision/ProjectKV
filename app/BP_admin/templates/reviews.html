@@ -2,7 +2,160 @@
 {% set active='reviews' %}
 
 {% block admin_content %}
-<div class="container mt-3">
-    <p class="h4">Moderate and publish reviews</p>
+<div class="container-fluid px-1">
+    <div class="container">
+        <p class="h2 text-dark mt-3">Manage Reviews</p>
+    </div>
+    <div class="container d-flex align-items-center border-bottom border-light">
+        {% if type == 'new' and reviews %}
+        <a href="{{url_for('BP_admin.mark_all_as_reviewed')}}" class="btn btn-sm btn-light shadow mb-3">
+            Mark all as reviewed
+        </a>
+        {% endif %}
+        <div class="btn-container ml-auto mb-3 bg-dark rounded">
+            <button class="btn px-3 text-warning text-capitalize dropdown-toggle" data-toggle="dropdown">View:
+                {{type}}</button>
+            <div class="dropdown-menu dropdown-menu-right bg-dark shadow">
+                <a href="{{url_for('BP_admin.review_type', type='new')}}" class="dropdown-item">NEW</a>
+                <a href="{{url_for('BP_admin.review_type', type='edited')}}" class="dropdown-item">EDITED</a>
+                <a href="{{url_for('BP_admin.review_type', type='removed')}}" class="dropdown-item">REMOVED</a>
+                <a href="{{url_for('BP_admin.review_type', type='all')}}" class="dropdown-item">ALL</a>
+            </div>
+        </div>
+    </div>
 </div>
+
+<div class="reviews-container mt-4">
+    {% if reviews %}
+    {% for review in reviews %}
+    <div class="container review my-3">
+        <div class="card bg-dark shadow">
+            <div class="card-header text-light border-info d-flex">
+                <div class="review-header">
+                    <h5 class="card-title">{{review.title}}</h5>
+                    <p class="card-subtitle font-italic">By {{review.author}}</p>
+                </div>
+                {% if review.status == 'NEW' %}
+                <div class="review-actions ml-auto">
+                    <button type="button" class="btn text-light d-flex justify-content-center align-items-center"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-ellipsis-h"></i>
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-right bg-dark shadow">
+                        <button class="dropdown-item" onclick="editReview(this)" id="{{review.id}}">Edit</button>
+                        <a class="dropdown-item" href="{{url_for('BP_admin.remove_review', id=review.id)}}">Remove</a>
+                    </div>
+                </div>
+                {% elif review.status == 'REMOVED' %}
+                <div class="review-actions ml-auto">
+                    <button type="button" class="btn text-light d-flex justify-content-center align-items-center"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-ellipsis-h"></i>
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-right bg-dark shadow">
+                        <button class="dropdown-item" onclick="deleteRestoreModal('restore', this)" id="{{review.id}}">Restore</button>
+                        <button class="dropdown-item" onclick="deleteRestoreModal('delete', this)" id="{{review.id}}">Delete</button>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+            {% if review.content %}
+            <div class="card-body text-light">
+                {{review.content}}
+            </div>
+            {% endif %}
+            <div class="card-footer border-0 py-2 d-flex justify-content-between">
+                <p class="mb-1 small text-warning font-italic">
+                    Posted on {{review.date.strftime('%b %d, %y')}} for {{review.catalogue}}
+                </p>
+                <p class="mb-1 small text-light font-italic {{'text-light' if type == 'all' else 'text-dark'}}">{{review.status.capitalize()}}</p>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    {% else %}
+    <div class="container d-flex flex-column slign-items-center empty-container">
+        <img src="{{url_for('static', filename='images/task-completed-horizontal-01.svg')}}" alt="" srcset="">
+        <p class="text-light font-italic mt-4 text-center">No {{type.lower()}} reviews.</p>
+    </div>
+    {% endif %}
+</div>
+
+<div class="modal fade" id="editReviewModal" tabindex="-1" role="dialog" aria-labelledby="editReviewModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content bg-dark border-0">
+            <div class="modal-header d-flex flex-column align-items-center border-warning">
+                <h3 class="modal-title text-light" id="editReviewModalLabel">Edit Review</h3>
+                <small class="font-italic text-center text-light">You can edit a review only once!</small>
+            </div>
+            <form action="" method="post" id="editReviewForm">
+                {{editForm.hidden_tag()}}
+                <fieldset>
+                    <div class="modal-body {{'info-invalid' if editForm.errors}} d-flex flex-column align-items-center">
+                        <input type="hidden" id="review_id" name="review_id" value="">
+                        <div class="container bg-light f-field">
+                            <div class="form-group">
+                                {% if editForm.review_title.errors %}
+                                {{editForm.review_title(class="form-control is-invalid")}}
+                                <div class="invalid-feedback">
+                                    {% for error in editForm.review_title.errors %}
+                                    <span><i class="fas fa-times-circle mr-2"></i></span><span
+                                        id="password_error">{{error}}</span>
+                                    {% endfor %}
+                                </div>
+                                {% else %}
+                                {{editForm.review_title(class="form-control")}}
+                                {% endif %}
+                                {{editForm.review_title.label(class="form-control-label")}}
+                                <div class="counter d-flex justify-content-end mt-1">
+                                    <small class="helper-text text-right w-100 font-italic text-muted"> <span id="counter">0</span>/140</small>
+                                </div>
+                                <div class="invalid-feedback">
+                                    <span><i class="fas fa-times-circle mr-2"></i></span><span id="rTitle_error"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="container bg-light f-field" id="content">
+                            <div class="form-group">
+                                {{editForm.review_content(class="form-control")}}
+                                {{editForm.review_content.label(class="form-control-label")}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer border-0">
+                        <button type="button" class="btn btn-sm shadow btn-secondary"
+                            data-dismiss="modal">Cancel</button>
+                        {{editForm.submit_review(class="btn btn-sm btn-warning shadow")}}
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="deleteRestoreModal" tabindex="-1" role="dialog" aria-labelledby="deleteRestoreModalLabel"
+aria-hidden="true">
+<div class="modal-dialog" role="document">
+    <div class="modal-content bg-dark border-0">
+        <div class="modal-header d-flex flex-column align-items-center border-warning">
+            <h3 class="modal-title text-light" id="deleteRestoreModalLabel"></h3>
+        </div>
+        <div class="modal-body d-flex flex-column align-items-center">
+            <p class="text-light text-center" id="actionMessage"></p>
+        </div>
+        <div class="modal-footer border-0">
+            <button type="button" class="btn btn-sm shadow btn-secondary"
+                data-dismiss="modal">Cancel</button>
+            <a href="" class="btn btn-sm btn-warning shadow" id="deleteBtn">Delete</a>
+        </div>
+    </div>
+</div>
+</div>
+
 {% endblock admin_content %}
+
+
+{% block page_script %}
+<script src="{{url_for('BP_admin.static', filename='js/reviews.js')}}"></script>
+{% endblock %}
