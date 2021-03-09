@@ -66,7 +66,7 @@
             {% endif %}
             <div class="card-footer border-0 py-2 d-flex justify-content-between">
                 <p class="mb-1 small text-warning font-italic">
-                    Posted on {{review.date.strftime('%b %d, %y')}} for {{review.catalogue}}
+                    Posted on {{review.date.strftime('%b %d, %y')}}<br>for {{review.catalogue}}
                 </p>
                 <p class="mb-1 small text-light font-italic {{'text-light' if type == 'all' else 'text-dark'}}">{{review.status.capitalize()}}</p>
             </div>

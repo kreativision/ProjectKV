@@ -153,19 +153,14 @@ function activateFormBehaviour(form) {
  * @param {*} email email ID of the user.
  */
 function autoFillForm(email) {
-    $.ajax({
-        url: `${API_URl}/fetch-user/${email}`,
-        contentType: 'application/json',
-        dataType: 'json',
-        success: function (user) {
-            userData = user;
+    fetch(`${API_URl}/fetch-user/${email}`)
+        .then(response => response.json())
+        .then(user => {
             for (let key in user)
                 $(`#detailsForm-${key}`).val(user[key]);
-            setTimeout(() => {
-                activateFormBehaviour('#infoModal form');
-            }, 100);
-        }
-    });
+            activateFormBehaviour('#infoModal form');
+        })
+        .catch(err => console.log(err));
 }
 
 /**
@@ -300,19 +295,16 @@ function validateInfo(form) {
             email.addClass("is-invalid");
             email.parent().find('#email_error').text("Invalid email address.");
         } else if ($('#adminMail').text() !== email.val()) {
-            $.ajax({
-                url: `${API_URl}/check-email/${email.val()}`,
-                contentType: 'application/json',
-                dataType: 'json',
-                success: function (user) {
-                    if (user.registered) {
-                        email.addClass("is-invalid");
+            fetch(`${API_URl}/check-email/${email.val()}`)
+                .then(response => response.json())
+                .then(user => {
+                    if (user.registered)
                         email.parent().find('#email_error').text("This Email id is already in the system.");
-                    } else {
+                    else
                         email.removeClass("is-invalid");
-                    }
-                }
-            });
+
+                })
+                .catch(err => console.log(err));
         } else {
             email.removeClass("is-invalid");
         }

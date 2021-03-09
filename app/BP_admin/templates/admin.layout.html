@@ -19,7 +19,8 @@
     ('boxes', url_for('BP_admin.services'), 'services', 'Services'),
     ('blog', url_for('BP_admin.blog'), 'blog', 'Blog'),
     ('shapes', url_for('BP_admin.offers'), 'offers', 'Offers'),
-    ('cog', url_for('BP_admin.settings'), 'settings', 'Settings')
+    ('cog', url_for('BP_admin.settings'), 'settings', 'Settings'),
+    ('sign-out-alt', url_for('BP_auth.logout'), 'logout', 'Logout')
     ] %}
     {% set active = active|default('admin_home') -%}
     <header>
@@ -59,16 +60,6 @@
         {% endwith %}
         {% block admin_content %}{% endblock %}
     </main>
-    <footer>
-        <div class="fab-logout bg-dark shaodw">
-            <a type="button" class="fab-toggle d-flex justify-content-center align-items-center h-100"
-                data-toggle="tooltip" data-placement="top" title="Log-out" href="{{url_for('BP_auth.logout')}}">
-                <span class="text-light text-decoration-none">
-                    <i class="fas fa-sign-out-alt"></i>
-                </span>
-            </a>
-        </div>
-    </footer>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
         integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg=="

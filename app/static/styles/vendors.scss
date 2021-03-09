@@ -6,7 +6,7 @@ $enable-shadows: true;
 @import "../fontawesome/scss/fontawesome.scss";
 @import "../fontawesome/scss/solid.scss";
 @import "../fontawesome/scss/brands.scss";
-@import "./variables.scss";
+@import "./_variables.scss";
 html,
 body {
     font-family: "Poppins", sans-serif;
