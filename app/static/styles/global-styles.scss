@@ -10,7 +10,7 @@ body {
     }
     main {
         height: 100vh;
-        overflow-y: scroll;
+        overflow-y: auto;
         overflow-x: hidden;
         scroll-behavior: smooth;
     }
