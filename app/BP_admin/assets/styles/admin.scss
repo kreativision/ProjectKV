@@ -4,12 +4,6 @@
     #sidebar {
         margin-left: -200px;
     }
-    .toast {
-        top: 80%;
-        left: 50%;
-        width: 90%;
-        transform: translate(-50%);
-    }
     .fab-logout {
         bottom: 15px;
         right: 17px;
@@ -50,10 +44,6 @@
     }
     #sidebar {
         margin-left: 0px;
-    }
-    .toast {
-        top: 65px;
-        right: 35px;
     }
     .fab-logout {
         right: 35px;
@@ -234,6 +224,9 @@ fieldset {
             }
         }
     }
+    .invalid-feedback.position-absolute {
+        top: 37px;
+    }
 }
 
 input[type="file"] {
@@ -314,9 +307,12 @@ input[type="file"] {
 }
 
 .dashboard {
+    .updates .card {
+        border-radius: 0px;
+    }
+
     .order-list {
-        margin-bottom: 2rem;
-        height: 340px;
+        max-height: 35vh;
         overflow-y: auto;
         table {
             margin: 0;
@@ -332,4 +328,25 @@ input[type="file"] {
             }
         }
     }
+    .quick-actions .action {
+        background-color: white;
+        transition: all 0.3s ease-in-out;
+        border-bottom: 1px solid #888;
+        &:hover {
+            background-color: #ffc107;
+            a p {
+                font-weight: 400;
+            }
+        }
+    }
+}
+
+.orders-page .details-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 35px;
+    height: 35px;
+    border-radius: 20px;
+    box-shadow: none;
 }

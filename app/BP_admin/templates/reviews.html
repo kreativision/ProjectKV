@@ -2,18 +2,11 @@
 {% set active='reviews' %}
 
 {% block admin_content %}
-<div class="container-fluid px-1">
-    <div class="container">
-        <p class="h2 text-dark mt-3">Manage Reviews</p>
-    </div>
-    <div class="container d-flex align-items-center border-bottom border-light">
-        {% if type == 'new' and reviews %}
-        <a href="{{url_for('BP_admin.mark_all_as_reviewed')}}" class="btn btn-sm btn-light shadow mb-3">
-            Mark all as reviewed
-        </a>
-        {% endif %}
-        <div class="btn-container ml-auto mb-3 bg-dark rounded">
-            <button class="btn px-3 text-warning text-capitalize dropdown-toggle" data-toggle="dropdown">View:
+<div class="container my-3 d-flex justify-content-between align-items-center">
+    <h5 class="text-light m-0">Reviews</h5>
+    <div class="actions d-flex">
+        <div class="dropdown">
+            <button class="btn btn-sm btn-dark text-capitalize dropdown-toggle shadow rounded" data-toggle="dropdown">
                 {{type}}</button>
             <div class="dropdown-menu dropdown-menu-right bg-dark shadow">
                 <a href="{{url_for('BP_admin.review_type', type='new')}}" class="dropdown-item">NEW</a>
@@ -22,13 +15,18 @@
                 <a href="{{url_for('BP_admin.review_type', type='all')}}" class="dropdown-item">ALL</a>
             </div>
         </div>
+        {% if type == 'new' and reviews %}
+        <a href="{{url_for('BP_admin.mark_all_as_reviewed')}}" class="btn btn-sm btn-light shadow ml-3" data-toggle="tooltip" data-placement="bottom" title="Mark all as Reviewed.">
+            <i class="fas fa-check"></i>
+        </a>
+        {% endif %}
     </div>
 </div>
 
-<div class="reviews-container mt-4">
+<div class="reviews-container">
     {% if reviews %}
     {% for review in reviews %}
-    <div class="container review my-3">
+    <div class="container review mb-3">
         <div class="card bg-dark shadow">
             <div class="card-header text-light border-info d-flex">
                 <div class="review-header">
@@ -53,8 +51,10 @@
                         <i class="fas fa-ellipsis-h"></i>
                     </button>
                     <div class="dropdown-menu dropdown-menu-right bg-dark shadow">
-                        <button class="dropdown-item" onclick="deleteRestoreModal('restore', this)" id="{{review.id}}">Restore</button>
-                        <button class="dropdown-item" onclick="deleteRestoreModal('delete', this)" id="{{review.id}}">Delete</button>
+                        <button class="dropdown-item" onclick="deleteRestoreModal('restore', this)"
+                            id="{{review.id}}">Restore</button>
+                        <button class="dropdown-item" onclick="deleteRestoreModal('delete', this)"
+                            id="{{review.id}}">Delete</button>
                     </div>
                 </div>
                 {% endif %}
@@ -68,7 +68,8 @@
                 <p class="mb-1 small text-warning font-italic">
                     Posted on {{review.date.strftime('%b %d, %y')}}<br>for {{review.catalogue}}
                 </p>
-                <p class="mb-1 small text-light font-italic {{'text-light' if type == 'all' else 'text-dark'}}">{{review.status.capitalize()}}</p>
+                <p class="mb-1 small text-light font-italic {{'text-light' if type == 'all' else 'text-dark'}}">
+                    {{review.status.capitalize()}}</p>
             </div>
         </div>
     </div>
@@ -109,9 +110,10 @@
                                 {% endif %}
                                 {{editForm.review_title.label(class="form-control-label")}}
                                 <div class="counter d-flex justify-content-end mt-1">
-                                    <small class="helper-text text-right w-100 font-italic text-muted"> <span id="counter">0</span>/140</small>
+                                    <small class="helper-text text-right w-100 font-italic text-muted"> <span
+                                            id="counter">0</span>/140</small>
                                 </div>
-                                <div class="invalid-feedback">
+                                <div class="invalid-feedback position-absolute">
                                     <span><i class="fas fa-times-circle mr-2"></i></span><span id="rTitle_error"></span>
                                 </div>
                             </div>
@@ -135,22 +137,21 @@
 </div>
 
 <div class="modal fade" id="deleteRestoreModal" tabindex="-1" role="dialog" aria-labelledby="deleteRestoreModalLabel"
-aria-hidden="true">
-<div class="modal-dialog" role="document">
-    <div class="modal-content bg-dark border-0">
-        <div class="modal-header d-flex flex-column align-items-center border-warning">
-            <h3 class="modal-title text-light" id="deleteRestoreModalLabel"></h3>
-        </div>
-        <div class="modal-body d-flex flex-column align-items-center">
-            <p class="text-light text-center" id="actionMessage"></p>
-        </div>
-        <div class="modal-footer border-0">
-            <button type="button" class="btn btn-sm shadow btn-secondary"
-                data-dismiss="modal">Cancel</button>
-            <a href="" class="btn btn-sm btn-warning shadow" id="deleteBtn">Delete</a>
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content bg-dark border-0">
+            <div class="modal-header d-flex flex-column align-items-center border-warning">
+                <h3 class="modal-title text-light" id="deleteRestoreModalLabel"></h3>
+            </div>
+            <div class="modal-body d-flex flex-column align-items-center">
+                <p class="text-light text-center" id="actionMessage"></p>
+            </div>
+            <div class="modal-footer border-0">
+                <button type="button" class="btn btn-sm shadow btn-secondary" data-dismiss="modal">Cancel</button>
+                <a href="" class="btn btn-sm btn-warning shadow" id="deleteBtn">Delete</a>
+            </div>
         </div>
     </div>
-</div>
 </div>
 
 {% endblock admin_content %}

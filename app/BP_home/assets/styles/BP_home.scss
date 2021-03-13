@@ -2,46 +2,18 @@
 
 // handset media query
 @media only screen and (max-width: 768px) {
-    .repos-header {
-        text-align: center;
-    }
-    #intro {
-        #brand,
-        #about {
-            width: 100% !important;
-        }
-        #links {
+    #site-intro {
+        .links-container {
             flex-direction: column !important;
+            align-items: center !important;
             a {
                 margin-right: auto !important;
             }
         }
-        #artwork img {
-            width: 350px !important;
-            height: 350px !important;
-            opacity: 0.2;
-            z-index: 1;
-            left: 0px !important;
-            top: 20px !important;
+        .artwork-container {
+            display: none !important;
         }
     }
-
-    #projectGallery .gallery-item {
-        flex-direction: column-reverse !important;
-        height: auto !important;
-        .about,
-        .carousel {
-            width: 100% !important;
-            padding: 10px !important;
-        }
-        .carousel-item {
-            height: 220px !important;
-        }
-        .about {
-            margin-top: 10px;
-        }
-    }
-
     .blog-page .masonry {
         columns: 2;
     }
@@ -49,6 +21,9 @@
 
 // desktop media query
 @media only screen and (min-width: 768px) {
+    #site-intro .artwork {
+        display: none;
+    }
     #s3 .projects {
         flex-direction: row;
         .project .col-backdrop {
@@ -76,7 +51,7 @@ main {
 }
 
 .review-1 {
-    background-image:$review-style-1-bg;
+    background-image: $review-style-1-bg;
     color: $review-style-1-3-color;
 }
 
@@ -115,38 +90,26 @@ main {
             font-weight: 500;
         }
     }
-    #intro {
-        height: 100vh;
-        justify-content: space-evenly;
-        #welcomeLabel,
-        #tagline {
-            color: #ffbd69;
+
+    #site-intro {
+        .col-md-6,
+        .col-lg-6 {
+            height: 100vh;
         }
-        #brand,
-        #about {
-            width: 50%;
-        }
-        #brand {
-            color: #ff6363;
-            letter-spacing: 1.2px;
-        }
-        #mainBtn {
-            background-color: #ff6363;
-        }
-        #artwork img {
-            width: 500px;
-            height: 500px;
-            position: absolute;
-            top: 85px;
-            right: 100px;
+        .intro-content .artwork {
+            opacity: 0.2;
         }
     }
 
-    #projGallery {
+    .project-gallery {
         min-height: 70vh;
+        .gallery-item,
+        .title,
+        .subtitle {
+            transition: all 0.3s ease-in-out;
+        }
         .gallery-item {
             height: 300px;
-            transition: all 0.3s ease-in-out;
             img {
                 object-fit: cover;
             }
@@ -155,10 +118,8 @@ main {
                 bottom: 0px;
                 .title {
                     transform: translateY(15px);
-                    transition: all 0.3s ease-in-out;
                 }
                 .subtitle {
-                    transition: all 0.3s ease-in-out;
                     visibility: hidden;
                     opacity: 0;
                 }

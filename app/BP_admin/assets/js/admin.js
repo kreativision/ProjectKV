@@ -37,3 +37,13 @@ $(document).ready(function () {
         $('[data-toggle="tooltip"]').tooltip()
     });
 });
+
+
+// var ordersList = document.querySelectorAll('.order-list tbody tr');
+document.querySelectorAll('.order-list tbody tr').forEach(row => {
+    row.addEventListener('click', () => {
+        ID = row.getAttribute('id');
+        orderId = ID.substr(ID.indexOf('-')+1);
+        window.location.href = `/a/order/${orderId}`;
+    })
+});

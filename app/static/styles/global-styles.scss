@@ -21,12 +21,6 @@ body {
         display: none;
         pointer-events: none;
     }
-    .toast {
-        top: 80%;
-        left: 50%;
-        width: 90%;
-        transform: translate(-50%);
-    }
     .floating-action {
         bottom: 15px;
         right: 17px;
@@ -43,10 +37,6 @@ body {
     #sidebarToggle {
         display: none;
         pointer-events: none;
-    }
-    .toast {
-        top: 65px;
-        right: 35px;
     }
     .floating-action {
         right: 35px;

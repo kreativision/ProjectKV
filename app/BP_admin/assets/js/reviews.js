@@ -45,24 +45,21 @@ $('#deleteRestoreModal').on('hidden.bs.modal', () => {
 });
 
 $('#editReviewModal').on('shown.bs.modal', () => {
-    $.ajax({
-        url: `${API_URl}/review-data/${revId}`,
-        contentType: 'application/json',
-        dataType: 'json',
-        success: function (res) {
-            for (let key in res)
-                $(`#review_${key}`).val(res[key]);
-            $('#counter').text(res.title.length);
-            setTimeout(() => {
-                activateFormBehaviour('#editReviewForm');
-            }, 100);
-        }
-    });
+    fetch(`${API_URl}/review-data/${revId}`).then(res => {
+        return res.json();
+    }).then(reviewData => {
+        for (let key in reviewData)
+            $(`#review_${key}`).val(reviewData[key]);
+        $('#counter').text(reviewData.title.length);
+        activateFormBehaviour('#editReviewForm');
+    }).catch(err => {
+        console.log(err);
+    })
 });
 
 $('#editReviewModal').on('hidden.bs.modal', () => {
     revId = undefined;
-    document.querySelectorAll('#editReviewForm input[type="text"]').forEach((input) => {
+    document.querySelectorAll('#review_title, #review_content').forEach((input) => {
         input.value = "";
     })
     $('#counter').text("0");
@@ -71,8 +68,8 @@ $('#editReviewModal').on('hidden.bs.modal', () => {
 function activateFormBehaviour(form) {
     let inputs = document.querySelectorAll(`${form} input[type="text"], ${form} textarea`);
     inputs.forEach(field => {
-        if (field.value)
-            field.parentNode.querySelector('label').classList.add('active');
+        if (field.value) { field.parentNode.querySelector('label').classList.add('active'); }
+        else { field.parentNode.querySelector('label').classList.remove('active'); }
         field.onblur = () => {
             if (field.value) { field.parentNode.querySelector('label').classList.add('active'); }
             else { field.parentNode.querySelector('label').classList.remove('active'); }
@@ -111,7 +108,7 @@ function validateReview() {
     function titleEmpty() {
         if (!title.val()) {
             title.addClass('is-invalid');
-            title.parent().find('#rTitle_error').text("Tirle cannot be empty.");
+            $('#rTitle_error').text("Title cannot be empty.");
         } else {
             title.removeClass('is-invalid');
         }

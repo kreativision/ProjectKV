@@ -29,6 +29,10 @@ body {
 // toast mesasges
 .toast {
     position: fixed;
+    top: 85%;
+    left: 50%;
+    width: 90%;
+    transform: translate(-50%);
     z-index: 1000;
     backdrop-filter: none !important;
     border-radius: 0.5rem;
@@ -42,7 +46,6 @@ body {
         border-bottom-right-radius: $toast-border-radius;
     }
 }
-
 
 // global glass bg classes
 .bg-clear-glass {
