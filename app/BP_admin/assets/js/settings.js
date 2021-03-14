@@ -243,7 +243,7 @@ function validateInfo(form) {
     if (!formScopeState) {
         formScopeState = formScope.serialize();
     }
-    $(`${formFieldPrefix}username, ${formFieldPrefix}email, ${formFieldPrefix}contact, ${formFieldPrefix}password`).bind('keyup', () => {
+    $(`${formFieldPrefix}username, ${formFieldPrefix}email, ${formFieldPrefix}contact, ${formFieldPrefix}password`).bind("keyup", () => {
         nameValidation();
         contactValidation();
         emailVAlidation();
@@ -294,8 +294,8 @@ function validateInfo(form) {
         } else if (!EMAIL_PATTERN.test(emailId)) {
             email.addClass("is-invalid");
             email.parent().find('#email_error').text("Invalid email address.");
-        } else if ($('#adminMail').text() !== email.val()) {
-            fetch(`${API_URl}/check-email/${email.val()}`)
+        } else if ($('#adminMail').text() !== emailId) {
+            fetch(`${API_URl}/check-email/${emailId}`)
                 .then(response => response.json())
                 .then(user => {
                     if (user.registered)

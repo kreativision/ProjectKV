@@ -1,75 +1,4 @@
 @import "../../../static/styles/variables";
-
-@media only screen and (max-width: 768px) {
-    #sidebar {
-        margin-left: -200px;
-    }
-    .fab-logout {
-        bottom: 15px;
-        right: 17px;
-        width: 50px;
-        height: 50px;
-    }
-
-    .acc-info {
-        flex-direction: column;
-        justify-content: center;
-        padding: 1rem 2.6rem;
-        .img-container {
-            margin: 0 auto;
-        }
-        .info-container {
-            align-items: center;
-            text-align: center;
-            border-top: 1px solid #999;
-            margin-top: 25px;
-            padding-top: 20px;
-        }
-    }
-
-    .empty-container img {
-        width: 100%;
-        height: auto;
-        margin: 0 auto;
-    }
-}
-
-@media only screen and (min-width: 768px) {
-    #sidebarToggle {
-        display: none;
-        pointer-events: none;
-    }
-    main {
-        padding-left: 200px;
-    }
-    #sidebar {
-        margin-left: 0px;
-    }
-    .fab-logout {
-        right: 35px;
-        bottom: 20px;
-        width: 55px;
-        height: 55px;
-    }
-
-    .acc-info {
-        padding: 2rem 1.4rem;
-        justify-content: start;
-        .img-container {
-            margin: auto 1rem auto 0.6rem;
-        }
-        .info-container {
-            padding: 0rem 1.7rem;
-            border-left: 1px solid #999;
-        }
-    }
-    .empty-container img {
-        width: 100vh;
-        height: auto;
-        margin: 0 auto;
-    }
-}
-
 body {
     overflow: hidden;
     header {
@@ -88,8 +17,67 @@ body {
     }
 }
 
+// Handset View
+@media only screen and (max-width: 768px) {
+    #sidebar {
+        margin-left: -200px;
+        &.active {
+            margin-left: 0px;
+            box-shadow: 10px 0px 20px -5px rgba($color: #000000, $alpha: 0.5);
+        }
+    }
+    .acc-info {
+        flex-direction: column;
+        justify-content: center;
+        padding: 1rem 2.6rem;
+        .dp-container {
+            margin: 0 auto;
+        }
+        .info-container {
+            align-items: center;
+            text-align: center;
+            border-top: 1px solid rgb(95, 95, 95);
+            margin-top: 25px;
+            padding-top: 20px;
+        }
+    }
+    .empty-container img {
+        width: 100%;
+        height: auto;
+        margin: 0 auto;
+    }
+}
+// Desktop View
+@media only screen and (min-width: 768px) {
+    main {
+        padding-left: 200px;
+    }
+    #sidebarToggle {
+        display: none;
+        pointer-events: none;
+    }
+    #sidebar {
+        margin-left: 0px;
+    }
+    .acc-info {
+        padding: 2rem 1.4rem;
+        justify-content: start;
+        .dp-container {
+            margin: auto 1rem auto 0.6rem;
+        }
+        .info-container {
+            padding: 0rem 1.7rem;
+            border-left: 1px solid #999;
+        }
+    }
+    .empty-container img {
+        width: 100vh;
+        height: auto;
+        margin: 0 auto;
+    }
+}
+
 #sidebar {
-    // margin-left: -300px;
     width: 200px;
     position: absolute;
     top: 56px;
@@ -98,10 +86,6 @@ body {
     height: 100vh;
     transition: all 0.3s ease-in-out;
     padding: 15px 15px 15px 0px;
-    .sidebar-header {
-        display: flex;
-        flex-direction: row;
-    }
     .list-unstyled {
         margin-top: 25px;
         li {
@@ -113,29 +97,19 @@ body {
             text-transform: uppercase;
             color: white;
             a {
-                display: flex;
+                display: block;
                 padding: 5px 0px 5px 20px;
-                width: -webkit-fill-available;
-                width: fill-available;
-                width: -moz-available;
                 .active-ico {
                     display: none;
                 }
             }
             &.active {
                 background-color: $black-50;
-                a {
-                    color: white !important;
-                    .active-ico {
-                        display: inline-block;
-                    }
+                a .active-ico {
+                    display: inline-block;
                 }
             }
         }
-    }
-    &.active {
-        margin-left: 0px;
-        // box-shadow: $sidebar-shadow;
     }
 }
 
@@ -157,7 +131,7 @@ body {
     }
 }
 
-//Forms - inspired from maaterial
+//Forms - inspired from material
 fieldset {
     .options {
         display: flex;
@@ -227,13 +201,11 @@ fieldset {
     .invalid-feedback.position-absolute {
         top: 37px;
     }
-}
-
-input[type="file"] {
-    // visibility: hidden;
-    opacity: 0;
-    user-select: none;
-    pointer-events: none;
+    input[type="file"] {
+        opacity: 0;
+        user-select: none;
+        pointer-events: none;
+    }
 }
 
 .dropdown-menu {
@@ -247,29 +219,32 @@ input[type="file"] {
     }
 }
 
-.acc-info {
-    // background-image: linear-gradient(154deg, #a1ffce, #faffd1);
-    .img-container .edit-img-btn {
-        top: 75%;
-        left: 75%;
-        border: 3px solid white;
-        border-radius: 50%;
+.admin-settings {
+    .acc-info {
+        background-image: linear-gradient(123deg, #FEAC5E, #C779D0, #00B4DB);
+    }
+    .dp-container {
+        .img {
+            width: 150px;
+            height: 150px;
+        }
+        .edit-img-btn {
+            top: 75%;
+            left: 75%;
+            border: 3px solid white;
+            border-radius: 50%;
+        }
     }
     .info-container #userContact {
         margin-top: -10px;
     }
 }
-
 .preview-container .img {
     height: 320px;
     width: 320px;
 }
-.img-container .img {
-    width: 150px;
-    height: 150px;
-}
 .preview-container,
-.img-container {
+.dp-container {
     .img {
         overflow: hidden;
         border-radius: 50%;
@@ -288,21 +263,19 @@ input[type="file"] {
     }
 }
 
-.review {
-    .review-actions .btn {
-        width: 2rem;
-        height: 2rem;
-        border-radius: 50%;
-        &:not(:disabled):hover,
-        &:not(:disabled):focus {
-            background-color: rgb(105, 105, 105);
-        }
-        &:not(:disabled):focus {
-            border: 1px solid rgb(219, 219, 219);
-        }
-        &:disabled {
-            background-color: rgb(255, 255, 255);
-        }
+.review-actions .btn {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    &:not(:disabled):hover,
+    &:not(:disabled):focus {
+        background-color: rgb(105, 105, 105);
+    }
+    &:not(:disabled):focus {
+        border: 1px solid rgb(219, 219, 219);
+    }
+    &:disabled {
+        background-color: rgb(255, 255, 255);
     }
 }
 
@@ -310,7 +283,6 @@ input[type="file"] {
     .updates .card {
         border-radius: 0px;
     }
-
     .order-list {
         max-height: 35vh;
         overflow-y: auto;

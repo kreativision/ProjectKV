@@ -80,7 +80,6 @@ class EditDPForm(FlaskForm):
     )
     submitDp = SubmitField("Upload")
 
-# EDIT REVIEW FORM - ADDED 0303
 class EditReviewForm(FlaskForm):
     review_title = StringField(
         "Review Title *", validators=[DataRequired()], render_kw={"maxlength": "140"}
