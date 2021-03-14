@@ -1,5 +1,6 @@
+@import "../../../static/styles/variables";
 main {
-	background-color: rgb(10, 10, 56);
+	background-image: $account-module-background;
 	padding-top: 60px;
 }
 
