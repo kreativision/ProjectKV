@@ -31,6 +31,8 @@ def login():
         if user and encryptor.check_password_hash(user.password, form.password.data):
             login_user(user, remember=form.remember.data)
             if user.admin:
+                content = [f"Login Successful", f"Welcome to Admin Dashboard."]
+                flash(content, category="success")
                 return redirect(url_for("BP_admin.home"))
             content = [f"Login Successful", f"You have been successfully logged in."]
             flash(content, category="success")

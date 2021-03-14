@@ -9,23 +9,35 @@ from app.BP_admin.forms import (
 from app.models import User, Review
 from app.decorators import admin_required
 import app.utils as utils
-from flask import request, flash, redirect, url_for
+from flask import flash, redirect, request, url_for, json
 from flask.templating import render_template
 from flask_login import login_required, current_user
+from flask.json import jsonify
 
 
 @BP_admin.route("/a/dashboard")
 @login_required
 @admin_required
 def home():
-    return render_template("index.html", title="Dashboard")
+    return render_template("dashboard.html", title="Dashboard")
 
 
-@BP_admin.route("/a/orders")
+@BP_admin.route("/a/order/<string:id>")
 @login_required
 @admin_required
-def orders():
-    return render_template("orders.html", title="Manage Orders")
+def order_id(id):
+    return render_template("order-details.html")
+
+
+@BP_admin.route("/a/orders/<string:status>")
+@login_required
+@admin_required
+def order_type(status):
+    # orders = Order.query.filter(Order.status == status).all()
+    # return render_template(
+    #     "orders.html", title="Manage Orders", orders=orders, status=status
+    # )
+    return render_template("orders.html")
 
 
 @BP_admin.route("/a/services")
@@ -47,11 +59,6 @@ def blog():
 @admin_required
 def offers():
     return render_template("offers.html", title="Manage Offers")
-
-
-@BP_admin.route("/a/reviews")
-def reviews():
-    return redirect(url_for("BP_admin.review_type", type="new"))
 
 
 @BP_admin.route("/a/r/<string:type>", methods=["GET", "POST"])
