@@ -16,7 +16,6 @@ from flask_login import current_user
 from app import encryptor
 
 class UpdateForm(FlaskForm):
-    # render_kw => add autofocus feature.
     username = StringField(
         "Full Name *",
         validators=[
@@ -39,7 +38,7 @@ class UpdateForm(FlaskForm):
         render_kw={"inputmode": "numeric", "minlength":"10","maxlength":"10"}
     )
     password = PasswordField("Password *", validators=[DataRequired()])
-    submitInfo = SubmitField("UPDATE")
+    submitInfo = SubmitField("Save Changes")
     
     def validate_password(self, password):
         if not encryptor.check_password_hash(current_user.password, password.data):

@@ -2,11 +2,11 @@ const EMAIL_PATTERN = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"
 let formScopeState;
 let stateChanged = false;
 let userData;
-const API_URl = `http://${window.location.hostname}:6174/api`;
+const API_URL = `http://${window.location.hostname}:6174/api`;
 /**
  * Enable form validation for details form when it is loaded.
  */
- $('#infoModal').on('shown.bs.modal', () => {
+$('#infoModal').on('shown.bs.modal', () => {
     if (!$('#updateForm-password').hasClass("is-invalid")) {
         autoFillForm($('#userEmail').text());
     } else {
@@ -32,8 +32,8 @@ $(document).ready(() => {
  * Function to fetch user data from the database and pre-fill the details-form values
  * @param {*} email email ID of the user.
  */
- function autoFillForm(email) {
-    fetch(`${API_URl}/fetch-user/${email}`)
+function autoFillForm(email) {
+    fetch(`${API_URL}/fetch-user/${email}`)
         .then(response => response.json())
         .then(user => {
             for (let key in user)
@@ -47,7 +47,7 @@ $(document).ready(() => {
  * Function to enable the floating labels bahaviour and focus the first input.
  * @param {*} form the selected form
  */
- function activateFormBehaviour(form) {
+function activateFormBehaviour(form) {
     let inputs = document.querySelectorAll(`${form} input[type="text"], ${form} input[type="password"]`);
     inputs.forEach(field => {
         if (field.value)
@@ -133,18 +133,18 @@ function validateInfo(form) {
             email.addClass("is-invalid");
             email.parent().find('#email_error').text("Invalid email address.");
         } else if ($('#userEmail').text() !== emailId) {
-            fetch(`${API_URl}/check-email/${emailId}`)
+            fetch(`${API_URL}/check-email/${emailId}`)
                 .then(response => response.json())
                 .then(user => {
-                    if (user.registered)
-                        email.parent().find('#email_error').text("This Email id is already in the system.");
-                    else
+                    console.log(user.registered);
+                    if (user.registered) {
+                        email.addClass("is-invalid");
+                        email.parent().find('#email_error').text("This Mail ID is registered by someone else.");
+                    } else {
                         email.removeClass("is-invalid");
-
+                    }
                 })
                 .catch(err => console.log(err));
-        } else {
-            email.removeClass("is-invalid");
         }
     }
 

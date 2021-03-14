@@ -4,6 +4,7 @@ from flask.helpers import send_from_directory
 from app import app
 from app.models import User, Review
 from flask.json import jsonify
+from flask_login import login_required
 
 # The App Icon for browsers.
 @app.route("/favicon.ico")
@@ -16,12 +17,13 @@ def favicon():
 
 
 @app.route("/api/check-email/<string:email>", methods=["GET"])
+@login_required
 def check_email(email):
     is_user = User.query.filter_by(email=email).first()
     if is_user:
-        return jsonify({"registered": 1})
+        return jsonify({"registered": True})
     else:
-        return jsonify({"registered": 0})
+        return jsonify({"registered": False})
 
 
 @app.route("/api/fetch-user/<string:email>", methods=["GET"])

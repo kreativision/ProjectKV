@@ -298,8 +298,10 @@ function validateInfo(form) {
             fetch(`${API_URl}/check-email/${emailId}`)
                 .then(response => response.json())
                 .then(user => {
-                    if (user.registered)
+                    if (user.registered) {
+                        email.addClass("is-invalid");
                         email.parent().find('#email_error').text("This Email id is already in the system.");
+                    }
                     else
                         email.removeClass("is-invalid");
 
