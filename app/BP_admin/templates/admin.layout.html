@@ -6,7 +6,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{url_for('static', filename='styles/vendors.css')}}">
-    <!-- <link rel="stylesheet" href="{{url_for('static', filename='styles/FA.css')}}"> -->
     <link rel="stylesheet" href="{{url_for('BP_admin.static', filename='styles/admin.css')}}">
     <title>{{title}} | KV Admin</title>
 </head>
@@ -14,8 +13,8 @@
 <body>
     {% set navItems = [
     ('tachometer-alt', url_for('BP_admin.home'), 'dashboard', 'Dashboard'),
-    ('tags', url_for('BP_admin.orders'), 'orders', 'Orders'),
-    ('comments', url_for('BP_admin.reviews'), 'reviews', 'Reviews'),
+    ('tags', url_for('BP_admin.order_type', status='new'), 'orders', 'Orders'),
+    ('comments', url_for('BP_admin.review_type', type='new'), 'reviews', 'Reviews'),
     ('boxes', url_for('BP_admin.services'), 'services', 'Services'),
     ('blog', url_for('BP_admin.blog'), 'blog', 'Blog'),
     ('shapes', url_for('BP_admin.offers'), 'offers', 'Offers'),

@@ -1,0 +1,113 @@
+{% extends 'admin.layout.html' %}
+{% set active='dashboard' %}
+
+{% block admin_content %}
+<div class="dashboard">
+    <div class="container mt-2">
+        <h5 class="text-light">Updates</h5>
+        <div class="row updates">
+            <div class="col-md-4 col-lg-4">
+                <div class="card shadow border-0 mb-3">
+                    <div class="card-body">
+                        <h5 class="text-dark">4 new orders</h5>
+                        <p class="text-muted">From XYZ, Someone and 2 others.</p>
+                        <a href="#" class="btn btn-sm btn-warning shadow">
+                            View &amp; Take Actions<i class="fas fa-chevron-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-lg-4">
+                <div class="card shadow border-0 mb-3">
+                    <div class="card-body">
+                        <h5 class="text-dark">3 new reviews</h5>
+                        <p class="text-muted">From User 1, User 2 and 1 others.</p>
+                        <a href="#" class="btn btn-sm btn-warning shadow">
+                            View &amp; Take Actions <i class="fas fa-chevron-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-lg-4">
+                <div class="card shadow border-0 mb-3">
+                    <div class="card-body">
+                        <h5 class="text-dark">Sales this month: <span class="text-primary">&#8377; 2368</span></h5>
+                        <p class="text-success"><span class="font-weight-bold">+ &#8377;259</span> from last month.</p>
+                        <a href="#" class="btn btn-sm btn-warning shadow">
+                            See Report <i class="fas fa-chevron-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container mb-3">
+        <h5 class="text-light">Orders in progress</h5>
+        <div class="order-list shadow">
+            <table class="table table-borderless table-hover bg-light">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Order ID</th>
+                        <th scope="col">Owner</th>
+                        <th scope="col">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr role="button" tabindex="0" id="order-1">
+                        <td scope="row">120321:1754</td>
+                        <td>User X</td>
+                        <td>In Progress</td>
+                    </tr>
+                    <tr role="button" tabindex="0" id="order-2">
+                        <td scope="row">110720:1209</td>
+                        <td>Amittras</td>
+                        <td>Pending Payment</td>
+                    </tr>
+                    <tr role="button" tabindex="0" id="order-3">
+                        <td scope="row">060221:1604</td>
+                        <td>Fireman</td>
+                        <td>In Progress</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="container mb-3">
+        <h5 class="text-light">Quick Actions</h5>
+        <div class="row no-gutters shadow quick-actions">
+            <div class="col-md-3 col-lg-3 action">
+                <a href="" class="text-decoration-none text-dark">
+                    <span class="d-flex flex-column align-items-center py-3">
+                        <i class="fas fa-users"></i>
+                        <p class="mb-0">Find a User</p>
+                    </span>
+                </a>
+            </div>
+            <div class="col-md-3 col-lg-3 action">
+                <a href="" class="text-decoration-none text-dark">
+                    <span class="d-flex flex-column align-items-center py-3">
+                        <i class="fas fa-blog"></i>
+                        <p class="mb-0">Add new blog entry</p>
+                    </span>
+                </a>
+            </div>
+            <div class="col-md-3 col-lg-3 action">
+                <a href="" class="text-decoration-none text-dark">
+                    <span class="d-flex flex-column align-items-center py-3">
+                        <i class="fas fa-shapes"></i>
+                        <p class="mb-0">Create new offer</p>
+                    </span>
+                </a>
+            </div>
+            <div class="col-md-3 col-lg-3 action">
+                <a href="" class="text-decoration-none text-dark">
+                    <span class="d-flex flex-column align-items-center py-3">
+                        <i class="fas fa-boxes"></i>
+                        <p class="mb-0">Add a new service</p>
+                    </span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock admin_content %}
