@@ -45,7 +45,7 @@ $('#deleteRestoreModal').on('hidden.bs.modal', () => {
 });
 
 $('#editReviewModal').on('shown.bs.modal', () => {
-    fetch(`${API_URl}/review-data/${revId}`).then(res => {
+    fetch(`${API_URL}/review-data/${revId}`).then(res => {
         return res.json();
     }).then(reviewData => {
         for (let key in reviewData)
