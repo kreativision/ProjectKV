@@ -13,11 +13,8 @@ from wtforms.validators import (
 from wtforms.fields.simple import PasswordField, SubmitField
 from flask_wtf.file import FileField, FileAllowed
 
-prefix = {
-    "info": "detailsForm",
-    "pwd": "passwordForm",
-    "dp":"dpForm"
-}
+# form prefixes to generate unique ID's for form elements.
+prefix = {"info": "detailsForm", "pwd": "passwordForm", "dp": "dpForm"}
 
 # Update Account Details Form
 class UpdateAccountInfoForm(FlaskForm):
