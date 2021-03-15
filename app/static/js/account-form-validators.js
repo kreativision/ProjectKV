@@ -1,3 +1,5 @@
+// Form validations for user account page
+const API_URL = `http://${window.location.hostname}:6174/api`;
 const EMAIL_PATTERN = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 let formScopeState;
 let stateChanged = false;
@@ -153,7 +155,7 @@ function activateFormBehaviour(form) {
  * @param {*} email email ID of the user.
  */
 function autoFillForm(email) {
-    fetch(`${API_URl}/fetch-user/${email}`)
+    fetch(`${API_URL}/fetch-user/${email}`)
         .then(response => response.json())
         .then(user => {
             for (let key in user)
@@ -295,7 +297,7 @@ function validateInfo(form) {
             email.addClass("is-invalid");
             email.parent().find('#email_error').text("Invalid email address.");
         } else if ($('#adminMail').text() !== emailId) {
-            fetch(`${API_URl}/check-email/${emailId}`)
+            fetch(`${API_URL}/check-email/${emailId}`)
                 .then(response => response.json())
                 .then(user => {
                     if (user.registered) {

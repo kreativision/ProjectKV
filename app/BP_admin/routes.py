@@ -1,14 +1,15 @@
 from app import db, encryptor
-from app.BP_admin import BP_admin
-from app.BP_admin.forms import (
-    EditAdminDetailsForm,
-    EditAdminPasswordForm,
-    EditDPForm,
-    EditReviewForm,
-)
+import app.utils as utils
 from app.models import User, Review
 from app.decorators import admin_required
-import app.utils as utils
+from app.BP_admin import BP_admin
+from app.BP_admin.forms import EditReviewForm
+from app.global_forms import (
+    UpdateAccountInfoForm,
+    ChangeUserPasswordForm,
+    UpdateDPForm,
+    prefix,
+)
 from flask import flash, redirect, request, url_for, json
 from flask.templating import render_template
 from flask_login import login_required, current_user
@@ -135,12 +136,9 @@ def restore_review(revId):
 @login_required
 @admin_required
 def settings():
-    edit_form_prefix = "detailsForm"
-    edit_form = EditAdminDetailsForm(prefix=edit_form_prefix)
-    change_pwd_form_prefix = "passwordForm"
-    change_pwd_form = EditAdminPasswordForm(prefix=change_pwd_form_prefix)
-    dp_form_prefix = "dpForm"
-    dp_form = EditDPForm(prefix=dp_form_prefix)
+    edit_form = UpdateAccountInfoForm(prefix=prefix["info"])
+    change_pwd_form = ChangeUserPasswordForm(prefix=prefix["pwd"])
+    dp_form = UpdateDPForm(prefix=prefix["dp"])
     if request.method == "POST" and request.form["form"] == "pwd":
         if change_pwd_form.validate_on_submit():
             utils.change_password(change_pwd_form.new_password.data)
