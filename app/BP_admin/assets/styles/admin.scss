@@ -26,20 +26,12 @@ body {
             box-shadow: 10px 0px 20px -5px rgba($color: #000000, $alpha: 0.5);
         }
     }
-    .acc-info {
-        flex-direction: column;
-        justify-content: center;
-        padding: 1rem 2.6rem;
-        .dp-container {
-            margin: 0 auto;
-        }
-        .info-container {
-            align-items: center;
-            text-align: center;
-            border-top: 1px solid rgb(95, 95, 95);
-            margin-top: 25px;
-            padding-top: 20px;
-        }
+    .info-container {
+        margin: 25px auto 0px auto;
+        width: 80%;
+        text-align: center;
+        border-top: 1px solid rgb(95, 95, 95);
+        padding-top: 20px;
     }
     .empty-container img {
         width: 100%;
@@ -59,16 +51,9 @@ body {
     #sidebar {
         margin-left: 0px;
     }
-    .acc-info {
-        padding: 2rem 1.4rem;
-        justify-content: start;
-        .dp-container {
-            margin: auto 1rem auto 0.6rem;
-        }
-        .info-container {
-            padding: 0rem 1.7rem;
-            border-left: 1px solid #999;
-        }
+    .info-container {
+        padding-left: 20px;
+        border-left: 1px solid rgb(95, 95, 95);
     }
     .empty-container img {
         width: 100vh;
@@ -207,7 +192,6 @@ fieldset {
         pointer-events: none;
     }
 }
-
 .dropdown-menu {
     border: 1px solid rgb(119, 119, 119);
     .dropdown-item {
@@ -219,24 +203,20 @@ fieldset {
     }
 }
 
-.admin-settings {
-    .acc-info {
-        background-image: linear-gradient(123deg, #FEAC5E, #C779D0, #00B4DB);
-    }
+.acc-info {
+    background-image: linear-gradient(123deg, #feac5e, #c779d0, #00b4db);
+
     .dp-container {
         .img {
             width: 150px;
             height: 150px;
         }
         .edit-img-btn {
-            top: 75%;
-            left: 75%;
+            top: 73%;
+            left: 63%;
             border: 3px solid white;
             border-radius: 50%;
         }
-    }
-    .info-container #userContact {
-        margin-top: -10px;
     }
 }
 .preview-container .img {
@@ -262,7 +242,6 @@ fieldset {
         }
     }
 }
-
 .review-actions .btn {
     width: 2rem;
     height: 2rem;

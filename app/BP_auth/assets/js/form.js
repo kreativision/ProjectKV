@@ -1,5 +1,4 @@
 // Auth Page Scripts - manipulation of the form-fields on the page.
-const API_URL = `http://${window.location.hostname}:6174/api`;
 const email_pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 
 var formFields = document.querySelectorAll('.form-group .form-control, .input-group .form-control');

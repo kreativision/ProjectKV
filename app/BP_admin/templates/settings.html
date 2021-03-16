@@ -2,11 +2,11 @@
 {% set active='settings' %}
 
 {% block admin_content %}
-<div class="container-fluid px-1 mt-4 admin-settings">
+<div class="container-fluid px-1 mt-4">
   <div class="container">
-    <div class="card shadow border-0">
-      <div class="card-body d-flex rounded acc-info">
-        <div class="dp-container position-relative">
+    <div class="card card-body shadow border-0 acc-info">
+      <div class="row">
+        <div class="col-md-3 col-lg-3 d-flex justify-content-center dp-container">
           <div class="img shadow d-flex justify-content-center align-items-center">
             <img src="{{url_for('static', filename='images/user-dp/'+current_user.dp_file)}}" alt="" class="acc-img">
           </div>
@@ -14,7 +14,7 @@
             <i class="fas fa-pencil-alt"></i>
           </label>
         </div>
-        <div class="info-container d-flex mx-2 flex-column position-relative">
+        <div class="col-md-4 col-lg-4 info-container">
           <div class="h3 text-dark mb-3">{{current_user.username}}</div>
           <p class="font-italic text-dark my-0">
             <span id="adminMail" class="font-weight-bold">{{current_user.email}}</span>
@@ -32,7 +32,7 @@
           </p>
           <p class="font-italic text-dark font-weight-bold" id="userContact">+91 {{current_user.contact}}</p>
           <div class="dropdown">
-            <button class="btn btn-sm btn-light font-weight-bold shadow mt-3" type="button" data-toggle="dropdown">
+            <button class="btn btn-sm btn-light font-weight-bold shadow" type="button" data-toggle="dropdown">
               <i class="fas fa-pencil-alt mr-2"></i> EDIT
             </button>
             <div class="dropdown-menu bg-dark shadow">
@@ -49,7 +49,8 @@
 </div>
 
 <!-- Preview image before upload popup -->
-<div class="modal fade" id="dpModal" tabindex="-1" role="dialog" aria-labelledby="dpModalLabel" aria-hidden="true">
+<div class="modal fade bg-clear-glass" id="dpModal" tabindex="-1" role="dialog" aria-labelledby="dpModalLabel"
+  aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content bg-dark border-0">
       <div class="modal-header d-flex flex-column align-items-center border-warning">
@@ -67,7 +68,8 @@
                 <img src="#" alt="" id="preview" class="preview">
               </div>
             </div>
-            <small class="text-light mt-3">We suggest using a centered/square image so your face is visible properly everywhere.</small>
+            <small class="text-light mt-3">We suggest using a centered/square image so your face is visible properly
+              everywhere.</small>
           </div>
           <div class="modal-footer border-0">
             <input type="hidden" name="form" value="dp">
@@ -82,7 +84,8 @@
 </div>
 
 <!-- Update Account details popup -->
-<div class="modal fade" id="infoModal" tabindex="-1" role="dialog" aria-labelledby="infoModalLabel" aria-hidden="true">
+<div class="modal fade bg-clear-glass" id="infoModal" tabindex="-1" role="dialog" aria-labelledby="infoModalLabel"
+  aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content bg-dark border-0">
       <div class="modal-header d-flex flex-column align-items-center border-warning">
@@ -155,7 +158,8 @@
 </div>
 
 <!-- Change Password popup -->
-<div class="modal fade" id="pwdModal" tabindex="-1" role="dialog" aria-labelledby="pwdModalLabel" aria-hidden="true">
+<div class="modal fade bg-clear-glass" id="pwdModal" tabindex="-1" role="dialog" aria-labelledby="pwdModalLabel"
+  aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content bg-dark border-0">
       <div class="modal-header d-flex flex-column align-items-center border-warning">
