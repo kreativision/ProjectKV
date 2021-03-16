@@ -1,6 +1,6 @@
-from app import db, encryptor
+
 import app.utils as utils
-from app.models import User, Review
+from app.models import Review
 from app.decorators import admin_required
 from app.BP_admin import BP_admin
 from app.BP_admin.forms import EditReviewForm
@@ -10,10 +10,9 @@ from app.global_forms import (
     UpdateDPForm,
     prefix,
 )
-from flask import flash, redirect, request, url_for, json
+from flask import flash, redirect, request, url_for
 from flask.templating import render_template
-from flask_login import login_required, current_user
-from flask.json import jsonify
+from flask_login import login_required
 
 
 @BP_admin.route("/a/dashboard")

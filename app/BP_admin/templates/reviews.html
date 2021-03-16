@@ -27,15 +27,15 @@
     {% if reviews %}
     {% for review in reviews %}
     <div class="container mb-3">
-        <div class="card bg-dark shadow">
-            <div class="card-header text-light border-info d-flex">
+        <div class="card shadow">
+            <div class="card-header bg-white border-0 d-flex">
                 <div class="review-header">
                     <h5 class="card-title">{{review.title}}</h5>
-                    <p class="card-subtitle font-italic">By {{review.author}}</p>
+                    <p class="small card-subtitle font-italic">By {{review.author}}</p>
                 </div>
                 {% if review.status == 'NEW' %}
                 <div class="review-actions ml-auto">
-                    <button type="button" class="btn text-light d-flex justify-content-center align-items-center"
+                    <button type="button" class="btn d-flex justify-content-center align-items-center"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fas fa-ellipsis-h"></i>
                     </button>
@@ -46,7 +46,7 @@
                 </div>
                 {% elif review.status == 'REMOVED' %}
                 <div class="review-actions ml-auto">
-                    <button type="button" class="btn text-light d-flex justify-content-center align-items-center"
+                    <button type="button" class="btn d-flex justify-content-center align-items-center"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fas fa-ellipsis-h"></i>
                     </button>
@@ -60,15 +60,15 @@
                 {% endif %}
             </div>
             {% if review.content %}
-            <div class="card-body text-light">
+            <div class="card-body text-dark">
                 {{review.content}}
             </div>
             {% endif %}
             <div class="card-footer border-0 py-2 d-flex justify-content-between">
-                <p class="mb-1 small text-warning font-italic">
+                <p class="mb-1 small text-primary font-italic">
                     Posted on {{review.date.strftime('%b %d, %y')}}<br>for {{review.catalogue}}
                 </p>
-                <p class="mb-1 small text-light font-italic {{'text-light' if type == 'all' else 'text-dark'}}">
+                <p class="mb-1 small text-light font-italic {{'text-dark' if type == 'all' else 'text-light'}}">
                     {{review.status.capitalize()}}</p>
             </div>
         </div>
