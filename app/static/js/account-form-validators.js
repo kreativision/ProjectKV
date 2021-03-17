@@ -69,7 +69,7 @@ $('#dpModal').on("hidden.bs.modal", () => dpModalOpen = false);
 function previewFile(fileInput) {
     // loads image into the preview panel
     if (fileInput.files.length && fileInput.files[0]) {
-        var reader = new FileReader();
+        let reader = new FileReader();
         reader.onload = function (e) {
             $('#preview').attr('src', e.target.result);
         }
@@ -172,20 +172,20 @@ function autoFillForm(email) {
  */
 function validatePasswords(form) {
     const pwdFormPrefix = `${form} #passwordForm-`;
-    var disable = true;
+    let disable = true;
     disableSubmit(form, disable);
-    var currentPassword = $(`${pwdFormPrefix}current`);
-    var newPassword = $(`${pwdFormPrefix}new_password`);
-    var confirmNewPassword = $(`${pwdFormPrefix}confirm_new_password`);
+    let currentPassword = $(`${pwdFormPrefix}current`);
+    let newPassword = $(`${pwdFormPrefix}new_password`);
+    let confirmNewPassword = $(`${pwdFormPrefix}confirm_new_password`);
     currentPassword.val("");
     newPassword.val("");
     confirmNewPassword.val("");
     $(`${pwdFormPrefix}current, ${pwdFormPrefix}new_password, ${pwdFormPrefix}confirm_new_password`).bind('keyup', () => {
-        var fieldsPopulated = areFieldsPopulated();
+        let fieldsPopulated = areFieldsPopulated();
         arePasswordsDifferent();
         passwordMatcher();
         clearErrorsOnFill();
-        var errors = document.querySelectorAll(".is-invalid").length;
+        let errors = document.querySelectorAll(".is-invalid").length;
         if (fieldsPopulated && !errors) {
             disable = false;
         } else {
@@ -233,14 +233,14 @@ function validatePasswords(form) {
  */
 function validateInfo(form) {
     const formFieldPrefix = `${form} #detailsForm-`
-    var disable = true;
+    let disable = true;
     disableSubmit(form, disable);
-    var username = $(`${formFieldPrefix}username`);
-    var email = $(`${formFieldPrefix}email`);
-    var contact = $(`${formFieldPrefix}contact`);
-    var password = $(`${formFieldPrefix}password`);
+    let username = $(`${formFieldPrefix}username`);
+    let email = $(`${formFieldPrefix}email`);
+    let contact = $(`${formFieldPrefix}contact`);
+    let password = $(`${formFieldPrefix}password`);
     password.val("");
-    var formScope = $(`${form} input[type="text"]`);
+    let formScope = $(`${form} input[type="text"]`);
     if (!formScopeState) {
         formScopeState = formScope.serialize();
     }
@@ -249,10 +249,10 @@ function validateInfo(form) {
         contactValidation();
         emailVAlidation();
         passwordValidation();
-        var formStateChanged = stateChanged ? true : formScopeState !== formScope.serialize();
-        var formScopeEmpty = isFormScopeEmpty(form);
-        var pwdFieldHasData = $(`${formFieldPrefix}password`).val();
-        var errors = document.querySelectorAll(".is-invalid").length;
+        let formStateChanged = stateChanged ? true : formScopeState !== formScope.serialize();
+        let formScopeEmpty = isFormScopeEmpty(form);
+        let pwdFieldHasData = $(`${formFieldPrefix}password`).val();
+        let errors = document.querySelectorAll(".is-invalid").length;
         if (formStateChanged && !formScopeEmpty && pwdFieldHasData && !errors) {
             disable = false;
         } else {
@@ -262,7 +262,7 @@ function validateInfo(form) {
     });
 
     function nameValidation() {
-        var nameLength = username.val().length;
+        let nameLength = username.val().length;
         if ((nameLength > 0 && nameLength <= 3) || nameLength > 50) {
             username.addClass("is-invalid");
             username.parent().find('#name_error').text("Name should be 3 to 50 characters.");
@@ -275,7 +275,7 @@ function validateInfo(form) {
     }
 
     function contactValidation() {
-        var number = parseInt(contact.val());
+        let number = parseInt(contact.val());
         if (!number || isNaN(number)) {
             contact.addClass("is-invalid");
             contact.parent().find('#contact_error').text("Contact cannot be empty.");
@@ -288,7 +288,7 @@ function validateInfo(form) {
     }
 
     function emailVAlidation() {
-        var emailId = email.val();
+        let emailId = email.val();
         if (!emailId) {
             email.addClass("is-invalid");
             email.parent().find('#email_error').text("Email cannot be Empty.");

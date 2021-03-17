@@ -1,5 +1,5 @@
-var sidebar = document.querySelector('#sidebar');
-var sidebarToggler = document.querySelector('#sidebarToggle');
+let sidebar = document.querySelector('#sidebar');
+let sidebarToggler = document.querySelector('#sidebarToggle');
 const API_URL = `http://${window.location.hostname}:6174/api`;
 
 /**
@@ -39,7 +39,7 @@ $(document).ready(function () {
 });
 
 
-// var ordersList = document.querySelectorAll('.order-list tbody tr');
+// let ordersList = document.querySelectorAll('.order-list tbody tr');
 document.querySelectorAll('.order-list tbody tr').forEach(row => {
     row.addEventListener('click', () => {
         ID = row.getAttribute('id');

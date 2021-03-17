@@ -1,9 +1,9 @@
 // Auth Page Scripts - manipulation of the form-fields on the page.
 const email_pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 
-var formFields = document.querySelectorAll('.form-group .form-control, .input-group .form-control');
-var passwords = document.querySelectorAll('input[type="password"]');
-var toggleIcon = document.querySelector('#pwd-toggle i');
+let formFields = document.querySelectorAll('.form-group .form-control, .input-group .form-control');
+let passwords = document.querySelectorAll('input[type="password"]');
+let toggleIcon = document.querySelector('#pwd-toggle i');
 
 /**
  * Events on page load  
@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", () => {
  * Runs a 10-minute countdown timer if on the email-sent page.
  */
 document.addEventListener("DOMContentLoaded", () => {
-  var clock = document.querySelector('.clock');
+  let clock = document.querySelector('.clock');
   if (clock) {
     let minutes = clock.querySelector('.minutes');
     let seconds = clock.querySelector('.seconds');
@@ -94,7 +94,7 @@ function validatePassword() {
 /**
  * API Call for client-side e-mail verification.
  */
-var jEmail;
+let jEmail;
 $(document).ready(function () {
   jEmail = $('#email');
   jEmail.bind('blur', function () {

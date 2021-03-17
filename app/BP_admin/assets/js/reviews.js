@@ -83,12 +83,12 @@ function activateFormBehaviour(form) {
 }
 
 function validateReview() {
-    var disable = true;
+    let disable = true;
     $('input[type="submit"]').prop('disabled', disable);
     $('#review_id').val(revId);
-    var title = $('#review_title');
-    var content = $('#review_content');
-    var counter = $('#counter');
+    let title = $('#review_title');
+    let content = $('#review_content');
+    let counter = $('#counter');
     formScope = $(`#editReviewForm input[type="text"], #editReviewForm textarea`);
     const formScopState = formScope.serialize();
 
