@@ -26,8 +26,8 @@ document.addEventListener('click', function (e) {
  * Events to happen on page load.
  */
 $(document).ready(function () {
-    // enable toasts
-    $(".toast").toast('show');
+    // enable toasts - except reviews page.
+    if (!window.location.href.includes("reviews")) { $(".toast").toast('show'); }
     // disable sidebar controls for desktop devices
     if ((navigator.userAgent.indexOf('Android') === -1)) {
         $('#sidebar').addClass('active');
@@ -43,7 +43,7 @@ $(document).ready(function () {
 document.querySelectorAll('.order-list tbody tr').forEach(row => {
     row.addEventListener('click', () => {
         ID = row.getAttribute('id');
-        orderId = ID.substr(ID.indexOf('-')+1);
+        orderId = ID.substr(ID.indexOf('-') + 1);
         window.location.href = `/a/order/${orderId}`;
     })
 });
