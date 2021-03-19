@@ -211,8 +211,8 @@ fieldset {
 }
 
 .acc-info {
-    background-image: linear-gradient(123deg, #feac5e, #c779d0, #00b4db);
-
+    background-image: linear-gradient(123deg, #feac5e, #c779d0, #00b4db00);
+    background-color: transparent;
     .dp-container {
         .img {
             width: 150px;

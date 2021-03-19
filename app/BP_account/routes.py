@@ -33,7 +33,8 @@ def account_info():
             utils.change_password(form1.new_password.data)
             content = [f"Success", f"Your assword is updated."]
             flash(content, category="success")
-            return redirect(url_for("BP_account.account_info"))   
+            return redirect(url_for("BP_account.account_info"))  
+     
     return render_template("acchome.html", title="My Account", dp_file = dp_file, updateForm=form , pwdForm=form1)
 
     
