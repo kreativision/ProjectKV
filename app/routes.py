@@ -9,6 +9,7 @@ from flask_login import login_required
 from app.decorators import admin_required
 from app.BP_admin import BP_admin
 import app.utils as utils
+
 reviewSchema = ReviewSchema(many=True)
 
 # The App Icon for browsers.
@@ -22,7 +23,6 @@ def favicon():
 
 
 @app.route("/api/check-email/<string:email>", methods=["GET"])
-@login_required
 def check_email(email):
     is_user = User.query.filter_by(email=email).first()
     if is_user:
@@ -33,12 +33,10 @@ def check_email(email):
 
 @app.route("/api/fetch-user/<string:email>", methods=["GET"])
 @login_required
-@admin_required
 def fetch_user(email):
     user = User.query.filter_by(email=email).first()
-    return jsonify(
-        {"contact": user.contact, "username": user.username, "email": user.email}
-    )
+    response = {"contact": user.contact, "username": user.username, "email": user.email}
+    return jsonify(response)
 
 
 @BP_admin.route("/api/review/<string:status>")
