@@ -5,6 +5,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
 from flask_mail import Mail
+from flask_marshmallow import Marshmallow
 import os
 
 # Blueprints.
@@ -19,6 +20,7 @@ app.config["SECRET_KEY"] = os.environ.get("FLASK_APP_KEY")
 app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("FLASK_DB_URI")
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy(app)
+ma = Marshmallow(app)
 app.config["MAIL_SERVER"] = "smtp.googlemail.com"
 app.config["MAIL_PORT"] = 587
 app.config["MAIL_USE_TLS"] = True
