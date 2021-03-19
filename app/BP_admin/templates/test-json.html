@@ -1,0 +1,10 @@
+{% extends 'admin.layout.html' %}
+{% set active='reviews' %}
+
+{% block admin_content %}
+<p class="display-4">Should display The reviews in console</p>
+{% endblock admin_content %}
+
+{% block page_script %}
+<script src="{{url_for('BP_admin.static', filename='js/reviews.js')}}"></script>
+{% endblock %}
