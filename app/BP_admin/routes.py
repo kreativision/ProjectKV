@@ -1,6 +1,5 @@
-
 import app.utils as utils
-from app.models import Review
+from app.models import Review, ReviewSchema
 from app.decorators import admin_required
 from app.BP_admin import BP_admin
 from app.BP_admin.forms import EditReviewForm
@@ -14,6 +13,15 @@ from flask import flash, redirect, request, url_for
 from flask.templating import render_template
 from flask_login import login_required
 
+
+@BP_admin.route("/a/reviews")
+@login_required
+@admin_required
+def reviews():
+    edit_review_form = EditReviewForm()
+    return render_template(
+        "reviews.html", title="Manage Reviews", editForm=edit_review_form
+    )
 
 @BP_admin.route("/a/dashboard")
 @login_required
@@ -33,10 +41,6 @@ def order_id(id):
 @login_required
 @admin_required
 def order_type(status):
-    # orders = Order.query.filter(Order.status == status).all()
-    # return render_template(
-    #     "orders.html", title="Manage Orders", orders=orders, status=status
-    # )
     return render_template("orders.html")
 
 
@@ -59,76 +63,6 @@ def blog():
 @admin_required
 def offers():
     return render_template("offers.html", title="Manage Offers")
-
-
-@BP_admin.route("/a/r/<string:type>", methods=["GET", "POST"])
-@login_required
-@admin_required
-def review_type(type):
-    edit_review_form = EditReviewForm()
-    if edit_review_form.validate_on_submit():
-        utils.edit_review(request.form["review_id"], edit_review_form.data)
-        content = [
-            "Review edited successfully!",
-            "The review is moved to EDITED state.",
-        ]
-        flash(content, category="success")
-        return redirect(request.referrer)
-    if type == "all":
-        reviews = Review.query.order_by(Review.date.desc()).all()
-    else:
-        reviews = (
-            Review.query.filter(Review.status == type.upper())
-            .order_by(Review.date.desc())
-            .all()
-        )
-    return render_template(
-        "reviews.html",
-        title="Manage Reviews",
-        reviews=reviews,
-        type=type,
-        editForm=edit_review_form,
-    )
-
-
-@BP_admin.route("/a/remove-review/<string:id>")
-@login_required
-@admin_required
-def remove_review(id):
-    utils.remove_review(id)
-    content = ["Review removed successfully!", ""]
-    flash(content, category="success")
-    return redirect(request.referrer)
-
-
-@BP_admin.route("/a/reviews/mark-as-read")
-@login_required
-@admin_required
-def mark_all_as_reviewed():
-    utils.mark_all_as_reviewed()
-    content = ["Success", "All NEW reviews marked as REVIEWED."]
-    flash(content, category="success")
-    return redirect(url_for("BP_admin.review_type", type="new"))
-
-
-@BP_admin.route("/a/delete-review/<string:revId>")
-@login_required
-@admin_required
-def delete_review(revId):
-    utils.delete_review(revId)
-    content = ["Review deleted successfully.", ""]
-    flash(content, category="success")
-    return redirect(request.referrer)
-
-
-@BP_admin.route("/a/restore-review/<string:revId>")
-@login_required
-@admin_required
-def restore_review(revId):
-    utils.restore_review(revId)
-    content = ["Review restored", "The review is restored to NEW state."]
-    flash(content, category="success")
-    return redirect(request.referrer)
 
 
 @BP_admin.route("/a/settings", methods=["GET", "POST"])

@@ -58,7 +58,6 @@ def update_dp(image):
     db.session.commit()
 
 
-# Admin's Uitils - FUNCTIONS TO CHANGE REVIEW STATE - 0303
 def mark_all_as_reviewed():
     new_reviews = (
         Review.query.filter(Review.status == "NEW").order_by(Review.date.desc()).all()
@@ -67,26 +66,16 @@ def mark_all_as_reviewed():
         review.status = "REVIEWED"
     db.session.commit()
 
-def edit_review(revId, form_data):
-    review = Review.query.filter_by(id=revId).first()
-    review.status = "EDITED"
-    review.title = form_data["review_title"]
-    review.content = form_data["review_content"]
-    db.session.commit()
-
-def remove_review(revId):
-    review = Review.query.filter_by(id=revId).first()
-    review.status = "REMOVED"
-    db.session.commit()
-
 def delete_review(revId):
     review = Review.query.filter_by(id=revId).first()
     db.session.delete(review)
     db.session.commit()
 
-def restore_review(revId):
-    review = Review.query.filter_by(id=revId).first()
-    review.status="NEW"
+def patch_review(review_data):
+    review = Review.query.filter_by(id=review_data['id']).first()
+    review.title = review_data['title'] if review_data.get('title') else review.title
+    review.content = review_data['content'] if review_data.get('content') else review.content
+    review.status = review_data['status']
     db.session.commit()
-
+    return True
 

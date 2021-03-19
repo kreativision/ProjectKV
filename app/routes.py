@@ -1,11 +1,15 @@
 # This is the global app routes file.
 import os
 from flask.helpers import send_from_directory
+from flask import request
 from app import app
-from app.models import User, Review
-from app.decorators import admin_required
+from app.models import User, Review, ReviewSchema
 from flask.json import jsonify
 from flask_login import login_required
+from app.decorators import admin_required
+from app.BP_admin import BP_admin
+import app.utils as utils
+reviewSchema = ReviewSchema(many=True)
 
 # The App Icon for browsers.
 @app.route("/favicon.ico")
@@ -36,9 +40,39 @@ def fetch_user(email):
         {"contact": user.contact, "username": user.username, "email": user.email}
     )
 
-@app.route("/api/review-data/<int:id>", methods=['GET'])
+
+@BP_admin.route("/api/review/<string:status>")
 @login_required
 @admin_required
-def fetch_review(id):
-    review = Review.query.filter_by(id=id).first()
-    return jsonify({"title":review.title, "content":review.content})
+def get_reviews(status):
+    if status == "all":
+        reviews = Review.query.order_by(Review.date.desc()).all()
+    else:
+        reviews = (
+            Review.query.filter(Review.status == status.upper())
+            .order_by(Review.date.desc())
+            .all()
+        )
+    return jsonify(reviewSchema.dump(reviews))
+
+
+@BP_admin.route("/api/review/mark-reviewed")
+@login_required
+@admin_required
+def mark_as_read():
+    utils.mark_all_as_reviewed()
+    return jsonify({"success": True})
+
+
+@BP_admin.route("/api/review/action", methods=["PATCH", "DELETE"])
+@login_required
+@admin_required
+def patch_review():
+    if request.method == "PATCH":
+        if utils.patch_review(request.json):
+            return jsonify({"success": True, "id": request.json["id"]})
+        else:
+            return jsonify({"success": False})
+    elif request.method == "DELETE":
+        utils.delete_review(request.json["id"])
+        return jsonify({"success": True, "id": request.json["id"]})
