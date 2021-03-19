@@ -1,5 +1,5 @@
 # This file contains the database ORM models to use with database.
-from app import db, logger, app
+from app import db, logger, app, ma
 from flask_login import UserMixin
 
 # To generating secure token used for password reset
@@ -79,7 +79,7 @@ class ProjectImage(db.Model):
         db.Integer, db.ForeignKey("catalogue.name"), nullable=False
     )
 
-# REVIEW TABLE MODEL - ADDED 0303
+
 class Review(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     author = db.Column(db.Integer, db.ForeignKey("user.username"))
@@ -93,3 +93,8 @@ class Review(db.Model):
 
     def __repr__(self):
         return f"Review => {self.title} by {self.author} for catalog {self.catalogue} on {self.date}"
+
+
+class ReviewSchema(ma.Schema):
+    class Meta:
+        fields = ("id", "author", "title", "content", "catalogue", "date", "status")
