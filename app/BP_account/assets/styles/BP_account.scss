@@ -3,10 +3,6 @@ main {
 	background-image: $account-module-background;
 	padding-top: 60px;
 }
-
-
-
-
 .quick-actions .action {
 	background-color: white;
 	transition: all 0.3s ease-in-out;
@@ -25,7 +21,7 @@ main {
 	}
 	.edit-img-btn {
 		top: 62%;
-        left: 76%;
+		left: 76%;
 		border: 3px solid white;
 		border-radius: 50%;
 	}

@@ -2,7 +2,7 @@ const EMAIL_PATTERN = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"
 let formScopeState;
 let stateChanged = false;
 let userData;
-const API_URL = `http://${window.location.hostname}:6174/api`;
+// const API_URL = `http://${window.location.hostname}:6174/api`;
 /**
  * Enable form validation for details form when it is loaded.
  */

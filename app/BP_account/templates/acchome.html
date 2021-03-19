@@ -6,11 +6,12 @@
 
 {%block body_content%}
 <div class="container-fluid px-1">
-  <div class="container">
+  <div class="container mt-4">
     <div class="row">
       <div class="col-md-4 col-lg-4">
-        <div class="card card-body d-flex flex-column align-items-center">
-          <div class="dp-container position-relative pb-4  border-bottom"><img src="{{url_for('static', filename='images/user-dp/'+current_user.dp_file)}}" alt="" class="acc-img">
+        <div class="card card-body d-flex flex-column align-items-center mb-3">
+          <div class="dp-container position-relative pb-4  border-bottom">
+            <img src="{{url_for('static', filename='images/user-dp/'+current_user.dp_file)}}" alt="" class="acc-img">
             <label class="btn btn-sm btn-warning edit-img-btn shadow position-absolute" for="dpForm-dp_image">
               <i class="fas fa-pencil-alt"></i>
             </label>
@@ -22,70 +23,66 @@
           </div>
         </div>
         <!-- <div class="card">
-          <img class="card-img-top"  src="{{url_for('BP_account.static', filename='images/defaultimg.jpg')}}">
+          <img class="card-img-top" src="{{url_for('BP_account.static', filename='images/defaultimg.jpg')}}">
           <div class="card-header d-flex justify-content-center border-0">
-
-
-
             <img style="width: 150px;height: 250px;border-radius: 50%;" src={{dp_file}} alt="" class="mt-3">
-
-
           </div>
-          
           <div class="card-body">
             <h4 class="card-title">{{current_user.username}}</h4>
             <p id="userEmail" class="card-text">{{current_user.email}}</p>
             <p class="card-text">{{current_user.contact}}</p>
             <p class="card-text">{{current_user.date}}</p>
-
           </div>
         </div> -->
       </div>
       <div class="col-md-8 col-lg-8">
-        <div class="container mb-3">
-          <h5 class="text-light">Quick Actions</h5>
-          <div class="row no-gutters shadow quick-actions">
-            <div class="col-md-3 col-lg-3 action">
-              <a href="#infoModal" data-toggle="modal" class="text-decoration-none text-dark">
-                <span class="d-flex flex-column align-items-center py-3">
-                  <i class="fas fa-user-edit"></i>
-                  <p class="mb-0">Edit Profile</p>
-                </span>
-              </a>
-            </div>
-            <div class="col-md-3 col-lg-3 action">
-              <a href="#pwdModal" data-toggle="modal" class="text-decoration-none text-dark">
-                <span class="d-flex flex-column align-items-center py-3">
-                  <i class="fas fa-user-lock"></i>
-                  <p class="mb-0">Change password</p>
-                </span>
-              </a>
-            </div>
-            <div class="col-md-3 col-lg-3 action">
-              <a href="" class="text-decoration-none text-dark">
-                <span class="d-flex flex-column align-items-center py-3">
-                  <i class="fas fa-shopping-cart"></i>
-                  <p class="mb-0">Orders</p>
-                </span>
-              </a>
-            </div>
-            <div class="col-md-3 col-lg-3 action">
-              <a href="" class="text-decoration-none text-dark">
-                <span class="d-flex flex-column align-items-center py-3">
-                  <i class="fas fa-star"></i>
-                  <p class="mb-0">Review/Suggestions</p>
-                </span>
-              </a>
-            </div>
+        <!-- ADD the active orders table here. -->
+
+        <!-- ADD the active orders table here. -->
+
+        <!-- Quick actions header -->
+        <h5 class="text-light">Quick Actions</h5>
+        <!-- Quick actions container -->
+        <div class="row no-gutters shadow quick-actions">
+          <div class="col-md-3 col-lg-3 action">
+            <a href="#infoModal" data-toggle="modal" class="text-decoration-none text-dark">
+              <span class="d-flex flex-column align-items-center py-3">
+                <i class="fas fa-user-edit"></i>
+                <p class="mb-0">Edit Profile</p>
+              </span>
+            </a>
+          </div>
+          <div class="col-md-3 col-lg-3 action">
+            <a href="#pwdModal" data-toggle="modal" class="text-decoration-none text-dark">
+              <span class="d-flex flex-column align-items-center py-3">
+                <i class="fas fa-user-lock"></i>
+                <p class="mb-0">Change password</p>
+              </span>
+            </a>
+          </div>
+          <div class="col-md-3 col-lg-3 action">
+            <a href="" class="text-decoration-none text-dark">
+              <span class="d-flex flex-column align-items-center py-3">
+                <i class="fas fa-shopping-cart"></i>
+                <p class="mb-0">Orders</p>
+              </span>
+            </a>
+          </div>
+          <div class="col-md-3 col-lg-3 action">
+            <a href="" class="text-decoration-none text-dark">
+              <span class="d-flex flex-column align-items-center py-3">
+                <i class="fas fa-star"></i>
+                <p class="mb-0">Review/Suggestions</p>
+              </span>
+            </a>
           </div>
         </div>
       </div>
-
     </div>
   </div>
 
 </div>
-<div class="modal fade" id="infoModal" tabindex="-1" role="dialog" aria-labelledby="infoModalLabel" aria-hidden="true">
+<div class="modal fade bg-clear-glass" id="infoModal" tabindex="-1" role="dialog" aria-labelledby="infoModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content bg-dark border-0">
       <div class="modal-header d-flex flex-column align-items-center border-warning">
@@ -156,7 +153,7 @@
     </div>
   </div>
 </div>
-<div class="modal fade" id="pwdModal" tabindex="-1" role="dialog" aria-labelledby="pwdModalLabel" aria-hidden="true">
+<div class="modal fade bg-clear-glass" id="pwdModal" tabindex="-1" role="dialog" aria-labelledby="pwdModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content bg-dark border-0">
       <div class="modal-header d-flex flex-column align-items-center border-warning">
