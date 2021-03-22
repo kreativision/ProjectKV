@@ -45,6 +45,51 @@
         </div>
       </div>
     </div>
+    <div class="card card-body bg-dark mt-4">
+      <div class="d-flex flex-row justify-content-between align-items-center">
+        <h6 class="text-light mb-0 font-weight-normal">Location: {{city}}</h6>
+        <button class="btn btn-sm btn-light shadow font-weight-bold" type="button" data-toggle="collapse"
+          data-target="#locationForm" id="locFormToggler">
+          CHANGE
+          <i class="fas fa-chevron-down ml-2"></i>
+        </button>
+      </div>
+      <div class="collapse mt-3" id="locationForm">
+        <form action="" method="post">
+          {{locationForm.hidden_tag()}}
+          <fieldset>
+            <div class="row">
+              <div class="col-md-6 col-lg-6">
+                <div class="container bg-light f-field">
+                  <div class="form-group">
+                    {{locationForm.city(class="form-control")}}
+                    {{locationForm.city.label(class="form-control-label")}}
+                    <div class="invalid-feedback">
+                      <span><i class="fas fa-times-circle mr-2"></i></span><span id="city_error"></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 col-lg-6">
+                <div class="container bg-light f-field">
+                  <div class="form-group">
+                    {{locationForm.map_link(class="form-control")}}
+                    {{locationForm.map_link.label(class="form-control-label")}}
+                    <div class="invalid-feedback">
+                      <span><i class="fas fa-times-circle mr-2"></i></span><span id="link_error"></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="d-flex justify-content-end mt-3">
+              <input type="hidden" name="form" value="loc">
+              {{locationForm.update(class="btn btn-sm btn-warning shadow ml-auto font-weight-bold")}}
+            </div>
+          </fieldset>
+        </form>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -241,4 +286,5 @@
 
 {% block page_script %}
 <script src="{{url_for('static', filename='js/account-form-validators.js')}}"></script>
+<script src="{{url_for('BP_admin.static', filename='js/settings.js')}}"></script>
 {% endblock page_script %}

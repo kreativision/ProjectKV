@@ -1,8 +1,9 @@
+from app import db
 import app.utils as utils
-from app.models import Review, ReviewSchema
+from app.models import Review, ReviewSchema, Location
 from app.decorators import admin_required
 from app.BP_admin import BP_admin
-from app.BP_admin.forms import EditReviewForm
+from app.BP_admin.forms import EditReviewForm, LocationForm
 from app.global_forms import (
     UpdateAccountInfoForm,
     ChangeUserPasswordForm,
@@ -22,6 +23,7 @@ def reviews():
     return render_template(
         "reviews.html", title="Manage Reviews", editForm=edit_review_form
     )
+
 
 @BP_admin.route("/a/dashboard")
 @login_required
@@ -72,6 +74,10 @@ def settings():
     edit_form = UpdateAccountInfoForm(prefix=prefix["info"])
     change_pwd_form = ChangeUserPasswordForm(prefix=prefix["pwd"])
     dp_form = UpdateDPForm(prefix=prefix["dp"])
+    locationForm = LocationForm(prefix="loc")
+    loc = Location.query.first()
+    city = loc.city.split(" ")[0]
+    city = city[:city.index(",")]
     if request.method == "POST" and request.form["form"] == "pwd":
         if change_pwd_form.validate_on_submit():
             utils.change_password(change_pwd_form.new_password.data)
@@ -90,10 +96,20 @@ def settings():
             content = [f"Success", f"Your profile image is updated."]
             flash(content, category="success")
             return redirect(url_for("BP_admin.settings"))
+    elif request.method == "POST" and request.form["form"] == "loc":
+        if locationForm.validate_on_submit():
+            loc.city = locationForm.city.data
+            loc.map_link = locationForm.map_link.data
+            db.session.commit()
+            content = [f"Success", f"Location Data updates successfully"]
+            flash(content, category="success")
+            return redirect(url_for("BP_admin.settings"))
     return render_template(
         "settings.html",
         title="Admin Settings",
         detailsForm=edit_form,
         passwordForm=change_pwd_form,
         dpForm=dp_form,
+        city=city,
+        locationForm=locationForm,
     )

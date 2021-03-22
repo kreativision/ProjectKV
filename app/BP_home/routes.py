@@ -1,6 +1,6 @@
 from app.BP_home import BP_home
 from app.BP_home.home_constants import HomeConstants, ServicesConstants
-from app.models import Catalogue, Service, ProjectImage, Review
+from app.models import Catalogue, Service, ProjectImage, Review, Location
 from flask.templating import render_template
 
 @BP_home.route("/")
@@ -8,12 +8,14 @@ def home():
     catalogue = Catalogue.query.order_by(Catalogue.start_price).all()
     showcase_images = ProjectImage.query.order_by(ProjectImage.date).limit(6).all()
     reviews = Review.query.filter(Review.status!="REMOVED").order_by(Review.date.desc()).all()
+    location = Location.query.first()
     return render_template(
         "home.html",
         title="Home",
         showcase=showcase_images,
         services=catalogue,
         reviews=reviews,
+        location=location,
         labels=HomeConstants.labels,
     )
 

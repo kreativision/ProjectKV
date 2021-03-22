@@ -10,3 +10,8 @@ class EditReviewForm(FlaskForm):
     )
     review_content = TextAreaField("Review Content", validators=[Optional()], render_kw={"rows": "8"})
     submit_review = SubmitField("Save")
+
+class LocationForm(FlaskForm):
+    city = StringField("City, State *", validators=[DataRequired()])
+    map_link = StringField("Google Maps Embed Link *", validators=[DataRequired()])
+    update = SubmitField("SAVE")
