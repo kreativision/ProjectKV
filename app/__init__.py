@@ -51,7 +51,7 @@ app.register_blueprint(BP_admin)
 # setting up cli command to bootstrap the database with mock data for development
 import click
 from flask.cli import with_appcontext
-from app.models import User, Catalogue, Service, ProjectImage, Review
+from app.models import User, Catalogue, Service, ProjectImage, Review, Location
 
 
 @click.command(name="create")
@@ -268,6 +268,15 @@ def create():
         ]
     )
     db.session.commit()
+
+    print("====> Adding Active HQ Location")
+    location = Location(
+        city="Satna, Madhya Pyadesh",
+        map_link="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d116104.96624209618!2d80.73300773507893!3d24.579524519366984!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39847f12a0d55141%3A0xa6208334386e35e2!2sSatna%2C%20Madhya%20Pradesh!5e0!3m2!1sen!2sin!4v1616394816807!5m2!1sen!2sin",
+    )
+    db.session.add(location)
+    db.session.commit()
+
     print("====> Database created with mock-data")
 
 

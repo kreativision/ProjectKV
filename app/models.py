@@ -98,3 +98,9 @@ class Review(db.Model):
 class ReviewSchema(ma.Schema):
     class Meta:
         fields = ("id", "author", "title", "content", "catalogue", "date", "status")
+
+class Location(db.Model):
+    city = db.Column(db.String(30), primary_key=True)
+    map_link = db.Column(db.Text, nullable=False)
+    def __repr__(self):
+        return f"Currenly providing photography in: {self.city}"
