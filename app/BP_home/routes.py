@@ -3,10 +3,6 @@ from app.BP_home.home_constants import HomeConstants, ServicesConstants
 from app.models import Catalogue, Service, ProjectImage, Review
 from flask.templating import render_template
 
-# @BP_home.route("/check")
-# def check():
-#     return render_template("test.html")
-
 @BP_home.route("/")
 def home():
     catalogue = Catalogue.query.order_by(Catalogue.start_price).all()
