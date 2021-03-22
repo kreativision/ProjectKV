@@ -1,0 +1,184 @@
+{% extends 'main.layout.html' %}
+{% set active='home' %}
+
+{% block page_style%}
+<link rel="stylesheet" href="{{url_for('BP_home.static', filename='styles/BP_home.css')}}">
+{% endblock page_style %}
+
+{% block body_content %}
+<div class="home-sections">
+  {#
+  <!-- offer card | commeted-->
+  {% if not current_user.admin %}
+  <section id="offers" class="card shadow border-0 show">
+    <div class="card-header border-0 d-flex justify-content-between pr-2">
+      <h5 class="card-title">Launch Offer</h5>
+      <button class="btn btn-sm ml-auto" onclick="dismissOffer()">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <div class="card-body">
+      <p class="h6">Get your designs created at upto <span class="display-4">50% off.</span></p>
+      <small class="float-right"><a href="" class="text-secondary font-italic">{{labels['tncs']}}</a></small>
+    </div>
+    <div class="card-footer border-0">
+      <a href="#services" class="btn btn-sm bg-dark text-warning shadow text-uppercase">
+        {{labels['offerCTA']}} <i class="fas fa-chevron-right ml-2"></i>
+      </a>
+    </div>
+  </section>
+  {% endif %}
+  #}
+
+  <section id="site-intro">
+    <div class="container">
+      <div class="row pt-5">
+        <div class="col-md-6 col-lg-6 d-flex flex-column justify-content-center intro-content">
+          <!-- image displayed on handsets only. -->
+          <div class="artwork position-absolute w-100">
+            <img src="{{url_for('BP_home.static', filename='images/intro-art.svg')}}" alt="">
+          </div>
+          <div class="content position-absolute">
+            <h3 class="font-weight-normal text-light" id="welcomeLabel">Welcome to</h3>
+            <h1 class="text-uppercase text-warning" id="brand">kreativision photoarts</h1>
+            <h5 class="text-info pb-3 border-bottom " id="tagline">Let's add the creativity to your brilliant vision. .
+              .</h5>
+            <p class="text-light font-italic" id="about">
+              We are a freelancing group of creative individuals aimed at providing creative designing solutions to all
+              kinds
+              of small to large businesses.
+              With a firm belief that reaching your audience the right way is the key to a steady growth, we help your
+              business by providing graphic design solutions that do just that.
+            </p>
+            <div class="links-container d-flex justify-content-start mt-3">
+              <a href="#services" class="btn btn-sm  font-weight-bold btn-warning mb-3 mr-3">
+                {{labels['exploreServicesCTA']}}
+                <span><i class="fas fa-chevron-right ml-2"></i></span>
+              </a>
+              <a href="#projects" class="btn btn-sm  font-weight-bold mb-3 text-warning pl-0">
+                {{labels['recentProjectsCTA']}}
+                <span><i class="fas fa-chevron-right ml-2"></i></span>
+              </a>
+            </div>
+          </div>
+        </div>
+        <!-- image display on desktops -->
+        <div class="col-md-6 col-lg-6 artwork-container d-flex align-items-center">
+          <img src="{{url_for('BP_home.static', filename='images/intro-art.svg')}}" alt="">
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Popular Services Gallery -->
+  <div class="section-head sec-5" id="services">
+    <p class="h3 font-weight-light text-center text-light mb-4">{{labels['servicesHead']}}</p>
+  </div>
+  <section id="serviceGallery">
+    <div class="row px-4">
+      {% for service in services %}
+      <div class="col-md-4 col-sm-12 col-lg-4">
+        <div class="card bg-black-glass text-white text-center my-3">
+          <div class="card-header border-0">
+            <h4 class="card-title">{{service.name}}</h4>
+          </div>
+          <div class="card-body">
+            <p class="card-text">{{service.description}}</p>
+            <p class="h3">Starting @ just</p>
+            <p class="display-3"><sup class="h2">₹</sup> {{service.start_price}}/-</p>
+          </div>
+          <div class="card-footer border-0">
+            <a href="{{url_for('BP_home.service_list', _anchor=service.id)}}"
+              class="btn btn-sm btn-light font-weight-bold text-uppercase">
+              Explore <i class="fas fa-chevron-right ml-2"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    <div class="container d-flex justify-content-center text-center mt-3">
+      <a href="{{url_for('BP_home.service_list')}}" class="btn btn-sm btn-warning text-uppercase font-weight-bold shadow">
+        {{labels['allServicesCTA']}} <i class="fas fa-chevron-right ml-2"></i>
+      </a>
+    </div>
+  </section>
+
+  <!-- Projects Gallery -->
+  <div class="section-head" id="projects">
+    <p class="h3 font-weight-light text-center text-light mb-4">What's going on lately!</p>
+  </div>
+  <section class="pb-3 w-100 project-gallery">
+    <div class="row no-gutters">
+      {% for image in showcase %}
+      <div class="col-md-4 col-sm-6 gallery-item position-relative">
+        <img src="{{url_for('static', filename='images/project-images/'+image.filepath)}}" alt=""
+          class="w-100 h-100 position-absolute">
+        <div class="about position-absolute w-100">
+          <div class="title pl-2">
+            <p class="h4 text-light">{{image.image_title}}</p>
+            <small class="subtitle text-light font-italic">{{image.catalogue_name}} on {{image.date.strftime('%d, %m,
+              %Y')}}</small>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    <div class="container-fluid text-center mt-4">
+      <a href="{{url_for('BP_home.blog')}}" class="btn btn-sm btn-outline-warning font-weight-bold shadow">
+        {{labels['allProjectsCTA']}} <i class="fas fa-chevron-right ml-2"></i>
+      </a>
+    </div>
+  </section>
+
+  <!-- Recent Reviews -->
+  <div class="section-head" id="reviews">
+    <p class="h3 font-weight-light text-center text-light mb-4">{{labels['reviewHead']}}</p>
+  </div>
+  <section id="reviewGallery">
+    <div class="container mb-4">
+      <div class="card-columns">
+        {% for review in reviews %}
+        <div class="card shadow rev border-0 review-{{loop.index0%4}}">
+          <div class="card-header border-0">
+            <h5 class="card-title mb-1">{{review.title}}</h5>
+            <small class="card-subtitle font-weight-normal">By {{review.author}}</small>
+          </div>
+          {% if review.content %}
+          <div class="card-body">
+            <p class="card-tex">{{review.content}}</p>
+          </div>
+          {% endif %}
+          <div class="card-footer border-0 d-flex justify-content-between">
+            <small class="font-italic font-weight-bold service">For {{review.catalogue}}</small>
+            <small class="font-italic">Posted on {{review.date.strftime('%B %d, %Y')}}</small>
+          </div>
+        </div>
+        {% endfor %}
+        <!-- Write a review button. -->
+        {% if current_user.is_authenticated %}
+        <div class="card shadow rev border-0 review-3">
+          <div class="card-body d-flex justify-content-center">
+            <a href="#" class="btn btn-sm btn-outline-warning shadow mx-auto font-weight-bold">
+              ADD A REVIEW <i class="fas fa-chevron-right ml-2"></i>
+            </a>
+          </div>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+    <div class="d-flex get-started">
+      <p class="h3 font-weight-normal text-light mb-3">Ready to get started?</p>
+      <a href="{{url_for('BP_home.service_list')}}" class="btn btn-primary shadow border-0 text-uppercase">
+        Let's make a design <i class="fas fa-chevron-right ml-3"></i>
+      </a>
+    </div>
+  </section>
+
+  <!-- Insert Footer Here -->
+  {% include 'fab.html' %}
+</div>
+{% endblock body_content %}
+
+{% block page_scripts %}
+<script src=" {{url_for('BP_home.static', filename='js/home.js')}} "></script>
+{% endblock page_scripts%}

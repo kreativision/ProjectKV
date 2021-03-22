@@ -105,7 +105,7 @@ def create():
     vCards = Catalogue(
         id="vCardOptions",
         name="Visiting Cards",
-        description="Visiting cards are more than just contact like title, email, website, address & phone number, it is also a first exposure to the overall image of the business.",
+        description="Visiting cards are more than just your contact. It is also the first exposure to the overall image of your business.",
         start_price=249,
     )
     db.session.add_all([logos, posters])

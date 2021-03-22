@@ -258,3 +258,105 @@ main {
         }
     }
 }
+
+.home-page {
+    // padding-top: 56px;
+    .services, .reviews, .team .card{
+        background: linear-gradient(100deg, #74ebd5, #ACB6E5);
+    }
+    .section-head {
+        padding-top: 56px;
+    }
+    .header {
+        padding-top: 5px;
+        .primary-column {
+            height: 100vh;
+            &.artwork {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+            }
+            .display-4 {
+                color: #ADEFD1FF;
+            }
+            h3, p {
+                color: #D6ED17FF;
+            }
+            .primary-cta {
+                background: #ADEFD1FF;
+                &:hover, &:focus {
+                    background: rgb(134, 184, 161);
+                }
+            }
+        }
+        @media only screen and (max-width: 768px) {
+            .primary-column.artwork {
+                display: none;
+            }
+        }
+    }
+    .services .card {
+        border-radius: 10px;
+        transition: all 0.3s ease-in-out;
+        &:hover {
+            box-shadow: 0px 10px 24px -5px rgba($color: #000000, $alpha: 0.3);
+        }
+        @media only screen and (min-width: 768px) {
+            .content {
+                height: 220px;
+            }
+        }
+    }
+    .projects {
+        .gallery-item,
+        .title,
+        .subtitle {
+            transition: all 0.3s ease-in-out;
+        }
+        .gallery-item {
+            height: 300px;
+            img {
+                object-fit: cover;
+            }
+            .about {
+                background-image: linear-gradient(to bottom, #00000000, #000000cc);
+                bottom: 0px;
+                .title {
+                    transform: translateY(15px);
+                }
+                .subtitle {
+                    visibility: hidden;
+                    opacity: 0;
+                }
+            }
+            &:hover {
+                .title {
+                    transform: translateY(-15px);
+                }
+                .subtitle {
+                    visibility: visible;
+                    opacity: 1;
+                }
+            }
+        }
+    }
+    // .reviews {
+    // }
+
+    .team .card{
+        .img-container {
+            width: 120px;
+            height: 120px;
+            overflow: hidden;
+            border-radius: 80px;
+            border: 3px solid #ddd;
+            img {
+                object-fit: fill;
+            }
+        }
+    }
+
+    .contact .copyrights {
+        background-color: #000000;
+    }
+}
