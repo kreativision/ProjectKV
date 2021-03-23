@@ -95,9 +95,9 @@ class Review(db.Model):
         return f"Review => {self.title} by {self.author} for catalog {self.catalogue} on {self.date}"
 
 
-class ReviewSchema(ma.Schema):
+class ReviewSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
-        fields = ("id", "author", "title", "content", "catalogue", "date", "status")
+        model = Review
 
 class Location(db.Model):
     city = db.Column(db.String(30), primary_key=True)

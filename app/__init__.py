@@ -21,12 +21,14 @@ app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("FLASK_DB_URI")
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
+
 app.config["MAIL_SERVER"] = "smtp.googlemail.com"
 app.config["MAIL_PORT"] = 587
 app.config["MAIL_USE_TLS"] = True
 app.config["MAIL_USERNAME"] = os.environ.get("FLASK_MAIL_ID")
 app.config["MAIL_PASSWORD"] = os.environ.get("FLASK_MAIL_PWD")
 mail = Mail(app)
+
 encryptor = Bcrypt(app)
 logger = LoginManager(app)
 logger.login_view = "BP_auth.login"
