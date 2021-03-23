@@ -263,9 +263,9 @@ function validateInfo(form) {
 
     function nameValidation() {
         let nameLength = username.val().length;
-        if ((nameLength > 0 && nameLength <= 3) || nameLength > 50) {
+        if ((nameLength > 0 && nameLength <= 3) || nameLength > 25) {
             username.addClass("is-invalid");
-            username.parent().find('#name_error').text("Name should be 3 to 50 characters.");
+            username.parent().find('#name_error').text("Name should be 3 to 25 characters.");
         } else if (nameLength === 0) {
             username.addClass("is-invalid");
             username.parent().find('#name_error').text("Name cannot be empty");

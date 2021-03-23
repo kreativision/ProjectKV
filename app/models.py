@@ -82,7 +82,7 @@ class ProjectImage(db.Model):
 
 class Review(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    author = db.Column(db.Integer, db.ForeignKey("user.username"))
+    author = db.Column(db.String(25), db.ForeignKey("user.username"))
     title = db.Column(db.String(140), nullable=False)
     content = db.Column(db.Text)
     catalogue = db.Column(
@@ -98,9 +98,12 @@ class Review(db.Model):
 class ReviewSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Review
+        include_fk = True
+
 
 class Location(db.Model):
     city = db.Column(db.String(30), primary_key=True)
     map_link = db.Column(db.Text, nullable=False)
+
     def __repr__(self):
         return f"Currenly providing photography in: {self.city}"
