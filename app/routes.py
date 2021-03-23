@@ -5,7 +5,7 @@ from flask import request
 from app import app
 from app.models import User, Review, ReviewSchema
 from flask.json import jsonify
-from flask_login import login_required
+from flask_login import login_required, current_user
 from app.decorators import admin_required
 from app.BP_admin import BP_admin
 import app.utils as utils
@@ -30,12 +30,23 @@ def check_email(email):
     else:
         return jsonify({"registered": False})
 
-
+# not using this one anymore/ remove after integrating acchome.html with new script
 @app.route("/api/fetch-user/<string:email>", methods=["GET"])
 @login_required
 def fetch_user(email):
     user = User.query.filter_by(email=email).first()
     response = {"contact": user.contact, "username": user.username, "email": user.email}
+    return jsonify(response)
+
+
+@app.route("/api/my-details", methods=["GET"])
+@login_required
+def my_details():
+    response = {
+        "contact": current_user.contact,
+        "username": current_user.username,
+        "email": current_user.email,
+    }
     return jsonify(response)
 
 

@@ -105,7 +105,7 @@ $('#pwdModal').on('hidden.bs.modal', () => {
  */
 $('#infoModal').on('shown.bs.modal', () => {
     if (!$('#detailsForm-password').hasClass("is-invalid")) {
-        autoFillForm($('#adminMail').text());
+        autoFillForm();
     } else {
         formScopeState = $('#infoModal input[type="text"]').serialize();
         stateChanged = true;
@@ -153,8 +153,8 @@ function activateFormBehaviour(form) {
  * Function to fetch user data from the database and pre-fill the details-form values
  * @param {*} email email ID of the user.
  */
-function autoFillForm(email) {
-    fetch(`${API_URL}/fetch-user/${email}`)
+function autoFillForm() {
+    fetch(`${API_URL}/my-details`)
         .then(response => response.json())
         .then(user => {
             for (let key in user)
