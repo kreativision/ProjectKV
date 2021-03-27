@@ -3,7 +3,7 @@ import os
 from flask.helpers import send_from_directory
 from flask import request
 from app import app
-from app.models import User, Review, ReviewSchema
+from app.models import User, Review, ReviewSchema, Catalogue, CatalogueSchema, Service
 from flask.json import jsonify
 from flask_login import login_required, current_user
 from app.decorators import admin_required
@@ -11,6 +11,7 @@ from app.BP_admin import BP_admin
 import app.utils as utils
 
 reviewSchema = ReviewSchema(many=True)
+catalogueSchema = CatalogueSchema(many=True)
 
 # The App Icon for browsers.
 @app.route("/favicon.ico")
@@ -85,3 +86,8 @@ def patch_review():
     elif request.method == "DELETE":
         utils.delete_review(request.json["id"])
         return jsonify({"success": True, "id": request.json["id"]})
+
+@app.route("/api/catalogue-list", methods=["GET"])
+def catalogue_list():
+    catalogues = Catalogue.query.all()
+    return jsonify(catalogueSchema.dump(catalogues))

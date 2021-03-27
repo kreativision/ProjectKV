@@ -70,15 +70,15 @@ function responseToTemplate(data, reviewType) {
             reviewsContainer.appendChild(revCard);
         });
         loader.addClass('hidden');
-        if (reviewType === 'new') {
-            markAllAsRead.classList.remove('hidden');
-        } else {
-            markAllAsRead.classList.add('hidden');
-        }
     } else {
         loader.addClass('hidden');
         noResultsMsg.textContent = reviewType;
         noResults.classList.remove('hidden');
+    }
+    if (reviewType === 'new' && data.length > 0) {
+        markAllAsRead.classList.remove('hidden');
+    } else {
+        markAllAsRead.classList.add('hidden');
     }
 }
 
