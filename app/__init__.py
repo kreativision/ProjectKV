@@ -35,7 +35,6 @@ logger.login_view = "BP_auth.login"
 logger.login_message_category = "info"
 logger.login_message = ["Please login", "You need to login to view this page"]
 
-
 # Routes are imported after the configuration to avoid 'circular-import' errors.
 from app import routes
 from app.BP_home import routes
@@ -50,6 +49,8 @@ app.register_blueprint(BP_account)
 app.register_blueprint(BP_admin)
 
 
+
+
 # setting up cli command to bootstrap the database with mock data for development
 import click
 from flask.cli import with_appcontext
@@ -59,11 +60,13 @@ from app.models import User, Catalogue, Service, ProjectImage, Review, Location
 @click.command(name="create")
 @with_appcontext
 def create():
+    # reset database
     print("====> Deleting old schema ")
     db.drop_all()
     print("====> Creating new database tables ")
     db.create_all()
     print("====> Adding Users ")
+
     # Adding users
     tester = User(
         username="Amittras Pal",
@@ -112,6 +115,7 @@ def create():
     )
     db.session.add_all([logos, posters])
     db.session.commit()
+
     print("====> Adding Services ")
     # Adding Services
     logo_1 = Service(
@@ -119,54 +123,57 @@ def create():
         description="Like a lettermark, a wordmark or logotype is a font-based logo that focuses on a business’ name alone. Like Visa and Coca-Cola",
         price=699,
         catalogue=logos,
-        header_img="wordgrams.png",
+        header_img="logo-wg.png",
     )
     logo_2 = Service(
         name="Monogram Logo",
         description="Monogramss or lettermarks are logos that consist of letters, usually brand initials. Think about IBM, HBO...Acronyms or a company’s initials",
         price=999,
         catalogue=logos,
-        header_img="monograms.png",
+        header_img="logo-mg.png",
     )
     logo_3 = Service(
         name="Symbol Logo",
         description="A pictorial mark (sometimes called brand mark or logo symbol) is an icon—or graphic-based logo. For Example, the logo of Apple",
         price=1399,
         catalogue=logos,
-        header_img="symbols.png",
+        header_img="logo-sym.png",
     )
     poster_1 = Service(
         name="Web Posters",
         description="Optimized for fast web transfer and good quality viewing on all kinds of screens, these are best for social media campaigns.",
         price=349,
         catalogue=posters,
-        header_img="web-poster.png",
+        header_img="poster-web.png",
+        allow_multiple=True
     )
     poster_2 = Service(
         name="Print Media",
         description="Focused on the picture quality, use our print media designs which are specifically optimized for high quality printing.",
         price=449,
         catalogue=posters,
-        header_img="print-media.png",
+        header_img="poster-prt.png",
+        allow_multiple=True
     )
     vCard_1 = Service(
         name="One Sided",
         description="A basic card, with the most important contact information on one side with a blank side for last minute additions by hand for extra flair.",
         price=249,
         catalogue=vCards,
-        header_img="vCardSS.jpg",
+        header_img="vcard-ss.png",
     )
     vCard_2 = Service(
         name="Double Sided",
         description="For those who have more to tell, our double sided vCard design makes sure to utilize all the space available for a proper introduction to your clients",
         price=349,
         catalogue=vCards,
-        header_img="vCardDS.jpg",
+        header_img="vcard-ds.png",
     )
     db.session.add_all([logo_1, logo_2, logo_3, poster_1, poster_2, vCard_1, vCard_2])
     db.session.commit()
-    # ADDING MOCK REVIEWS - ADDED ON 0303
+
     print("====> Adding user reviews")
+    # Adding reviews
     review1 = Review(by_user=tester, title="Always good stuff", review_for=logos)
     review2 = Review(
         by_user=tester,
@@ -193,6 +200,7 @@ def create():
     db.session.commit()
 
     print("====> Adding Showcase Images")
+    # showcase blog images
     image1 = ProjectImage(
         filepath="random-1.jpg",
         for_catalogue=logos,
@@ -272,6 +280,7 @@ def create():
     db.session.commit()
 
     print("====> Adding Active HQ Location")
+    # adding HQ location for home page.
     location = Location(
         city="Satna, Madhya Pyadesh",
         map_link="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d116104.96624209618!2d80.73300773507893!3d24.579524519366984!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39847f12a0d55141%3A0xa6208334386e35e2!2sSatna%2C%20Madhya%20Pradesh!5e0!3m2!1sen!2sin!4v1616394816807!5m2!1sen!2sin",
@@ -280,7 +289,6 @@ def create():
     db.session.commit()
 
     print("====> Database created with mock-data")
-
 
 # Adding command to cli library
 app.cli.add_command(create)
