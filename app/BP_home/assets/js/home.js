@@ -12,34 +12,31 @@ function dismissOffer() {
 /**
  * page load events.
  */
-document.addEventListener('DOMContentLoaded', () => {
-    // Services page navigation behaviours
+$(document).ready(() => {
     if (location.href.includes('services#')) {
-        let section = location.href.substr(location.href.indexOf('#'));
-        let collapseParent = document.querySelector(section + 'Parent');
-        let collapseSection = document.querySelector(section);
-        setTimeout(() => {
-            collapseSection.classList.add('show');
-            this.flipIcon(collapseParent.querySelector('a'));
-            collapseParent.scrollIntoView();
-        }, 500);
+        const section = location.href.substr(location.href.indexOf('#'));
+        const collapseBtn = document.querySelector(section).parentElement.querySelector('a');
+        scrollCollapseToView(collapseBtn);
     }
 });
 
-/**
- * Inverts the text and icon for the specific EXPLORE button that's clicked on a catalog item.
- * @param button HTML element which needs to be modified.
- */
-function flipIcon(button) {
-    icon = button.querySelector('i');
-    text = button.querySelector('span');
-    if (text.textContent === 'EXPLORE') {
-        icon.classList.replace('fa-chevron-down', 'fa-chevron-up');
-        text.innerHTML = 'CLOSE';
-    } else {
-        icon.classList.replace('fa-chevron-up', 'fa-chevron-down');
-        text.innerHTML = 'EXPLORE';
-    }
+function scrollCollapseToView(btn) {
+    const btnID = btn.getAttribute("id");
+    const collapseID = '#' + btnID.substr(btnID.indexOf("-") + 1);
+    const collapseParent = document.querySelector(collapseID + 'Parent');
+    $(collapseID).collapse('toggle');
+    setTimeout(() => {
+        collapseParent.scrollIntoView();
+        btnIcon = btn.querySelector('i');
+        btnText = btn.querySelector('span');
+        if (btnText.textContent === 'EXPLORE') {
+            btnIcon.classList.replace('fa-chevron-down', 'fa-chevron-up');
+            btnText.textContent = 'CLOSE';
+        } else {
+            btnIcon.classList.replace('fa-chevron-up', 'fa-chevron-down');
+            btnText.textContent = 'EXPLORE';
+        }
+    }, 350);
 }
 
 function validatePassword() {
