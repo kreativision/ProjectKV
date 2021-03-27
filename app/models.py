@@ -6,12 +6,12 @@ from flask_login import UserMixin
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 import datetime
 
-
+# Flask-Login User Manager
 @logger.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
 
-
+# Models
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(25), nullable=False)
@@ -97,6 +97,21 @@ class Review(db.Model):
         return f"Review => {self.title} by {self.author} for catalog {self.catalogue} on {self.date}"
 
 
+class Location(db.Model):
+    city = db.Column(db.String(30), primary_key=True)
+    map_link = db.Column(db.Text, nullable=False)
+
+    def __repr__(self):
+        return f"Currenly providing photography in: {self.city}"
+
+
+
+
+
+
+
+
+# Schemas
 class ReviewSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Review
@@ -106,11 +121,3 @@ class CatalogueSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Catalogue
         include_relationships = True
-
-
-class Location(db.Model):
-    city = db.Column(db.String(30), primary_key=True)
-    map_link = db.Column(db.Text, nullable=False)
-
-    def __repr__(self):
-        return f"Currenly providing photography in: {self.city}"
