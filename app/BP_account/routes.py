@@ -7,9 +7,9 @@ from flask import redirect, url_for, flash, render_template, request, jsonify
 from markupsafe import Markup
 from app import db, encryptor, mail
 import app.utils as utils
-from app.models import User
+from app.models import User, Service
 
-from app.BP_account.forms import UpdateForm, PasswordForm
+from app.BP_account.forms import UpdateForm, PasswordForm, CustomizeServiceForm
 
 
 
@@ -39,4 +39,10 @@ def account_info():
 
     
 
-   
+
+@BP_account.route("/customize/<string:service_Id>")
+@login_required
+def customize_service(service_Id):
+    service = Service.query.filter(Service.id == service_Id).first()
+    customizeForm = CustomizeServiceForm()
+    return render_template("customize-item.html", service=service, customizeForm=customizeForm)

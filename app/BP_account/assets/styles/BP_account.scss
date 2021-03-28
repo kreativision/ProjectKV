@@ -3,6 +3,13 @@ main {
 	background-image: $account-module-background;
 	padding-top: 60px;
 }
+
+.hidden {
+	display: none;
+}
+.subtotal {
+	border-radius: 15px;
+}
 .quick-actions .action {
 	background-color: white;
 	transition: all 0.3s ease-in-out;
