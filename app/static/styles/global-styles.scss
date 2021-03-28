@@ -171,7 +171,8 @@ fieldset {
                 }
             }
         }
-        .input-group-append {
+        .input-group-append,
+        .input-group-prepend {
             button {
                 background-color: transparent !important;
                 border-bottom: 2px solid $black-45;
