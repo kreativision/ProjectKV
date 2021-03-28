@@ -156,14 +156,14 @@ def create():
         allow_multiple=True
     )
     vCard_1 = Service(
-        name="One Sided",
+        name="One Sided vCard",
         description="A basic card, with the most important contact information on one side with a blank side for last minute additions by hand for extra flair.",
         price=249,
         catalogue=vCards,
         header_img="vcard-ss.png",
     )
     vCard_2 = Service(
-        name="Double Sided",
+        name="Double Sided vCard",
         description="For those who have more to tell, our double sided vCard design makes sure to utilize all the space available for a proper introduction to your clients",
         price=349,
         catalogue=vCards,
@@ -196,7 +196,7 @@ def create():
         content="No matter how urgent you need something done, they're ready to get it done for you. Pretty Neat!!",
         review_for=vCards,
     )
-    db.session.add_all([review1, review2, review3, review4])
+    db.session.add_all([review1, review2, review3, review4, review5])
     db.session.commit()
 
     print("====> Adding Showcase Images")

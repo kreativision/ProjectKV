@@ -11,6 +11,7 @@ import datetime
 def load_user(user_id):
     return User.query.get(int(user_id))
 
+
 # Models
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
@@ -48,7 +49,9 @@ class Catalogue(db.Model):
     name = db.Column(db.String(25), nullable=False)
     description = db.Column(db.String(160))
     start_price = db.Column(db.Integer, nullable=False)
-    variations = db.relationship("Service", backref="catalogue", lazy=True, uselist=True)
+    variations = db.relationship(
+        "Service", backref="catalogue", lazy=True, uselist=True
+    )
     project_img = db.relationship(
         "ProjectImage", backref="for_catalogue", lazy=True, uselist=True
     )
@@ -66,10 +69,9 @@ class Service(db.Model):
     header_img = db.Column(db.String(50), nullable=False)
     catalogue_id = db.Column(db.String(16), db.ForeignKey("catalogue.id"))
     allow_multiple = db.Column(db.Boolean(), default=False)
+
     def __repr__(self):
         return f"Service => {self.name} is priced at {self.price}"
-
-
 
 
 class ProjectImage(db.Model):
@@ -106,16 +108,12 @@ class Location(db.Model):
 
 
 
-
-
-
-
-
 # Schemas
 class ReviewSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Review
         include_fk = True
+
 
 class CatalogueSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
