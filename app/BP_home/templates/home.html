@@ -49,7 +49,7 @@
                             <h5 class="card-title">{{service.name}}</h5>
                             <p class="card-text mt-2">{{service.description}}</p>
                             <p class="font-italic mt-4 small text-primary">Starting @ just</p>
-                            <h3><sup>&#8377;</sup><span class="font-italic">{{service.start_price}}</span></h3>
+                            <h3><sup><i class="small fas fa-rupee-sign mr-1"></i></sup><span class="font-italic">{{service.start_price}}</span></h3>
                         </div>
                         <a href="{{url_for('BP_home.service_list', _anchor=service.id)}}"
                             class="btn mt-4 btn-sm btn-warning shadow font-weight-bold text-uppercase mx-auto">
