@@ -6,170 +6,209 @@
 {% endblock page_style %}
 
 {% block body_content %}
-<div class="home-sections">
-  {#
-  <!-- offer card | commeted-->
-  {% if not current_user.admin %}
-  <section id="offers" class="card shadow border-0 show">
-    <div class="card-header border-0 d-flex justify-content-between pr-2">
-      <h5 class="card-title">Launch Offer</h5>
-      <button class="btn ml-auto" onclick="dismissOffer()">
-        <i class="fas fa-times"></i>
-      </button>
-    </div>
-    <div class="card-body">
-      <p class="h6">Get your designs created at upto <span class="display-4">50% off.</span></p>
-      <small class="float-right"><a href="" class="text-secondary font-italic">{{labels['tncs']}}</a></small>
-    </div>
-    <div class="card-footer border-0">
-      <a href="#services" class="btn bg-dark text-warning shadow text-uppercase">
-        {{labels['offerCTA']}} <i class="fas fa-chevron-right ml-2"></i>
-      </a>
-    </div>
-  </section>
-  {% endif %}
-  #}
-
-  <!-- Site Intro -->
-  <section id="intro" class="d-flex flex-column container-fluid px-2 py-5">
-    <div class="container" id="artwork">
-      <img src="{{url_for('BP_home.static', filename='images/intro-art.svg')}}" alt="">
-    </div>
-    <div class="container">
-      <p class="h3 font-weight-normal" id="welcomeLabel">Welcome to</p>
-      <p class="h1 text-uppercase border-bottom w-50" id="brand">kreativision photoarts</p>
-      <p class="h5" id="tagline">We add the creativity to your brilliant vision</p>
-    </div>
-    <div class="container">
-      <p class="text-light font-italic" id="about">
-        We are a freelancing group of creative individuals aimed at providing creative designing solutions to all kinds
-        of small to large businesses.
-        With a firm belief that reaching your audience the right way is the key to a steady growth, we help your
-        business by providing graphic design solutions that do just that.
-      </p>
-    </div>
-    <div class="container d-flex justify-content-start" id="links">
-      <a href="#services" class="btn mb-3 shadow font-weight-bold mr-3 text-uppercase" id="mainBtn">
-        {{labels['exploreServicesCTA']}}
-        <span><i class="fas fa-chevron-right ml-2"></i></span>
-      </a>
-      <a href="#projects" class="btn mb-3 text-light text-uppercase font-weight-bold pl-0">
-        {{labels['recentProjectsCTA']}}
-        <span><i class="fas fa-chevron-right ml-2"></i></span>
-      </a>
-    </div>
-  </section>
-
-  <!-- Popular Services Gallery -->
-  <div class="section-head sec-5" id="services">
-    <p class="h3 font-weight-light text-center text-light mb-4">{{labels['servicesHead']}}</p>
-  </div>
-  <section id="serviceGallery">
-    <div class="row px-4">
-      {% for service in services %}
-      <div class="col-md-4 col-sm-12 col-lg-4">
-        <div class="card bg-black-glass text-white text-center my-3">
-          <div class="card-header border-0">
-            <h4 class="card-title">{{service.name}}</h4>
-          </div>
-          <div class="card-body">
-            <p class="card-text">{{service.description}}</p>
-            <p class="h3">Starting @ just</p>
-            <p class="display-3"><sup class="h2">₹</sup> {{service.start_price}}/-</p>
-          </div>
-          <div class="card-footer border-0">
-            <a href="{{url_for('BP_home.service_list', _anchor=service.id)}}"
-              class="btn btn-light font-weight-bold text-uppercase">
-              Explore <i class="fas fa-chevron-right ml-2"></i>
-            </a>
-          </div>
+<div class="home-page">
+    <section class="header px-1">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-lg-6 d-flex flex-column justify-content-center primary-column">
+                    <p class="display-4">Designing stuff that <br>Shines You</p>
+                    <h3 class="text-uppercase">at kreativision photoarts</h3>
+                    <p class="font-italic">We create designs that reflect your brilliant visions in the best way
+                        possible.</p>
+                    <p class="mt-3 font-italic">Let's build something wonderful together!</p>
+                    <div class="mt-4 row">
+                        <div class="col-md-5 col-lg-5">
+                            <a href="#services" class="btn btn-sm font-weight-bold mb-3 shadow primary-cta">
+                                {{labels['exploreServicesCTA']}}
+                                <span class="ml-2 fas fa-chevron-right"></span>
+                            </a>
+                        </div>
+                        <div class="col-md-7 col-lg-7">
+                            <a href="#projects" class="btn btn-sm font-weight-bold mb-3 pl-0 text-light">
+                                {{labels['recentProjectsCTA']}}
+                                <span class="ml-2 fas fa-chevron-right"></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-6 primary-column artwork">
+                    <img src="{{url_for('BP_home.static', filename='images/intro-art.svg')}}" alt="">
+                </div>
+            </div>
         </div>
-      </div>
-      {% endfor %}
-    </div>
-    <div class="container d-flex justify-content-center text-center mt-3">
-      <a href="{{url_for('BP_home.service_list')}}" class="btn btn-warning text-uppercase font-weight-bold shadow">
-        {{labels['allServicesCTA']}} <i class="fas fa-chevron-right ml-2"></i>
-      </a>
-    </div>
-  </section>
+    </section>
 
-  <!-- Projects Gallery -->
-  <div class="section-head" id="projects">
-    <p class="h3 font-weight-light text-center text-light mb-4">What's going on lately!</p>
-  </div>
-  <section id="projGallery" class="pb-3 w-100">
-    <div class="row no-gutters">
-      {% for image in showcase %}
-      <div class="col-md-4 col-sm-12 gallery-item position-relative">
-        <img src="{{url_for('static', filename='images/project-images/'+image.filepath)}}" alt=""
-          class="w-100 h-100 position-absolute">
-        <div class="about position-absolute w-100">
-          <div class="title pl-2">
-            <p class="h4 text-light">{{image.image_title}}</p>
-            <small class="subtitle text-light font-italic">{{image.catalogue_name}} on {{image.date.strftime('%d, %m,
-              %Y')}}</small>
-          </div>
+    <section class="services px-1" id="services">
+        <div class="container">
+            <h3 class="text-center text-dark section-head">Our Top Services</h3>
+            <div class="row">
+                {% for service in services %}
+                <div class="col-md-4 col-lg-4">
+                    <div class="card card-body border-0 bg-light text-dark text-center my-3">
+                        <div class="content">
+                            <h5 class="card-title">{{service.name}}</h5>
+                            <p class="card-text mt-2">{{service.description}}</p>
+                            <p class="font-italic mt-4 small text-primary">Starting @ just</p>
+                            <h3><sup><i class="small fas fa-rupee-sign mr-1"></i></sup><span class="font-italic">{{service.start_price}}</span></h3>
+                        </div>
+                        <a href="{{url_for('BP_home.service_list', _anchor=service.id)}}"
+                            class="btn mt-4 btn-sm btn-warning shadow font-weight-bold text-uppercase mx-auto">
+                            Explore
+                            <i class="fas fa-chevron-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+                {% endfor %}
+                <div class="container d-flex justify-content-center text-center mt-3 mb-4">
+                    <a href="{{url_for('BP_home.service_list')}}" class="btn btn-sm btn-dark text-uppercase shadow">
+                        {{labels['allServicesCTA']}} <i class="fas fa-chevron-right ml-2"></i>
+                    </a>
+                </div>
+            </div>
         </div>
-      </div>
-      {% endfor %}
-    </div>
-    <div class="container-fluid text-center mt-4">
-      <a href="{{url_for('BP_home.blog')}}" class="btn btn-outline-warning font-weight-bold shadow">
-        {{labels['allProjectsCTA']}} <i class="fas fa-chevron-right ml-2"></i>
-      </a>
-    </div>
-  </section>
+    </section>
 
-  <!-- Recent Reviews -->
-  <div class="section-head" id="reviews">
-    <p class="h3 font-weight-light text-center text-light mb-4">{{labels['reviewHead']}}</p>
-  </div>
-  <section id="reviewGallery">
-    <div class="container mb-4">
-      <div class="card-columns">
-        {% for title, author, content, service, date in reviews %}
-        <div class="card shadow rev border-0 review-{{loop.index0%4}}">
-          <div class="card-header border-0">
-            <h5 class="card-title mb-1">{{title}}</h5>
-            <small class="card-subtitle font-weight-normal">By {{author}}</small>
-          </div>
-          {% if content %}
-          <div class="card-body">
-            <p class="card-tex">{{content}}</p>
-          </div>
-          {% endif %}
-          <div class="card-footer border-0 d-flex justify-content-between">
-            <small class="font-italic font-weight-bold service">For {{service}}</small>
-            <small class="font-italic">Posted on {{date}}</small>
-          </div>
+    <section class="projects mt-4" id="projects">
+        <h3 class="text-center text-light mb-4 section-head">Latest Projects</h3>
+        <div class="row no-gutters">
+            {% for image in showcase %}
+            <div class="col-md-4 col-sm-6 gallery-item position-relative">
+                <img src="{{url_for('static', filename='images/project-images/'+image.filepath)}}" alt=""
+                    class="w-100 h-100 position-absolute">
+                <div class="about position-absolute w-100">
+                    <div class="title pl-2">
+                        <p class="h4 text-light">{{image.image_title}}</p>
+                        <small class="subtitle text-light font-italic">
+                            {{image.catalogue_name}} on {{image.date.strftime("%d, %m, %Y")}}
+                        </small>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            <div class="container-fluid text-center py-4">
+                <a href="{{url_for('BP_home.blog')}}" class="btn btn-sm btn-warning font-weight-bold shadow">
+                    {{labels['allProjectsCTA']}} <i class="fas fa-chevron-right ml-2"></i>
+                </a>
+            </div>
         </div>
-        {% endfor %}
-        <!-- Write a review button. -->
-        {% if current_user.is_authenticated %}
-        <div class="card shadow rev border-0 review-3">
-          <div class="card-body d-flex justify-content-center">
-            <a href="#" class="btn btn-outline-warning shadow mx-auto font-weight-bold">
-              ADD A REVIEW <i class="fas fa-chevron-right ml-2"></i>
-            </a>
-          </div>
-        </div>
-        {% endif %}
-      </div>
-    </div>
-    <div class="d-flex get-started">
-      <p class="h3 font-weight-normal text-light mb-3">Ready to get started?</p>
-      <a href="{{url_for('BP_home.service_list')}}" class="btn btn-lg btn-primary shadow border-0 text-uppercase">
-        Let's make a design <i class="fas fa-chevron-right ml-3"></i>
-      </a>
-    </div>
-  </section>
+    </section>
 
-  <!-- Insert Footer Here -->
-  {% include 'fab.html' %}
+    <section class="reviews px-1 py-4">
+        <h3 class="text-center text-dark mb-4">What Our Clients Say</h3>
+        <div class="container">
+            <div class="card-columns">
+                {% for review in reviews %}
+                <div class="card shadow rev border-0">
+                    <div class="card-header border-0">
+                        <h5 class="card-title mb-1">{{review.title}}</h5>
+                        <small class="card-subtitle font-weight-normal">By {{review.author}}</small>
+                    </div>
+                    {% if review.content %}
+                    <div class="card-body">
+                        <p class="card-tex">{{review.content}}</p>
+                    </div>
+                    {% endif %}
+                    <div class="card-footer border-0 d-flex justify-content-between">
+                        <small class="font-italic font-weight-bold service">For {{review.catalogue}}</small>
+                        <small class="font-italic">Posted on {{review.date.strftime('%B %d, %Y')}}</small>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <section class="team px-1 py-4">
+        <h3 class="text-center text-light mb-4">Meet Our Team</h3>
+        <div class="container px-1">
+            <div class="row">
+                <div class="col-md-6 col-lg-6">
+                    <div class="card card-body border-0 mb-3 shadow px-2 d-flex flex-row justify-content-start">
+                        <div class="img-container shadow mr-3">
+                            <img src="https://source.unsplash.com/random/120x120" alt="">
+                        </div>
+                        <div class="info-container d-flex flex-column justify-content-center">
+                            <h4 class="font-italic">Amittras Pal</h4>
+                            <small class="font-italic">Designer</small>
+                            <div class="contact mt-3 d-flex">
+                                <a href="#" class="btn btn-sm shadow btn-primary border-0 rounded-circle mr-3">
+                                    <i class="fab fa-facebook"></i>
+                                </a>
+                                <a href="#" class="btn btn-sm shadow btn-success border-0 rounded-circle mr-3">
+                                    <i class="fab fa-whatsapp"></i>
+                                </a>
+                                <a href="#" class="btn btn-sm shadow btn-info border-0 rounded-circle mr-3">
+                                    <i class="fab fa-instagram"></i>
+                                </a>
+                                <a href="#" class="btn btn-sm shadow btn-danger border-0 rounded-circle mr-3">
+                                    <i class="fas fa-envelope"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-6">
+                    <div class="card card-body border-0 mb-3 shadow px-2 d-flex flex-row justify-content-start">
+                        <div class="img-container shadow mr-3">
+                            <img src="https://source.unsplash.com/random/120x120" alt="">
+                        </div>
+                        <div class="info-container d-flex flex-column justify-content-center">
+                            <h4 class="font-italic">Sukriti Shukla</h4>
+                            <small class="font-italic">Consultant</small>
+                            <div class="contact mt-3 d-flex">
+                                <a href="#" class="btn btn-sm shadow btn-primary border-0 rounded-circle mr-3">
+                                    <i class="fab fa-facebook"></i>
+                                </a>
+                                <a href="#" class="btn btn-sm shadow btn-success border-0 rounded-circle mr-3">
+                                    <i class="fab fa-whatsapp"></i>
+                                </a>
+                                <a href="#" class="btn btn-sm shadow btn-info border-0 rounded-circle mr-3">
+                                    <i class="fab fa-instagram"></i>
+                                </a>
+                                <a href="#" class="btn btn-sm shadow btn-danger border-0 rounded-circle mr-3">
+                                    <i class="fas fa-envelope"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact bg-dark pt-4">
+        <h3 class="text-center text-light mb-4">Get In Touch</h3>
+        <div class="container">
+            <h5 class="text-light">We are in {{location.city}}.</h5>
+            <iframe class="w-100 shadow rounded" src="{{location.map_link}}" style="border:0; height: 256px;" allowfullscreen=""
+                loading="lazy"></iframe>
+            <div class="row mt-4">
+                <div class="col-md-4 col-lg-4 d-flex flex-column">
+                    <h5 class="text-light py-3">Contact Us:</h5>
+                    <a href="#" class="text-warning mb-3 text-decoration-none">
+                        <i class="fab fa-whatsapp mr-2"></i>WhatsApp
+                    </a>
+                    <a href="#" class="text-warning mb-3 text-decoration-none">
+                        <i class="fas fa-envelope mr-2"></i>GMail
+                    </a>
+                    <a href="#" class="text-warning mb-3 text-decoration-none">
+                        <i class="fab fa-instagram mr-2"></i>Instagram
+                    </a>
+                </div>
+                <div class="col-md-4 col-lg-4 d-flex flex-column">
+                    <h5 class="text-light py-3">About Us:</h5>
+                    <a href="#" class="text-warning mb-3 text-decoration-none">
+                        <i class="fas fa-blog mr-2"></i>KreatiVision Blog
+                    </a>
+                    <a href="#" class="text-warning mb-3 text-decoration-none">
+                        <i class="fas fa-file-contract mr-2"></i>Terms of Service
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid copyrights py-3">
+            <p class="text-center text-light">KreatiVision Photoarts &#169; 2021</p>
+        </div>
+    </section>
 </div>
 {% endblock body_content %}
-
-{% block page_scripts %}
-<script src=" {{url_for('BP_home.static', filename='js/home.js')}} "></script>
-{% endblock page_scripts%}

@@ -1,0 +1,63 @@
+{% extends 'admin.layout.html' %}
+{% set active='services' %}
+
+{% block admin_content %}
+<div class="admin-services">
+    <div class="container my-3 d-flex justify-content-between align-items-center">
+        <h5 class="text-light m-0" id="viewMode">Service Catalogs</h5>
+    </div>
+
+    <div class="container services mt-3">
+        <div class="row">
+            <div class="col-md-4 col-lg-3">
+                <div class="card border-0 mb-3 service-card">
+                    <div class="card-header d-flex justify-content-between align-items-center border-0 pr-2">
+                        <h5 class="card-title mb-0">Brochure Design</h5>
+                        <!-- <div class="dropdown service-actions">
+                            <button class="btn btn-sm ml-3" data-toggle="dropdown">
+                                <i class="fas fa-ellipsis-v"></i>
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-right shadow border-0">
+                                <button class="dropdown-item">VIEW DETAILS</button>
+                                <button class="dropdown-item">ADD SERVICE</button>
+                            </div>
+                        </div> -->
+                    </div>
+                    <div class="card-body pt-2">
+                        <p class="card-text mb-2">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus, est.</p>
+                        <p class="card-text mb-2 font-italic">Services: <span class="text-primary">3</span></p>
+                        <p class="card-text mb-2 font-italic">Starting Price: <span class="text-primary"><i class="small fas fa-rupee-sign mr-1"></i> 349/-</span></p>
+                    </div>
+                    <div class="card-footer bg-dark border-0">
+                        <button class="btn btn-sm shadow btn-warning mr-2">
+                            View Services
+                        </button>
+                        <button class="btn btn-sm shadow btn-secondary">
+                            Edit
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-lg-3">
+                <a href="#" class="text-decoration-none">
+                    <div class="card border-0 mb-3 add-new">
+                        <div class="card-body d-flex flex-column justify-content-center align-items-center">
+                            <div class="fa-stack fa-4x">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fas fa-plus fa-stack-1x fa-inverse iconoverlay"></i>
+                            </div>
+                            <h6 class="text-uppercase font-weight-bold mt-3">
+                                ADD <span id="addType">CATALOGUE</span>
+                            </h6>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock admin_content %}
+
+{% block page_script %}
+<script src="{{url_for('BP_admin.static', filename='js/services.js')}}"></script>
+{% endblock %}

@@ -1,0 +1,290 @@
+{% extends 'admin.layout.html' %}
+{% set active='settings' %}
+
+{% block admin_content %}
+<div class="container-fluid px-1 mt-4">
+  <div class="container">
+    <div class="card card-body border-0 acc-info">
+      <div class="row">
+        <div class="col-md-3 col-lg-3 d-flex justify-content-center dp-container">
+          <div class="img shadow d-flex justify-content-center align-items-center">
+            <img src="{{url_for('static', filename='images/user-dp/'+current_user.dp_file)}}" alt="" class="acc-img">
+          </div>
+          <label class="btn btn-sm btn-warning edit-img-btn shadow position-absolute" for="dpForm-dp_image">
+            <i class="fas fa-pencil-alt"></i>
+          </label>
+        </div>
+        <div class="col-md-4 col-lg-4 info-container">
+          <div class="h3 text-dark mb-3">{{current_user.username}}</div>
+          <p class="font-italic text-dark my-0">
+            <span id="adminMail" class="font-weight-bold">{{current_user.email}}</span>
+            {% if current_user.verified %}
+            <span class="font-weight-normal badge badge-pill badge-success">
+              <i class="fas fa-check"></i>
+            </span>
+            {% endif %}
+          </p>
+          <p>
+            {% if not current_user.verified %}
+            <small class="text-danger">This e-mail is not verified. Please <a href="#" target="_blank">click here</a> to
+              verify your email</small>
+            {% endif %}
+          </p>
+          <p class="font-italic text-dark font-weight-bold" id="userContact">+91 {{current_user.contact}}</p>
+          <div class="dropdown">
+            <button class="btn btn-sm btn-light font-weight-bold shadow" type="button" data-toggle="dropdown">
+              <i class="fas fa-pencil-alt mr-2"></i> EDIT
+            </button>
+            <div class="dropdown-menu bg-dark shadow">
+              <button class="dropdown-item" data-toggle="modal" data-target="#infoModal" data-backdrop="static">Account
+                Info</button>
+              <button class="dropdown-item" data-toggle="modal" data-target="#pwdModal"
+                data-backdrop="static">Password</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card card-body bg-dark mt-4">
+      <div class="d-flex flex-row justify-content-between align-items-center">
+        <h6 class="text-light mb-0 font-weight-normal">Location: {{city}}</h6>
+        <button class="btn btn-sm btn-light shadow font-weight-bold" type="button" data-toggle="collapse"
+          data-target="#locationForm" id="locFormToggler">
+          CHANGE
+          <i class="fas fa-chevron-down ml-2"></i>
+        </button>
+      </div>
+      <div class="collapse mt-3" id="locationForm">
+        <form action="" method="post">
+          {{locationForm.hidden_tag()}}
+          <fieldset>
+            <div class="row">
+              <div class="col-md-6 col-lg-6">
+                <div class="container bg-light f-field">
+                  <div class="form-group">
+                    {{locationForm.city(class="form-control")}}
+                    {{locationForm.city.label(class="form-control-label")}}
+                    <div class="invalid-feedback">
+                      <span><i class="fas fa-times-circle mr-2"></i></span><span id="city_error"></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 col-lg-6">
+                <div class="container bg-light f-field">
+                  <div class="form-group">
+                    {{locationForm.map_link(class="form-control")}}
+                    {{locationForm.map_link.label(class="form-control-label")}}
+                    <div class="invalid-feedback">
+                      <span><i class="fas fa-times-circle mr-2"></i></span><span id="link_error"></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="d-flex justify-content-end mt-3">
+              <input type="hidden" name="form" value="loc">
+              {{locationForm.update(class="btn btn-sm btn-warning shadow ml-auto font-weight-bold")}}
+            </div>
+          </fieldset>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Preview image before upload popup -->
+<div class="modal fade bg-clear-glass" id="dpModal" tabindex="-1" role="dialog" aria-labelledby="dpModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content bg-dark border-0">
+      <div class="modal-header d-flex flex-column align-items-center border-warning">
+        <h3 class="modal-title text-light" id="dpModalLabel">Profile Image Preview</h3>
+        <small class="font-italic text-light">Please review the image as it would appear across the side.</small>
+      </div>
+      <form action="" method="post" id="dpForm" enctype="multipart/form-data">
+        {{dpForm.hidden_tag()}}
+        <fieldset>
+          <div
+            class="modal-body {{'info-invalid' if passwordForm.errors else ''}} d-flex flex-column align-items-center">
+            {{dpForm.dp_image(class="form-control-file")}}
+            <div class="preview-container position-relative">
+              <div class="img shadow d-flex justify-content-center align-items-center">
+                <img src="#" alt="" id="preview" class="preview">
+              </div>
+            </div>
+            <small class="text-light mt-3">We suggest using a centered/square image so your face is visible properly
+              everywhere.</small>
+          </div>
+          <div class="modal-footer border-0">
+            <input type="hidden" name="form" value="dp">
+            <button type="button" class="btn btn-sm shadow btn-secondary" data-dismiss="modal">Cancel</button>
+            {{dpForm.dp_image.label(class="btn btn-sm shadow btn-info")}}
+            {{dpForm.submitDp(class="btn btn-sm btn-warning shadow")}}
+          </div>
+        </fieldset>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Update Account details popup -->
+<div class="modal fade bg-clear-glass" id="infoModal" tabindex="-1" role="dialog" aria-labelledby="infoModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content bg-dark border-0">
+      <div class="modal-header d-flex flex-column align-items-center border-warning">
+        <h3 class="modal-title text-light" id="infoModalLabel">Edit Account Info</h3>
+        <small class="font-italic text-light">Change the data you wish to update.</small>
+      </div>
+
+      <form action="" method="POST" id="detailsForm">
+        {{detailsForm.hidden_tag()}}
+        <fieldset>
+          <div class="modal-body {{'info-invalid' if detailsForm.errors else ''}}">
+            <div class="container bg-light f-field">
+              <div class="form-group">
+                {{detailsForm.username(class="form-control")}}
+                {{detailsForm.username.label(class="form-control-label")}}
+                <div class="invalid-feedback">
+                  <span><i class="fas fa-times-circle mr-2"></i></span><span id="name_error"></span>
+                </div>
+              </div>
+            </div>
+            <div class="container bg-light f-field">
+              <div class="form-group">
+                {{detailsForm.email(class="form-control")}}
+                {{detailsForm.email.label(class="form-control-label")}}
+                <div class="invalid-feedback">
+                  <span><i class="fas fa-times-circle mr-2"></i></span><span id="email_error"></span>
+                </div>
+              </div>
+            </div>
+            <div class="container bg-light f-field">
+              <div class="form-group">
+                {{detailsForm.contact(class="form-control")}}
+                {{detailsForm.contact.label(class="form-control-label")}}
+                <div class="invalid-feedback">
+                  <span><i class="fas fa-times-circle mr-2"></i></span><span id="contact_error"></span>
+                </div>
+              </div>
+            </div>
+            <div class="container bg-light f-field">
+              <div class="form-group">
+                {% if detailsForm.password.errors %}
+                {{detailsForm.password(class="form-control is-invalid")}}
+                <div class="invalid-feedback">
+                  {% for error in detailsForm.password.errors %}
+                  <span><i class="fas fa-times-circle mr-2"></i></span><span id="password_error">{{error}}</span>
+                  {% endfor %}
+                </div>
+                {% else %}
+                {{detailsForm.password(class="form-control")}}
+                {% endif %}
+                {% if not detailsForm.password.errors %}
+                <div class="invalid-feedback">
+                  <span><i class="fas fa-times-circle mr-2"></i></span><span id="password_error"></span>
+                </div>
+                {% endif %}
+                <small class="helper-text font-italic text-muted">Password needed to make changes.</small>
+                {{detailsForm.password.label(class="form-control-label")}}
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer border-0">
+            <input type="hidden" name="form" value="info">
+            <button type="button" class="btn btn-sm shadow btn-secondary" data-dismiss="modal">Cancel</button>
+            {{detailsForm.submitInfo(class="btn btn-sm btn-warning shadow")}}
+          </div>
+        </fieldset>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Change Password popup -->
+<div class="modal fade bg-clear-glass" id="pwdModal" tabindex="-1" role="dialog" aria-labelledby="pwdModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content bg-dark border-0">
+      <div class="modal-header d-flex flex-column align-items-center border-warning">
+        <h3 class="modal-title text-light" id="infoModalLabel">Change Password</h3>
+      </div>
+
+      <form action="" id="pwdForm" method="POST">
+        {{passwordForm.hidden_tag()}}
+        <fieldset>
+          <div class="modal-body {{'info-invalid' if passwordForm.errors else ''}}">
+            <div class="container bg-light f-field">
+              <div class="form-group">
+                {% if passwordForm.current.errors %}
+                {{passwordForm.current(class="form-control is-invalid")}}
+                <div class="invalid-feedback">
+                  {% for error in passwordForm.current.errors %}
+                  <span><i class="fas fa-times-circle mr-2"></i></span><span id="password_error">{{error}}</span>
+                  {% endfor %}
+                </div>
+                {% else %}
+                {{passwordForm.current(class="form-control")}}
+                {% endif %}
+                {{passwordForm.current.label(class="form-control-label")}}
+              </div>
+            </div>
+            <div class="container bg-light f-field">
+              <div class="form-group">
+                {% if passwordForm.new_password.errors %}
+                {{passwordForm.new_password(class="form-control is-invalid")}}
+                <div class="invalid-feedback">
+                  {% for error in passwordForm.new_password.errors %}
+                  <span><i class="fas fa-times-circle mr-2"></i></span><span id="confirm_password">{{error}}</span>
+                  {% endfor %}
+                </div>
+                {% else %}
+                {{passwordForm.new_password(class="form-control")}}
+                {% endif %}
+                {{passwordForm.new_password.label(class="form-control-label")}}
+                {% if not passwordForm.new_password.errors %}
+                <div class="invalid-feedback">
+                  <span><i class="fas fa-times-circle mr-2"></i></span><span id="new_password"></span>
+                </div>
+                {% endif %}
+              </div>
+            </div>
+            <div class="container bg-light f-field">
+              <div class="form-group">
+                {% if passwordForm.confirm_new_password.errors %}
+                {{passwordForm.confirm_new_password(class="form-control is-invalid")}}
+                <div class="invalid-feedback">
+                  {% for error in passwordForm.confirm_new_password.errors %}
+                  <span><i class="fas fa-times-circle mr-2"></i></span><span id="confirm_password">{{error}}</span>
+                  {% endfor %}
+                </div>
+                {% else %}
+                {{passwordForm.confirm_new_password(class="form-control")}}
+                {% endif %}
+                {% if not passwordForm.confirm_new_password.errors %}
+                <div class="invalid-feedback">
+                  <span><i class="fas fa-times-circle mr-2"></i></span><span id="confirm_password"></span>
+                </div>
+                {% endif %}
+                {{passwordForm.confirm_new_password.label(class="form-control-label")}}
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer border-0">
+            <input type="hidden" name="form" value="pwd">
+            <button type="button" class="btn btn-sm shadow btn-secondary" data-dismiss="modal">Cancel</button>
+            {{passwordForm.submitPwd(class="btn btn-sm btn-warning shadow")}}
+          </div>
+        </fieldset>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock admin_content %}
+
+
+{% block page_script %}
+<script src="{{url_for('static', filename='js/account-form-validators.js')}}"></script>
+<script src="{{url_for('BP_admin.static', filename='js/settings.js')}}"></script>
+{% endblock page_script %}

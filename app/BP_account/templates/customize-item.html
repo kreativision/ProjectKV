@@ -1,0 +1,69 @@
+{% extends 'main.layout.html' %}
+{% set active='services' %}
+
+{% block page_style%}
+<link rel="stylesheet" href="{{url_for('BP_account.static', filename='styles/BP_account.css')}}">
+{% endblock page_style %}
+
+
+{% block body_content %}
+<div class="container">
+    <p class="h4 font-weight-light text-white">{{service.name}}</p>
+    <div class="row">
+        <div class="col-md-6 col-lg-6">
+            <div class="card border-0 mt-2">
+                <img src="{{url_for('static', filename='images/service-images/'+service.header_img)}}" alt=""
+                    class="card-img-top">
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-6 mb-3">
+            <form action="">
+                {{customizeForm.hidden_tag()}}
+                <fieldset>
+                    <div class="container f-field bg-light {{'hidden' if not service.allow_multiple}}">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <button class="btn" type="button">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                            </div>
+                            {{customizeForm.quantity(class="form-control text-center font-weight-bold px-0", value=1,
+                            min=0, max=10)}}
+                            {{customizeForm.quantity.label(class="form-control-label")}}
+                            <div class="input-group-append">
+                                <button class="btn" type="button">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container f-field bg-light">
+                        <div class="form-group">
+                            {{customizeForm.preferences(class="form-control")}}
+                            {{customizeForm.preferences.label(class="form-control-label")}}
+                        </div>
+                    </div>
+                    <div class="container f-field bg-light">
+                        <div class="form-group">
+                            <label for="refImg" class="btn btn-sm btn-info border-0">Optional Reference Images <span class="font-italic">(upto 5)</span></label>
+                            <input type="file" name="refImg" id="refImg" multiple hidden>
+                        </div>
+                    </div>
+                </fieldset>
+                <div class="subtotal container-fluid mb-2 py-2 d-flex justify-content-between bg-light shadow">
+                    <p class="h4 mb-0 text-dark">Subtotal:</p>
+                    <p class="h4 mb-0 text-info"><i class="small fas fa-rupee-sign mr-1"></i> <span id="subTotal">{{service.price}}</span>/-</p>
+                </div>
+                <div class="container-fluid px-0 d-flex justify-content-between">
+                    <button class="btn btn-sm shadow mr-1 w-50 font-weight-bold btn-light">ADD TO CART <i class="fas fa-cart-plus ml-2"></i></button>
+                    <button class="btn btn-sm shadow ml-1 w-50 font-weight-bold btn-warning"><i class="fas fa-bolt mr-2"></i>CHECKOUT</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock body_content %}
+
+{% block page_scripts %}
+<script src="{{url_for('BP_account.static', filename='js/customize.js')}}"></script>
+{% endblock page_scripts%}

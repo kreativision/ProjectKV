@@ -1,5 +1,5 @@
 from flask_login import login_user, logout_user, current_user
-from flask import redirect, url_for, flash, render_template, request, jsonify
+from flask import redirect, url_for, flash, render_template, request
 from markupsafe import Markup
 from app import db, encryptor, mail
 import app.utils as utils
@@ -12,9 +12,11 @@ from app.BP_auth.forms import (
     ResetPasswordForm,
 )
 
+
 @BP_auth.route("/test")
 def test():
     return render_template("new-password.html", form=ResetPasswordForm())
+
 
 # Login User
 @BP_auth.route("/login", methods=["GET", "POST"])
@@ -23,22 +25,25 @@ def login():
         content = [f"Session Active", f"You are already logged in."]
         flash(content, category="info")
         return redirect(url_for("BP_home.home"))
-
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
         if user and encryptor.check_password_hash(user.password, form.password.data):
             login_user(user, remember=form.remember.data)
             if user.admin:
+                content = [f"Login Successful", f"Welcome to Admin Dashboard."]
+                flash(content, category="success")
                 return redirect(url_for("BP_admin.home"))
             content = [f"Login Successful", f"You have been successfully logged in."]
             flash(content, category="success")
-            next_page = request.args.get('next')
-            return redirect(next_page) if next_page else redirect (url_for("BP_home.home"))
+            next_page = request.args.get("next")
+            return (
+                redirect(next_page) if next_page else redirect(url_for("BP_home.home"))
+            )
         else:
             content = [
                 f"Login Failed.",
-                Markup(f"<strong>Incorrect credentials</strong>.<br>Please try again!"),
+                f"Incorrect Credentials, please try again!",
             ]
             flash(content, category="danger")
     return render_template("login.html", title="Login", page="Login. . .", form=form)
@@ -50,6 +55,7 @@ def logout():
     logout_user()
     return redirect(url_for("BP_home.home"))
 
+
 # Register new user
 @BP_auth.route("/sign-up", methods=["GET", "POST"])
 def sign_up():
@@ -57,7 +63,6 @@ def sign_up():
         content = [f"Session Active", f"You are already logged in."]
         flash(content, category="info")
         return redirect(url_for("BP_home.home"))
-
     form = RegistrationForm()
     if form.validate_on_submit():
         user_name = form.username.data.title()
@@ -113,10 +118,8 @@ def verify_account(token):
     user.verified = True
     db.session.commit()
     content = [
-        f"Account Created!",
-        Markup(
-            f"Welcome {user.username}.<br>Please login using your <strong>email</strong> and <strong>password</strong>."
-        ),
+        f"Welcome {user.username}.",
+        f"Please login using your email and password.",
     ]
     flash(content, category="success")
     return redirect(url_for("BP_auth.login"))
@@ -186,7 +189,7 @@ def reset_token(token):
         user.password = user_password
         db.session.commit()
         content = [
-            f"Password changes successfully!",
+            f"Password changed successfully!",
             f"Please login user your email and new password",
         ]
         flash(content, category="success")
@@ -197,12 +200,3 @@ def reset_token(token):
         page="Create New Password",
         form=form,
     )
-
-@BP_auth.route("/api/check-email/<string:email_id>", methods=["GET"])
-def check_email(email_id):
-    print(email_id)
-    is_user = User.query.filter_by(email=email_id).first()
-    if is_user:
-        return jsonify({"registered": 1})
-    else:
-        return jsonify({"registered": 0})

@@ -1,0 +1,155 @@
+{% extends 'admin.layout.html' %}
+{% set active='reviews' %}
+
+{% block admin_content %}
+<div class="container my-3 d-flex justify-content-between align-items-center">
+    <h5 class="text-light m-0">Reviews</h5>
+    <div class="actions d-flex">
+        <div class="dropdown">
+            <button class="btn btn-sm btn-dark text-capitalize dropdown-toggle shadow rounded" data-toggle="dropdown"
+                id="reviewTypeToggler"></button>
+            <div class="dropdown-menu dropdown-menu-right bg-dark shadow">
+                <button onclick="fetchReviews('new')" class="dropdown-item">NEW</button>
+                <button onclick="fetchReviews('edited')" class="dropdown-item">EDITED</button>
+                <button onclick="fetchReviews('removed')" class="dropdown-item">REMOVED</button>
+                <button onclick="fetchReviews('all')" class="dropdown-item">ALL</button>
+            </div>
+        </div>
+        <button onclick="markAsReviewed()" class="btn btn-sm btn-light shadow ml-3 hidden" id="markAllAsRead"
+            data-toggle="tooltip" data-placement="bottom" title="Mark all as Reviewed.">
+            <i class="fas fa-check"></i>
+        </button>
+    </div>
+</div>
+
+<div class="reviews-container">
+    <div class="container d-flex flex-column align-items-center" id="statusMsg">
+        <div class="hidden spinner-border text-light" role="status" id="loader">
+            <span class="sr-only">Loading...</span>
+        </div>
+        <div class="hidden container empty-container" id="noResults">
+            <img src="{{url_for('static', filename='images/task-completed-horizontal-01.svg')}}" alt="" srcset="">
+            <p class="text-light font-italic mt-4 text-center">No <span id="noTypeResults"></span> reviews.</p>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade bg-clear-glass" id="editReviewModal" tabindex="-1" role="dialog" aria-labelledby="editReviewModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content bg-dark border-0">
+            <div class="modal-header d-flex flex-column align-items-center border-warning">
+                <h3 class="modal-title text-light" id="editReviewModalLabel">Edit Review</h3>
+                <small class="font-italic text-center text-light">You can edit a review only once!</small>
+            </div>
+            <form action="" method="post" id="editReviewForm">
+                {{editForm.hidden_tag()}}
+                <fieldset>
+                    <div class="modal-body {{'info-invalid' if editForm.errors}} d-flex flex-column align-items-center">
+                        <input type="hidden" id="review_id" name="review_id" value="">
+                        <div class="container bg-light f-field">
+                            <div class="form-group">
+                                {% if editForm.review_title.errors %}
+                                {{editForm.review_title(class="form-control is-invalid")}}
+                                <div class="invalid-feedback">
+                                    {% for error in editForm.review_title.errors %}
+                                    <span><i class="fas fa-times-circle mr-2"></i></span><span
+                                        id="password_error">{{error}}</span>
+                                    {% endfor %}
+                                </div>
+                                {% else %}
+                                {{editForm.review_title(class="form-control")}}
+                                {% endif %}
+                                {{editForm.review_title.label(class="form-control-label")}}
+                                <div class="counter d-flex justify-content-end mt-1">
+                                    <small class="helper-text text-right w-100 font-italic text-muted"> <span
+                                            id="counter">0</span>/140</small>
+                                </div>
+                                <div class="invalid-feedback position-absolute">
+                                    <span><i class="fas fa-times-circle mr-2"></i></span><span id="rTitle_error"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="container bg-light f-field" id="content">
+                            <div class="form-group">
+                                {{editForm.review_content(class="form-control")}}
+                                {{editForm.review_content.label(class="form-control-label")}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer border-0">
+                        <button type="button" class="btn btn-sm shadow btn-secondary"
+                            data-dismiss="modal">Cancel</button>
+                        {{editForm.submit_review(class="btn btn-sm btn-warning shadow")}}
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade bg-clear-glass" id="deleteRestoreModal" tabindex="-1" role="dialog" aria-labelledby="deleteRestoreModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content bg-dark border-0">
+            <div class="modal-header d-flex flex-column align-items-center border-warning">
+                <h3 class="modal-title text-light" id="deleteRestoreModalLabel"></h3>
+            </div>
+            <div class="modal-body d-flex flex-column align-items-center">
+                <p class="text-light text-center" id="actionMessage"></p>
+            </div>
+            <div class="modal-footer border-0">
+                <button type="button" class="btn btn-sm shadow btn-secondary" data-dismiss="modal">Cancel</button>
+                <button class="btn btn-sm btn-warning shadow" id="actionPrimaryBtn">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- review card template -->
+<template>
+    <div class="container mb-3 review-card">
+        <div class="card shadow">
+            <div class="card-header bg-white border-0 d-flex">
+                <!-- header -->
+                <div class="review-header">
+                    <h5 class="card-title" id="title"></h5>
+                    <p class="small card-subtitle font-italilc">
+                        By <span id="author"></span>
+                    </p>
+                </div>
+                <!-- menu options -->
+                <div class="review-actions ml-auto hidden" id="actionMenu">
+                    <button type="button" class="btn d-flex justify-content-center align-items-center"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-ellipsis-h"></i>
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-right bg-dark border-0 shadow">
+                        <button class="dropdown-item" id="action1">Edit</button>
+                        <button class="dropdown-item" id="action2">Remove</button>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body text-dark" id="content"></div>
+            <div class="card-footer border-0 py-2 d-flex justify-content-between">
+                <p class="mb-1 small text-primary font-italic">
+                    Posted on <span id="date"></span><br>for <span id="catalogue"></span>
+                </p>
+                <p class="mb-1 small text-dark font-italic" id="status"></p>
+            </div>
+        </div>
+    </div>
+</template>
+<!-- Toast -->
+<div class="toast shadow" role="alert" aria-live="assertive" aria-atomic="true" data-delay="2300">
+    <div class="toast-header bg-dark">
+        <strong class="mr-auto" id="dynamicToastHeader"></strong>
+    </div>
+    <div class="toast-body bg-dark text-light" id="dynamicToastBody"></div>
+</div>
+{% endblock admin_content %}
+
+
+{% block page_script %}
+<script src="{{url_for('BP_admin.static', filename='js/reviews.js')}}"></script>
+{% endblock %}

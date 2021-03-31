@@ -1,0 +1,144 @@
+{% extends 'admin.layout.html' %}
+{% set active='orders' %}
+
+{% block admin_content %}
+<div class="orders-page">
+  <!-- Header and Filter -->
+  <div class="container my-3 d-flex justify-content-between">
+    <h5 class="text-light m-0">Orders</h5>
+    <div class="dropdown">
+      <span class="text-dark font-weight-bold">Status:</span>
+      <button class="btn btn-dark btn-sm dropdown-toggle shadow rounded" type="button" id="dropdownMenuButton"
+        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        New Unconfirmed
+      </button>
+      <div class="dropdown-menu dropdown-menu-right bg-dark" aria-labelledby="dropdownMenuButton">
+        <button class="dropdown-item" onclick="loadOrders('new')">New Unconfirmed</button>
+        <button class="dropdown-item" onclick="loadOrders('in progress')">In Progress</button>
+        <button class="dropdown-item" onclick="loadOrders('pending payment')">Pending Payment</button>
+        <button class="dropdown-item" onclick="loadOrders('completed')">Completed</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- List -->
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 col-lg-6">
+        <div class="card card-body shadow bg-light border-0 my-2">
+          <div class="row d-flex align-items-center">
+            <div class="col-10">
+              <h5>Order ID: 00001111</h5>
+              <p class="small text-muted mb-1">
+                <span class="font-weight-bold">Placed On:</span>
+                <span class="font-italic">Order Date</span>
+              </p>
+              <p class="small mb-0 text-dark">
+                <span class="text-primary font-weight-bold">Client:</span>
+                <span class="text-primary font-italic">Order Owner</span>
+              </p>
+            </div>
+            <div class="col-2 d-flex justify-content-center">
+              <a href="{{url_for('BP_admin.order_id', id='01')}}" class="btn btn-outline-dark border-0 details-btn">
+                <i class="fas fa-chevron-right"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-6">
+        <div class="card card-body shadow bg-light border-0 my-2">
+          <div class="row d-flex align-items-center">
+            <div class="col-10">
+              <h5>Order ID: 00001111</h5>
+              <p class="small text-muted mb-1">
+                <span class="font-weight-bold">Placed On:</span>
+                <span class="font-italic">Order Date</span>
+              </p>
+              <p class="small mb-0 text-dark">
+                <span class="text-primary font-weight-bold">Client:</span>
+                <span class="text-primary font-italic">Order Owner</span>
+              </p>
+            </div>
+            <div class="col-2 d-flex justify-content-center">
+              <a href="{{url_for('BP_admin.order_id', id='01')}}" class="btn btn-outline-dark border-0 details-btn">
+                <i class="fas fa-chevron-right"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-6">
+        <div class="card card-body shadow bg-light border-0 my-2">
+          <div class="row d-flex align-items-center">
+            <div class="col-10">
+              <h5>Order ID: 00001111</h5>
+              <p class="small text-muted mb-1">
+                <span class="font-weight-bold">Placed On:</span>
+                <span class="font-italic">Order Date</span>
+              </p>
+              <p class="small mb-0 text-dark">
+                <span class="text-primary font-weight-bold">Client:</span>
+                <span class="text-primary font-italic">Order Owner</span>
+              </p>
+            </div>
+            <div class="col-2 d-flex justify-content-center">
+              <a href="{{url_for('BP_admin.order_id', id='01')}}" class="btn btn-outline-dark border-0 details-btn">
+                <i class="fas fa-chevron-right"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-6">
+        <div class="card card-body shadow bg-light border-0 my-2">
+          <div class="row d-flex align-items-center">
+            <div class="col-10">
+              <h5>Order ID: 00001111</h5>
+              <p class="small text-muted mb-1">
+                <span class="font-weight-bold">Placed On:</span>
+                <span class="font-italic">Order Date</span>
+              </p>
+              <p class="small mb-0 text-dark">
+                <span class="text-primary font-weight-bold">Client:</span>
+                <span class="text-primary font-italic">Order Owner</span>
+              </p>
+            </div>
+            <div class="col-2 d-flex justify-content-center">
+              <a href="{{url_for('BP_admin.order_id', id='01')}}" class="btn btn-outline-dark border-0 details-btn">
+                <i class="fas fa-chevron-right"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-6">
+        <div class="card card-body shadow bg-light border-0 my-2">
+          <div class="row d-flex align-items-center">
+            <div class="col-10">
+              <h5>Order ID: 00001111</h5>
+              <p class="small text-muted mb-1">
+                <span class="font-weight-bold">Placed On:</span>
+                <span class="font-italic">Order Date</span>
+              </p>
+              <p class="small mb-0 text-dark">
+                <span class="text-primary font-weight-bold">Client:</span>
+                <span class="text-primary font-italic">Order Owner</span>
+              </p>
+            </div>
+            <div class="col-2 d-flex justify-content-center">
+              <a href="{{url_for('BP_admin.order_id', id='01')}}" class="btn btn-outline-dark border-0 details-btn">
+                <i class="fas fa-chevron-right"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock admin_content %}
+
+{% block page_script %}
+<!-- <script src="{{url_for('BP_admin.static', filename='js/orders.js')}}"></script> -->
+{% endblock %}

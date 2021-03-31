@@ -10,7 +10,7 @@ body {
     }
     main {
         height: 100vh;
-        overflow-y: scroll;
+        overflow-y: auto;
         overflow-x: hidden;
         scroll-behavior: smooth;
     }
@@ -20,12 +20,6 @@ body {
     #topBar {
         display: none;
         pointer-events: none;
-    }
-    .toast {
-        top: 80%;
-        left: 50%;
-        width: 90%;
-        transform: translate(-50%);
     }
     .floating-action {
         bottom: 15px;
@@ -43,10 +37,6 @@ body {
     #sidebarToggle {
         display: none;
         pointer-events: none;
-    }
-    .toast {
-        top: 65px;
-        right: 35px;
     }
     .floating-action {
         right: 35px;
@@ -130,48 +120,7 @@ body {
         }
     }
 }
-// global customization for BS buttons
-.btn {
-    border-radius: 30px;
-    &:focus,
-    &:active {
-        box-shadow: none !important;
-        outline: none !important;
-    }
-    &.dropdown-toggle::after {
-        vertical-align: 0.18em;
-    }
-}
-// global glass bg classes
-.bg-clear-glass {
-    background: transparent;
-    background-color: transparent !important;
-    backdrop-filter: blur(10px);
-}
-.bg-black-glass {
-    background: rgba($color: #000, $alpha: 0.3);
-    backdrop-filter: blur(10px);
-}
-.bg-white-glass {
-    background: rgba($color: #fff, $alpha: 0.3);
-    backdrop-filter: blur(10px);
-}
-// toast mesasges
-.toast {
-    position: fixed;
-    z-index: 1000;
-    backdrop-filter: none !important;
-    border-radius: 0.4rem;
-    .toast-header {
-        border-top-left-radius: calc(0.4rem - 1px);
-        border-top-right-radius: calc(0.4rem - 1px);
-    }
-    .toast-body {
-        background-color: #fff;
-        border-bottom-left-radius: calc(0.4rem - 1px);
-        border-bottom-right-radius: calc(0.4rem - 1px);
-    }
-}
+
 //Forms - inspired from maaterial
 fieldset {
     .options {
@@ -222,7 +171,8 @@ fieldset {
                 }
             }
         }
-        .input-group-append {
+        .input-group-append,
+        .input-group-prepend {
             button {
                 background-color: transparent !important;
                 border-bottom: 2px solid $black-45;
@@ -267,7 +217,7 @@ fieldset {
         font-size: 1.3rem;
         box-shadow: 0px 6px 15px $black-50;
         &:hover {
-            color: #b83226;
+            color: $invalid-form-field;
         }
     }
     .fab-options {

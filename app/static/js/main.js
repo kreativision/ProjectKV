@@ -1,7 +1,8 @@
 // Global JavaScript Functions. 
 // Used By All Modules.
-var sidebar = document.querySelector('#sidebar');
-var sidebarToggler = document.querySelector('#sidebarToggle');
+let sidebar = document.querySelector('#sidebar');
+let sidebarToggler = document.querySelector('#sidebarToggle');
+const API_URL = `http://${window.location.hostname}:6174/api`;
 
 /**
  * Method to set device specific link for the instagram button.

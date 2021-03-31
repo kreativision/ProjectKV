@@ -1,19 +1,35 @@
+@import "../../../static/styles/variables";
 main {
-	background-color: rgb(10, 10, 56);
+	background-image: $account-module-background;
 	padding-top: 60px;
 }
 
-.btn-default {
-	background-color: rgb(202, 124, 60);
-	color: rgb(7, 7, 7);
-	width: 50%;
+.hidden {
+	display: none;
 }
-
-.btn-default:hover,
-.btn-default:focus,
-.btn-default:active,
-.btn-default.active,
-.open .dropdown-toggle.btn-default {
-	background-color: rgb(202, 124, 60);
-	color: black;
+.subtotal {
+	border-radius: 15px;
+}
+.quick-actions .action {
+	background-color: white;
+	transition: all 0.3s ease-in-out;
+	border-bottom: 1px solid #888;
+	&:hover {
+		background-color: #ffc107;
+		a p {
+			font-weight: 400;
+		}
+	}
+}
+.dp-container {
+	.acc-img {
+		width: 150px;
+		height: 150px;
+	}
+	.edit-img-btn {
+		top: 62%;
+		left: 76%;
+		border: 3px solid white;
+		border-radius: 50%;
+	}
 }

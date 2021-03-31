@@ -1,34 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{url_for('static', filename='styles/bootstrap.css')}}">
-    <link rel="stylesheet" href="{{url_for('static', filename='styles/FA.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='styles/vendors.css')}}">
     <link rel="stylesheet" href="{{url_for('BP_admin.static', filename='styles/admin.css')}}">
-    <title>{{title}} | KreatiVision</title>
+    <title>{{title}} | KV Admin</title>
 </head>
+
 <body>
     {% set navItems = [
-    (url_for('BP_admin.home'), 'admin_home', 'Admin Home'),
-    ('#', '#', 'Link 2')
+    ('tachometer-alt', url_for('BP_admin.home'), 'dashboard', 'Dashboard'),
+    ('tags', url_for('BP_admin.order_type', status='new'), 'orders', 'Orders'),
+    ('comments', url_for('BP_admin.reviews'), 'reviews', 'Reviews'),
+    ('boxes', url_for('BP_admin.services'), 'services', 'Services'),
+    ('blog', url_for('BP_admin.blog'), 'blog', 'Blog'),
+    ('shapes', url_for('BP_admin.offers'), 'offers', 'Offers'),
+    ('cog', url_for('BP_admin.settings'), 'settings', 'Settings'),
+    ('sign-out-alt', url_for('BP_auth.logout'), 'logout', 'Logout')
     ] %}
     {% set active = active|default('admin_home') -%}
     <header>
         <nav class="bg-dark" id="sidebar">
-            <div class="sidebar-header">
-                <span class="ml-auto">
-                    <button type="button" class="btn text-light" onclick="toggleSidebar('close')">
-                        <i class="fas fa-times"></i>
-                    </button>
-                </span>
-            </div>
             <ul class="list-unstyled text-white">
-                {% for href, id, caption in navItems %}
+                {% for icon, href, id, caption in navItems %}
                 <li class="{{'active' if active==id else ''}}">
-                    <a href="{{href|e}}" class="nav-link text-light">
-                        {{caption|e}}<i class="fas fa-chevron-right ml-auto mr-3 mt-1"></i>
+                    <a href="{{href|e}}" class="nav-link text-light d-flex align-items-center">
+                        <i class="fas fa-{{icon}} mr-2"></i> {{caption|e}}<i
+                            class="active-ico fas fa-chevron-right ml-auto mr-3"></i>
                     </a>
                 </li>
                 {% endfor %}
@@ -39,20 +40,13 @@
                 <i class="fas fa-stream text-white"></i>
             </button>
             <a class="navbar-brand mr-auto ml-2">KV PhotoArts: Admin</a>
-            <ul class="navbar-nav ml-auto mr-3" id="topBar">
-                {% for href, id, caption in navItems %}
-                <li class="nav-item {{'active' if active==id else ''}}">
-                    <a href="{{href|e}}" class="nav-link">{{caption|e}}</a>
-                </li>
-                {% endfor %}
-            </ul>
         </nav>
     </header>
     <main class="content">
         {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
         {% for category, content in messages %}
-        <div class="toast shadow" role="alert" aria-live="assertive" aria-atomic="true" data-delay="3500">
+        <div class="toast shadow" role="alert" aria-live="assertive" aria-atomic="true" data-delay="2300">
             <div class="toast-header">
                 <strong class="mr-auto text-{{category}}">{{content[0]}}</strong>
             </div>
@@ -65,15 +59,7 @@
         {% endwith %}
         {% block admin_content %}{% endblock %}
     </main>
-    <footer>
-        <div class="fab-logout bg-dark shaodw">
-            <span class="fab-toggle d-flex justify-content-center align-items-center h-100">
-                <a href="{{url_for('BP_auth.logout')}}" class="text-light text-decoration-none">
-                    <i class="fas fa-sign-out-alt"></i>
-                </a>
-            </span>
-        </div>
-    </footer>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
         integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg=="
         crossorigin="anonymous"></script>
@@ -83,4 +69,5 @@
     <script src="{{url_for('BP_admin.static', filename='js/admin.js')}}"></script>
 </body>
 
+{% block page_script %}{% endblock %}
 </html>

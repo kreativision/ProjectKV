@@ -1,0 +1,13 @@
+{% extends 'admin.layout.html' %}
+{% set active='reviews' %}
+
+{% block admin_content %}
+<div class="container mt-3">
+    <p class="h3 text-white">This is how you disable a button in Jinja</p>
+    <button class="btn btn-warning btn-lg shadow" {% if disable %} disabled {% endif %}>Example</button>
+</div>
+{% endblock admin_content %}
+
+{% block page_script %}
+<!-- <script src="{{url_for('BP_admin.static', filename='js/reviews.js')}}"></script> -->
+{% endblock %}
