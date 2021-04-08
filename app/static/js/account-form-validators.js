@@ -60,7 +60,10 @@ $('#dpModal').on("shown.bs.modal", () => {
 /**
  * Reset preview modal state when modal is closed.
  */
-$('#dpModal').on("hidden.bs.modal", () => dpModalOpen = false);
+$('#dpModal').on("hidden.bs.modal", () => {
+    $("#dpForm-dp_image").val(null);
+    dpModalOpen = false;
+});
 
 /**
  * Function to read the file added to the input and display.
