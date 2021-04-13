@@ -1,0 +1,35 @@
+{
+  "name": "projectkv",
+  "version": "1.0.0",
+  "description": "Basic Flask Web App",
+  "main": "n",
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.15.3",
+    "bootstrap": "^4.6.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "test",
+    "nodeinst": "npm install",
+    "pyinst": "pip install -r requirements.txt",
+    "appsetup": "npm run nodeinst && npm run pyinst"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kreativision/ProjectKV.git"
+  },
+  "keywords": [
+    "Flask",
+    "Python",
+    "JavaScript",
+    "HTML",
+    "CSS",
+    "BootStrap"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kreativision/ProjectKV/issues"
+  },
+  "homepage": "https://github.com/kreativision/ProjectKV#readme"
+}
